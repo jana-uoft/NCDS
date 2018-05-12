@@ -27,3 +27,6 @@
 
 #header.static-sticky ~ #page-menu.sticky-page-menu #page-menu-wrap { top: 100px; }
 
+.responsive-sticky-header:not(.static-sticky) #logo, .responsive-sticky-header:not(.static-sticky) #logo img {
+	height: auto;
+}

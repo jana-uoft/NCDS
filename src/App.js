@@ -5,12 +5,13 @@ import {
   Switch
 } from 'react-router-dom'
 import Header from './Header';
+import HomeComponent from './Home';
 import FourOhFour from './FourOhFour';
 
 const Home = () => (
   <div className="clearfix">
     <Header />
-    <h2>Home</h2>
+    <HomeComponent />
   </div>
 );
 
