@@ -42,6 +42,11 @@ const Contributions = () => (
 const Publications = () => (
   <div className="clearfix">
     <Header publications/>
+    <section id="page-title" className="page-title-mini page-title-dark">
+      <div className="container clearfix">
+        <h1 style={{textAlign: 'center'}}>Theepam Publications</h1>
+      </div>
+    </section>
     <section id="content">
       <div className="content-wrap">
         <PublicationsComponent />

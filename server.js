@@ -20,8 +20,8 @@ app.get('/api/publications', (req, res) => {
     let response = {};
     result.resources.forEach(resource => {
       let date = resource.public_id.split('/', 3)[1];
-      if (date in response) response[date].push(resource.secure_url)
-      else response[date] = [resource.secure_url]
+      if (date in response) response[date].push(resource.public_id)
+      else response[date] = [resource.public_id]
     });
     let responseArray = [];
     Object.entries(response).forEach(([publication, images]) => {
