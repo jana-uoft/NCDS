@@ -64,6 +64,9 @@ export default class Publications extends Component {
       </div>
     );
 
+    let additionalProperties;
+    isMobile ? additionalProperties = {} : additionalProperties = {thumbnailPosition: 'left'};
+
     let modal = (
       <Modal 
         open={this.state.open} 
@@ -77,7 +80,7 @@ export default class Publications extends Component {
         }}
         animationDuration={1000}
       >
-        <ImageGallery items={this.state.images} thumbnailPosition='left' autoPlay={true} slideInterval={5000} />
+        <ImageGallery items={this.state.images} showThumbnails={!isMobile} autoPlay={true} slideInterval={5000} {...additionalProperties} />
       </Modal>
     );
 
