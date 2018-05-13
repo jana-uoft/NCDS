@@ -6,76 +6,121 @@ import {
 } from 'react-router-dom'
 import Header from './Header';
 import HomeComponent from './Home';
-import FourOhFour from './FourOhFour';
+import ContributionsComponent from './Contributions';
+import PublicationsComponent from './Publications';
+import NewsComponent from './News';
+import GalleryComponent from './Gallery';
+import EventsComponent from './Events';
+import ObituaryComponent from './Obituary';
+import ContactComponent from './Contact';
+import DonateComponent from './Donate';
+import FourOhFourComponent from './FourOhFour';
+
 
 const Home = () => (
   <div className="clearfix">
     <Header />
-    <HomeComponent />
+    <section id="content">
+      <div className="content-wrap">
+        <HomeComponent />
+      </div>
+    </section>
   </div>
 );
 
 const Contributions = () => (
   <div className="clearfix">
-    <Header />
-    <h2>Contributions</h2>
+    <Header contributions />
+    <section id="content">
+      <div className="content-wrap">
+        <ContributionsComponent />
+      </div>
+    </section>
   </div>
 );
 
 const Publications = () => (
   <div className="clearfix">
-    <Header />
-    <h2>Publications</h2>
+    <Header publications/>
+    <section id="content">
+      <div className="content-wrap">
+        <PublicationsComponent />
+      </div>
+    </section>
   </div>
 );
 
 const News = () => (
   <div className="clearfix">
-    <Header />
-    <h2>News</h2>
+    <Header news/>
+    <section id="content">
+      <div className="content-wrap">
+        <NewsComponent />
+      </div>
+    </section>
   </div>
 );
 
 const Gallery = () => (
   <div className="clearfix">
-    <Header />
-    <h2>Gallery</h2>
+    <Header gallery/>
+    <section id="content">
+      <div className="content-wrap">
+        <GalleryComponent />
+      </div>
+    </section>
   </div>
 );
 
 const Events = () => (
   <div className="clearfix">
-    <Header />
-    <h2>Events</h2>
+    <Header events/>
+    <section id="content">
+      <div className="content-wrap">
+        <EventsComponent />
+      </div>
+    </section>
   </div>
 );
 
 const Obituary = () => (
   <div className="clearfix">
-    <Header />
-    <h2>Obituary</h2>
+    <Header obituary/>
+    <section id="content">
+      <div className="content-wrap">
+        <ObituaryComponent />
+      </div>
+    </section>
   </div>
 );
 
 
 const Contact = () => (
   <div className="clearfix">
-    <Header />
-    <h2>Contact</h2>
+    <Header contact/>
+    <section id="content">
+      <div className="content-wrap">
+        <ContactComponent />
+      </div>
+    </section>
   </div>
 );
 
 const Donate = () => (
   <div className="clearfix">
-    <Header />
-    <h2>Donate</h2>
+    <Header donate/>
+    <section id="content">
+      <div className="content-wrap">
+        <DonateComponent />
+      </div>
+    </section>
   </div>
 );
 
-const NoMatch = () => (
+const FourOhFour = () => (
   <div className="clearfix">
     <Header />
-    <FourOhFour />
+    <FourOhFourComponent />
   </div>
 );
 
@@ -94,7 +139,7 @@ class App extends Component {
             <Route path="/obituary" component={Obituary} />
             <Route path="/contact" component={Contact} />
             <Route path="/donate" component={Donate} />
-            <Route component={NoMatch} />
+            <Route component={FourOhFour} />
           </Switch>
         </Router>
     );

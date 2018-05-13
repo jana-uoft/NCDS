@@ -6,13 +6,62 @@ class Header extends Component {
 
     let menuStyle = { top: 100, background: '#0D2B31' };
 
+    let menus = [
+      {
+        link: "/contributions",
+        icon: "icon-users",
+        label: this.props.contributions ? <strong style={{ color: 'MediumSeaGreen' }}>Contributions</strong> : "Contributions",
+      },
+      {
+        link: "/publications",
+        icon: "icon-book3",
+        label: this.props.publications ? <strong style={{ color: 'MediumSeaGreen' }}>Publications</strong> : "Publications",
+      },
+      {
+        link: "/news",
+        icon: "icon-newspaper",
+        label: this.props.news ? <strong style={{ color: 'MediumSeaGreen' }}>News</strong> : "News",
+      },
+      {
+        link: "/gallery",
+        icon: "icon-line-camera",
+        label: this.props.gallery ? <strong style={{ color: 'MediumSeaGreen' }}>Gallery</strong> : "Gallery",
+      },
+      {
+        link: "/events",
+        icon: "icon-line-location",
+        label: this.props.events ? <strong style={{ color: 'MediumSeaGreen' }}>Events</strong> : "Events",
+      },
+      {
+        link: "/obituary",
+        icon: "icon-eye-close",
+        label: this.props.obituary ? <strong style={{ color: 'MediumSeaGreen' }}>Obituary</strong> : "Obituary",
+      },
+      {
+        link: "/contact",
+        icon: "icon-line-mail",
+        label: this.props.contact ? <strong style={{ color: 'MediumSeaGreen' }}>Contact Us</strong> : "Contact Us",
+      },
+      {
+        link: "/donate",
+        icon: "icon-dollar",
+        label: this.props.donate ? <strong style={{ color: 'MediumSeaGreen' }}>Donate</strong> : "Donate",
+      }
+    ];
+
+    let logos = [
+      { class: "standard-logo", image: "/images/banner.jpg" },
+      { class: "retina-logo", image: "/images/banner_mobile.jpg" }
+    ];
+
     return (
       <header id="header" className="sticky-style-2 dark">
 
         <div className="container clearfix" style={bannerStyle}>
           <div id="logo" className="divcenter">
-            <a href="/" className="standard-logo" data-dark-logo="/images/banner.jpg"><img style={{ width: '100vw' }}className="divcenter" src="/images/banner.jpg" alt="Nainativu CDS Logo"/></a>
-            <a href="/" className="retina-logo" data-dark-logo="/images/banner_mobile.jpg"><img style={{ width: '100vw' }} className="divcenter" src="/images/banner_mobile.jpg" alt="Nainativu CDS Logo"/></a>
+            {logos.map((logo, idx)=>
+              <a key={idx} href="/" className={logo.class} data-dark-logo={logo.image}><img style={{ width: '100vw' }} className="divcenter" src={logo.image} alt="Nainativu CDS Logo" /></a>              
+            )}
 				  </div>
 			  </div>
 
@@ -21,14 +70,9 @@ class Header extends Component {
             <div className="container clearfix">
               <div id="primary-menu-trigger"><i className="icon-reorder"></i></div>
               <ul>
-                <li className=""><a href="/contributions"><div><i className="icon-users"></i>Contributions</div></a></li>
-                <li className=""><a href="/publications"><div><i className="icon-book3"></i>Publications</div></a></li>
-                <li className=""><a href="/news"><div><i className="icon-newspaper"></i>News</div></a></li>
-                <li className=""><a href="/gallery"><div><i className="icon-line-camera"></i>Gallery</div></a></li>
-                <li><a href="/events"><div><i className="icon-line-location"></i>Events</div></a></li>
-                <li><a href="/obituary"><div><i className="icon-eye-close"></i>Obituary</div></a></li>
-                <li className=""><a href="/contact"><div><i className="icon-line-mail"></i>Contact Us</div></a></li>
-                <li><a href="/donate"><div><i className="icon-dollar" ></i>Donate</div></a></li>
+                {menus.map((menu, idx)=>
+                  <li key={idx}><a href={menu.link}><div><i className={menu.icon}></i>{menu.label}</div></a></li>               
+                )}
               </ul>       
             </div>
           </nav>

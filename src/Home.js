@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
+import { isMobile } from 'react-device-detect';
+
 
 export default class Home extends Component {
   render() {
 
-    let leftSideBar = (
+    let leftSideBar, rightSideBar;
+
+    if (!isMobile) leftSideBar = (
       <div className="sidebar sticky-sidebar-wrap nobottommargin clearfix">
         <div className="sidebar-widgets-wrap">
           <div className="sticky-sidebar">
+            <div className="widget clearfix"></div>
             <div className="widget clearfix">
               <img src="http://fpoimg.com/300x250" alt="Advertisement 1"/>
             </div>
@@ -25,18 +30,23 @@ export default class Home extends Component {
           <p>Human rights healthcare immunize; advancement grantees. Medical supplies; meaningful, truth technology catalytic effect. Promising development capacity building international enable poverty.</p>
         </blockquote>
         <img src="/images/cover.jpg" alt="Cover" />
+        <p><span className="dropcap">F</span>oster best practices effectiveness inspire breakthroughs solve immunize turmoil. Policy dialogue peaceful The Elders rural global support. Process inclusive innovate readiness, public sector complexity. Lifting people up cornerstone partner, technology working families civic engagement activist recognize potential global network. Countries tackling solution respond change-makers tackle. Assistance, giving; fight against malnutrition experience in the field lasting change scalable. Empowerment long-term, fairness policy community progress social responsibility; Cesar Chavez recognition. Expanding community ownership visionary indicator pursue these aspirations accessibility. Achieve; worldwide, life-saving initiative facilitate. New approaches, John Lennon humanitarian relief fundraise vaccine Jane Jacobs community health workers Oxfam. Our ambitions informal economies.</p>
+        <p><span className="dropcap">F</span>oster best practices effectiveness inspire breakthroughs solve immunize turmoil. Policy dialogue peaceful The Elders rural global support. Process inclusive innovate readiness, public sector complexity. Lifting people up cornerstone partner, technology working families civic engagement activist recognize potential global network. Countries tackling solution respond change-makers tackle. Assistance, giving; fight against malnutrition experience in the field lasting change scalable. Empowerment long-term, fairness policy community progress social responsibility; Cesar Chavez recognition. Expanding community ownership visionary indicator pursue these aspirations accessibility. Achieve; worldwide, life-saving initiative facilitate. New approaches, John Lennon humanitarian relief fundraise vaccine Jane Jacobs community health workers Oxfam. Our ambitions informal economies.</p>
+        <p><span className="dropcap">F</span>oster best practices effectiveness inspire breakthroughs solve immunize turmoil. Policy dialogue peaceful The Elders rural global support. Process inclusive innovate readiness, public sector complexity. Lifting people up cornerstone partner, technology working families civic engagement activist recognize potential global network. Countries tackling solution respond change-makers tackle. Assistance, giving; fight against malnutrition experience in the field lasting change scalable. Empowerment long-term, fairness policy community progress social responsibility; Cesar Chavez recognition. Expanding community ownership visionary indicator pursue these aspirations accessibility. Achieve; worldwide, life-saving initiative facilitate. New approaches, John Lennon humanitarian relief fundraise vaccine Jane Jacobs community health workers Oxfam. Our ambitions informal economies.</p>
+        
       </div>
     );
 
-    let rightSideBar = (
+    if (!isMobile) rightSideBar = (
       <div className="sidebar sticky-sidebar-wrap col_last nobottommargin clearfix">
         <div className="sidebar-widgets-wrap">
           <div className="sticky-sidebar">
+            <div className="widget clearfix"></div>
             <div className="widget clearfix">
-              <img src="http://fpoimg.com/300x250" alt="Advertisement 1" />
+              <img src="http://fpoimg.com/300x250" alt="Advertisement 3" />
             </div>
             <div className="widget clearfix">
-              <img src="http://fpoimg.com/300x250" alt="Advertisement 2" />
+              <img src="http://fpoimg.com/300x250" alt="Advertisement 4" />
             </div>
           </div>
         </div>
@@ -44,15 +54,11 @@ export default class Home extends Component {
     );
 
     return (
-      <section id="content">
-        <div className="content-wrap">
-          <div className="container-fullwidth clearfix">
-            {leftSideBar}  
-            {content}  
-            {rightSideBar}
-          </div>
-        </div>
-      </section>
+      <div className="container-fullwidth clearfix">
+        {leftSideBar}  
+        {content}  
+        {rightSideBar}
+      </div>
     )
   }
 }
