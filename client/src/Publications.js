@@ -53,8 +53,8 @@ export default class Publications extends Component {
         {this.state.publications.map((pub, idx)=>
           <div key={idx} className="col-lg-2 col-md-4 bottommargin" data-animate="fadeInLeft" data-delay="500">
             <div className="product-image">
-              <a style={{cursor: 'pointer'}} onClick={()=>this.viewPublication(pub.publication)}><img src={baseURL + 'h_200,w_150/' + pub.images[0] + '.jpg'} alt={pub.images[0]} /></a>
-              {!isMobile ? <a style={{cursor: 'pointer'}} onClick={()=>this.viewPublication(pub.publication)}><img src={baseURL + 'h_200,w_150/' + pub.images[1] + '.jpg'} alt={pub.images[1]} /></a> : null }
+              <a style={{cursor: 'pointer'}} onClick={()=>this.viewPublication(pub.publication)}><img src={baseURL + 'h_300,w_200/' + pub.images[0] + '.jpg'} alt={pub.images[0]} /></a>
+              {!isMobile ? <a style={{cursor: 'pointer'}} onClick={()=>this.viewPublication(pub.publication)}><img src={baseURL + 'h_300,w_200/' + pub.images[1] + '.jpg'} alt={pub.images[1]} /></a> : null }
             </div>
             <div className="product-desc">
               <div className="product-title"><h3 style={{textAlign: 'center'}}><a style={{ color: '#1ABC9C', cursor: 'pointer'}} onClick={() => this.viewPublication(pub.publication)}>{new Date(pub.publication).toLocaleDateString("en-US", {month: 'long', day: 'numeric', year:'numeric'})}</a></h3></div>

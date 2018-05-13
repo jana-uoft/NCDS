@@ -58,6 +58,11 @@ const Publications = () => (
 const News = () => (
   <div className="clearfix">
     <Header news/>
+    <section id="page-title" className="page-title-mini page-title-dark">
+      <div className="container clearfix">
+        <h1 style={{ textAlign: 'center' }}>Latest News</h1>
+      </div>
+    </section>
     <section id="content">
       <div className="content-wrap">
         <NewsComponent />

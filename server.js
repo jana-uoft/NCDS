@@ -1,6 +1,7 @@
 const express = require('express');
 const cloudinary = require('cloudinary').v2;
 const fs = require('fs');
+const feedparser = require('feedparser-promised');
 
 config = JSON.parse(fs.readFileSync('./.env.json', 'utf8'));
 cloudinary.config({
@@ -32,4 +33,62 @@ app.get('/api/publications', (req, res) => {
   })
 });
 
+
+app.get('/api/deleteDerived', (req, res) => {
+  cloudinary.api.delete_all_resources({ keep_original: true }, function (error, result) {
+    if (error) res.send(error);
+    else res.send(result); 
+  });
+}); 
+
+app.get('/api/news', (req, res) => {
+  result = JSON.parse(fs.readFileSync('./data/news.json', 'utf8'));
+  res.send(shuffle(result));
+}); 
+
+app.get('/api/updateNews', (req, res) => {
+  const news_channels = [
+    'http://www.jvpnews.com/rss.xml',
+    'http://news.lankasri.com/rss.xml',
+    'http://www.canadamirror.com/rss.xml',
+    'http://www.tamilwin.com/rss.xml',
+    'http://www.cineulagam.com/rss.xml',
+    'http://www.manithan.com/rss.xml'
+  ];
+  let promises = [];
+  for (var channel of news_channels) {
+    promises.push(feedparser.parse(channel));
+  }
+  Promise.all(promises)
+    .then((items) => {
+      try {
+        var allNews = Array.prototype.concat.apply([], items);
+        fs.writeFileSync('./data/news.json', JSON.stringify(allNews));
+        res.send({ success: allNews });
+      } catch (err) {
+        res.send(err);
+      }
+    })
+    .catch((e) => {
+      res.send(e);
+    });
+}); 
+
+
 app.listen(port, () => console.log(`Listening on port ${port}`));
+
+
+/**
+ * Shuffles array in place.
+ * @param {Array} a items An array containing the items.
+ */
+function shuffle(a) {
+  var j, x, i;
+  for (i = a.length - 1; i > 0; i--) {
+    j = Math.floor(Math.random() * (i + 1));
+    x = a[i];
+    a[i] = a[j];
+    a[j] = x;
+  }
+  return a;
+}
