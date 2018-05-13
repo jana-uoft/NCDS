@@ -1,19 +1,16 @@
 {
-  "name": "ncds",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "jsx-html-class": "^1.0.3",
-    "react": "^16.3.2",
-    "react-device-detect": "^1.3.4",
-    "react-dom": "^16.3.2",
-    "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.4"
-  },
+  "name": "nainativu-cds",
+  "version": "1.0.0",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "client": "cd client && yarn start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+  },
+  "dependencies": {
+    "cloudinary": "^1.11.0",
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0"
   }
 }
