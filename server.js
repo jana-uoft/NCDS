@@ -1,3 +1,5 @@
+const fetch  = require("isomorphic-fetch");
+
 const express = require('express');
 const cloudinary = require('cloudinary').v2;
 const fs = require('fs');
@@ -10,6 +12,7 @@ cloudinary.config({
   api_secret: config.api_secret,
 });
 
+const baseURL = 'https://res.cloudinary.com/nainativucds/raw/upload/';
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -32,6 +35,36 @@ app.get('/api/publications', (req, res) => {
     res.send(responseArray);    
   })
 });
+
+
+
+app.get('/api/gallery', async (req, res) => {
+  cloudinary.api.resources({ type: "upload", prefix: "gallery/", max_results: 500 }, function (error, result) {
+    if (error) result = JSON.parse(fs.readFileSync('./data/gallery.json', 'utf8'));
+    else fs.writeFileSync('./data/gallery.json', JSON.stringify(result));
+    let response = {};
+    result.resources.forEach(resource => {
+      let eventName = resource.public_id.split('/', 3)[1];
+      if (eventName in response) response[eventName].push(resource.public_id)
+      else response[eventName] = [resource.public_id]
+    });
+    let responseArray = [];
+    Object.entries(response).forEach(([event, images]) => {
+      responseArray.push({ event, images })
+    });
+    res.send(responseArray);
+  })
+});
+
+
+app.get('/api/gallery/:name', async (req, res) => {
+  cloudinary.api.resources({ type: "upload", prefix: "gallery/" + req.params.name, max_results: 500, resource_type: 'raw' }, function (error, result) {
+    fetch(result.resources[0].secure_url)
+      .then(response => response.json())
+      .then(details => res.send(details))
+  })
+});
+
 
 
 app.get('/api/deleteDerived', (req, res) => {

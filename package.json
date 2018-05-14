@@ -8,8 +8,10 @@
   },
   "dependencies": {
     "cloudinary": "^1.11.0",
+    "es6-promise": "^4.2.4",
     "express": "^4.16.2",
-    "feedparser-promised": "^1.5.0"
+    "feedparser-promised": "^1.5.0",
+    "isomorphic-fetch": "^2.2.1"
   },
   "devDependencies": {
     "concurrently": "^3.5.0"
