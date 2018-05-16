@@ -5,6 +5,7 @@ const cloudinary = require('cloudinary').v2;
 const fs = require('fs');
 const feedparser = require('feedparser-promised');
 
+
 config = JSON.parse(fs.readFileSync('./.env.json', 'utf8'));
 cloudinary.config({
   cloud_name: config.cloud_name,
@@ -16,6 +17,10 @@ const baseURL = 'https://res.cloudinary.com/nainativucds/raw/upload/';
 
 const app = express();
 const port = process.env.PORT || 5000;
+
+
+app.use('/', express.static(`${__dirname}/client/build`));
+
 
 app.get('/api/publications', (req, res) => {
   cloudinary.api.resources({ type: "upload", prefix: "publications/", max_results: 500 }, function (error, result) { 
