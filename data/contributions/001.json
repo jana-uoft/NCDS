@@ -1,0 +1,17 @@
+{
+    "resources": [
+        {
+            "public_id": "contributions/001/details.json",
+            "version": 1526427780,
+            "resource_type": "raw",
+            "type": "upload",
+            "created_at": "2018-05-15T23:43:00Z",
+            "bytes": 309,
+            "url": "http://res.cloudinary.com/nainativucds/raw/upload/v1526427780/contributions/001/details.json",
+            "secure_url": "https://res.cloudinary.com/nainativucds/raw/upload/v1526427780/contributions/001/details.json"
+        }
+    ],
+    "rate_limit_allowed": 500,
+    "rate_limit_reset_at": "2018-05-16T03:00:00.000Z",
+    "rate_limit_remaining": 473
+}

@@ -28,7 +28,7 @@
 #header.static-sticky ~ #page-menu.sticky-page-menu #page-menu-wrap { top: 100px; }
 
 .responsive-sticky-header:not(.static-sticky) #logo, .responsive-sticky-header:not(.static-sticky) #logo img {
-	height: auto;
+	height: 100px;
 }
 
 
@@ -46,4 +46,27 @@
 .transition-exit-active {
   transform: scale(0);
   transition: transform 1000ms ease;
+}
+
+.entry:after {
+	margin-top: 0px;
+}
+
+.entry-meta li:before {
+	content: '';
+	margin-right: 0px;
+}
+
+
+@keyframes fontbulger {
+  0%, 100% {
+    font-size: 12px;
+  }
+  50% {
+    font-size: 25px;
+  }
+}
+
+.bulge {
+   animation: fontbulger 10s infinite;
 }

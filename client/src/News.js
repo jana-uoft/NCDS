@@ -3,34 +3,6 @@ import Loading from './Loading';
 import { isMobile } from 'react-device-detect';
 
 
-const news_channels = [
-  {
-    name: 'jvpnews',
-    url: 'http://www.jvpnews.com/rss.xml'
-  },
-  {
-    name: 'lankasri',
-    url: 'http://news.lankasri.com/rss.xml'
-  },
-  {
-    name: 'canadamirror',
-    url: 'http://www.canadamirror.com/rss.xml'
-  },
-  {
-    name: 'tamilwin',
-    url: 'http://www.tamilwin.com/rss.xml'
-  },
-  {
-    name: 'cineulagam',
-    url: 'http://www.cineulagam.com/rss.xml'
-  },
-  {
-    name: 'manithan',
-    url: 'http://www.manithan.com/rss.xml'
-  }
-];
-
-
 export default class News extends Component {
   constructor(props) {
     super(props);

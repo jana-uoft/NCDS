@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { isMobile } from 'react-device-detect';
 
 class Header extends Component {
   render() {
@@ -46,6 +47,7 @@ class Header extends Component {
         link: "/donate",
         icon: "icon-dollar",
         label: this.props.donate ? <strong style={{ color: 'MediumSeaGreen' }}>Donate</strong> : "Donate",
+        class: "bulge"
       }
     ];
 
@@ -58,7 +60,7 @@ class Header extends Component {
       <header id="header" className="sticky-style-2 dark">
 
         <div className="container clearfix" style={bannerStyle}>
-          <div id="logo" className="divcenter">
+          <div id="logo" className="divcenter" style={{width: '100vw', left: isMobile ? -40: null}}>
             {logos.map((logo, idx)=>
               <a key={idx} href="/" className={logo.class} data-dark-logo={logo.image}><img style={{ width: '100vw' }} className="divcenter" src={logo.image} alt="Nainativu CDS Logo" /></a>              
             )}
@@ -68,10 +70,10 @@ class Header extends Component {
         <div id="header-wrap" style={menuStyle}>
           <nav id="primary-menu" className="style-2">
             <div className="container clearfix">
-              <div id="primary-menu-trigger"><i className="icon-reorder"></i></div>
+              <div id="primary-menu-trigger" style={{ left: '42%' }}><i className="icon-arrow-down2"></i></div>
               <ul>
                 {menus.map((menu, idx)=>
-                  <li key={idx}><a href={menu.link}><div><i className={menu.icon}></i>{menu.label}</div></a></li>               
+                  <li key={idx}><a href={menu.link}><div className={menu.class}><i className={menu.icon}></i>{menu.label}</div></a></li>               
                 )}
               </ul>       
             </div>

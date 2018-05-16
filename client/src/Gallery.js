@@ -58,7 +58,7 @@ export default class Gallery extends Component {
 
   renderFilter = (item, idx) => {
     return (
-      <li key={idx} style={{ cursor: 'pointer' }} className={this.state.type == item.details.type ? "activeFilter" : ""}><a onClick={()=>this.filterItems(item.details.type)}>{item.details.type}</a></li>
+      <li key={idx} style={{ cursor: 'pointer' }} className={this.state.type === item.details.type ? "activeFilter" : ""}><a onClick={()=>this.filterItems(item.details.type)}>{item.details.type}</a></li>
     );
   }
 
@@ -82,12 +82,13 @@ export default class Gallery extends Component {
   }
 
   render() {
-    if (Object.values(this.state.events).length == 0) return <Loading />;
-    if (this.state.events[Object.keys(this.state.events)[0]].images.length == 0) return <Loading />;
+    if (Object.values(this.state.events).length === 0) return <Loading />;
+    if (this.state.events[Object.keys(this.state.events)[0]].images.length === 0) return <Loading />;
 
 
     let additionalProperties;
     isMobile ? additionalProperties = {} : additionalProperties = { thumbnailPosition: 'bottom' };
+
 
     let modal = (
       <Modal
@@ -109,7 +110,7 @@ export default class Gallery extends Component {
     return (
       <div className="container-fullwidth clearfix">
         <ul id="portfolio-filter" className="portfolio-filter clearfix">
-          <li key={0} className={this.state.type ? "" : "activeFilter"}><a onClick={() => this.filterItems(null)}>Show All</a></li>
+          <li style={{ cursor: 'pointer' }} key={0} className={this.state.type ? "" : "activeFilter"}><a onClick={() => this.filterItems(null)}>Show All</a></li>
           {Object.values(this.state.events).map(this.renderFilter)}
         </ul>
         <div className="clear"></div>

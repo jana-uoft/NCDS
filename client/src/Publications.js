@@ -33,7 +33,7 @@ export default class Publications extends Component {
   };
 
   viewPublication = (date) => {
-    let publication = this.state.publications.find(pub=>pub.publication==date);
+    let publication = this.state.publications.find(pub=>pub.publication===date);
     let images = publication.images.map(pub => {
       return {
         original: baseURL + 'h_1000,w_800/' + pub + '.jpg',

@@ -31,6 +31,11 @@ const Home = () => (
 const Contributions = () => (
   <div className="clearfix">
     <Header contributions />
+    <section id="page-title" className="page-title-mini page-title-dark">
+      <div className="container clearfix">
+        <h1 style={{ textAlign: 'center' }}>Contributions</h1>
+      </div>
+    </section>
     <section id="content">
       <div className="content-wrap">
         <ContributionsComponent />
@@ -74,6 +79,11 @@ const News = () => (
 const Gallery = () => (
   <div className="clearfix">
     <Header gallery/>
+    <section id="page-title" className="page-title-mini page-title-dark">
+      <div className="container clearfix">
+        <h1 style={{ textAlign: 'center' }}>Gallery</h1>
+      </div>
+    </section>
     <section id="content">
       <div className="content-wrap">
         <GalleryComponent />
@@ -85,6 +95,11 @@ const Gallery = () => (
 const Events = () => (
   <div className="clearfix">
     <Header events/>
+    <section id="page-title" className="page-title-mini page-title-dark">
+      <div className="container clearfix">
+        <h1 style={{ textAlign: 'center' }}>Events</h1>
+      </div>
+    </section>
     <section id="content">
       <div className="content-wrap">
         <EventsComponent />
@@ -96,6 +111,11 @@ const Events = () => (
 const Obituary = () => (
   <div className="clearfix">
     <Header obituary/>
+    <section id="page-title" className="page-title-mini page-title-dark">
+      <div className="container clearfix">
+        <h1 style={{ textAlign: 'center' }}>Obituary</h1>
+      </div>
+    </section>
     <section id="content">
       <div className="content-wrap">
         <ObituaryComponent />
@@ -108,6 +128,11 @@ const Obituary = () => (
 const Contact = () => (
   <div className="clearfix">
     <Header contact/>
+    <section id="page-title" className="page-title-mini page-title-dark">
+      <div className="container clearfix">
+        <h1 style={{ textAlign: 'center' }}>Contact Us</h1>
+      </div>
+    </section>
     <section id="content">
       <div className="content-wrap">
         <ContactComponent />
@@ -119,6 +144,11 @@ const Contact = () => (
 const Donate = () => (
   <div className="clearfix">
     <Header donate/>
+    <section id="page-title" className="page-title-mini page-title-dark">
+      <div className="container clearfix">
+        <h1 style={{ textAlign: 'center' }}>Donate</h1>
+      </div>
+    </section>
     <section id="content">
       <div className="content-wrap">
         <DonateComponent />

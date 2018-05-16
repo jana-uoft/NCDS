@@ -20,7 +20,7 @@ const port = process.env.PORT || 5000;
 app.get('/api/publications', (req, res) => {
   cloudinary.api.resources({ type: "upload", prefix: "publications/", max_results: 500 }, function (error, result) { 
     if (error) result = JSON.parse(fs.readFileSync('./data/publications.json', 'utf8'));
-    else fs.writeFileSync('./data/publications.json', JSON.stringify(result));
+    else fs.writeFileSync('./data/publications.json', JSON.stringify(result, null, 4));
     let response = {};
     result.resources.forEach(resource => {
       let date = resource.public_id.split('/', 3)[1];
@@ -41,7 +41,64 @@ app.get('/api/publications', (req, res) => {
 app.get('/api/gallery', async (req, res) => {
   cloudinary.api.resources({ type: "upload", prefix: "gallery/", max_results: 500 }, function (error, result) {
     if (error) result = JSON.parse(fs.readFileSync('./data/gallery.json', 'utf8'));
-    else fs.writeFileSync('./data/gallery.json', JSON.stringify(result));
+    else fs.writeFileSync('./data/gallery.json', JSON.stringify(result, null, 4));
+    let response = {};
+    result.resources.forEach(resource => {
+      let eventName = resource.public_id.split('/', 3)[1];
+      if (eventName in response) response[eventName].push(resource.public_id)
+      else response[eventName] = [resource.public_id]
+    });
+    let responseArray = [];
+    Object.entries(response).forEach(([event, images]) => {
+      responseArray.push({ event, images })
+    });
+    res.send(responseArray);
+  })
+});
+
+
+
+app.get('/api/events', async (req, res) => {
+  cloudinary.api.resources({ type: "upload", prefix: "events/", max_results: 500 }, function (error, result) {
+    if (error) result = JSON.parse(fs.readFileSync('./data/events.json', 'utf8'));
+    else fs.writeFileSync('./data/events.json', JSON.stringify(result, null, 4));
+    let response = {};
+    result.resources.forEach(resource => {
+      let eventName = resource.public_id.split('/', 3)[1];
+      if (eventName in response) response[eventName].push(resource.public_id)
+      else response[eventName] = [resource.public_id]
+    });
+    let responseArray = [];
+    Object.entries(response).forEach(([event, images]) => {
+      responseArray.push({ event, images })
+    });
+    res.send(responseArray);
+  })
+});
+
+
+app.get('/api/obituary', async (req, res) => {
+  cloudinary.api.resources({ type: "upload", prefix: "obituary/", max_results: 500 }, function (error, result) {
+    if (error) result = JSON.parse(fs.readFileSync('./data/obituary.json', 'utf8'));
+    else fs.writeFileSync('./data/obituary.json', JSON.stringify(result, null, 4));
+    let response = {};
+    result.resources.forEach(resource => {
+      let eventName = resource.public_id.split('/', 3)[1];
+      if (eventName in response) response[eventName].push(resource.public_id)
+      else response[eventName] = [resource.public_id]
+    });
+    let responseArray = [];
+    Object.entries(response).forEach(([event, images]) => {
+      responseArray.push({ event, images })
+    });
+    res.send(responseArray);
+  })
+});
+
+app.get('/api/contributions', async (req, res) => {
+  cloudinary.api.resources({ type: "upload", prefix: "contributions/", max_results: 500 }, function (error, result) {
+    if (error) result = JSON.parse(fs.readFileSync('./data/contributions.json', 'utf8'));
+    else fs.writeFileSync('./data/obituary.json', JSON.stringify(result, null, 4));
     let response = {};
     result.resources.forEach(resource => {
       let eventName = resource.public_id.split('/', 3)[1];
@@ -59,12 +116,55 @@ app.get('/api/gallery', async (req, res) => {
 
 app.get('/api/gallery/:name', async (req, res) => {
   cloudinary.api.resources({ type: "upload", prefix: "gallery/" + req.params.name, max_results: 500, resource_type: 'raw' }, function (error, result) {
+    if (result.rate_limit_remaining < 50) {
+      if (error) result = JSON.parse(fs.readFileSync('./data/gallery/' + req.params.name + '.json', 'utf8'));
+      else fs.writeFileSync('./data/gallery/' + req.params.name + '.json', JSON.stringify(result, null, 4));
+    }
     fetch(result.resources[0].secure_url)
       .then(response => response.json())
       .then(details => res.send(details))
   })
 });
 
+
+
+app.get('/api/events/:name', async (req, res) => {
+  cloudinary.api.resources({ type: "upload", prefix: "events/" + req.params.name, max_results: 500, resource_type: 'raw' }, function (error, result) {
+    if (result.rate_limit_remaining < 50) {
+      if (error) result = JSON.parse(fs.readFileSync('./data/events/' + req.params.name + '.json', 'utf8'));
+      else fs.writeFileSync('./data/events/' + req.params.name + '.json', JSON.stringify(result, null, 4));
+    }
+    fetch(result.resources[0].secure_url)
+      .then(response => response.json())
+      .then(details => res.send(details))
+  })
+});
+
+
+app.get('/api/contributions/:name', async (req, res) => {
+  cloudinary.api.resources({ type: "upload", prefix: "contributions/" + req.params.name, max_results: 500, resource_type: 'raw' }, function (error, result) {
+    if (result.rate_limit_remaining < 50) {
+      if (error) result = JSON.parse(fs.readFileSync('./data/contributions/' + req.params.name + '.json', 'utf8'));
+      else fs.writeFileSync('./data/contributions/' + req.params.name + '.json', JSON.stringify(result, null, 4));
+    }
+    fetch(encodeURI(result.resources[0].secure_url))
+      .then(response => response.json())
+      .then(details => res.send(details))
+  })
+});
+
+
+app.get('/api/obituary/:name', async (req, res) => {
+  cloudinary.api.resources({ type: "upload", prefix: "obituary/" + req.params.name, max_results: 500, resource_type: 'raw' }, function (error, result) {
+    if (result.rate_limit_remaining < 50) {
+      if (error) result = JSON.parse(fs.readFileSync('./data/obituary/' + req.params.name + '.json', 'utf8'));
+      else fs.writeFileSync('./data/obituary/' + req.params.name + '.json', JSON.stringify(result, null, 4));
+    }
+    fetch(result.resources[0].secure_url)
+      .then(response => response.json())
+      .then(details => res.send(details))
+  })
+});
 
 
 app.get('/api/deleteDerived', (req, res) => {
@@ -96,7 +196,7 @@ app.get('/api/updateNews', (req, res) => {
     .then((items) => {
       try {
         var allNews = Array.prototype.concat.apply([], items);
-        fs.writeFileSync('./data/news.json', JSON.stringify(allNews));
+        fs.writeFileSync('./data/news.json', JSON.stringify(allNews, null, 4));
         res.send({ success: allNews });
       } catch (err) {
         res.send(err);
