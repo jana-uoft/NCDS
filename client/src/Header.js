@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { isMobile } from 'react-device-detect';
+// import { isMobile } from 'react-device-detect';
 
 class Header extends Component {
   render() {
@@ -60,7 +60,7 @@ class Header extends Component {
       <header id="header" className="sticky-style-2 dark">
 
         <div className="container clearfix" style={bannerStyle}>
-          <div id="logo" className="divcenter" style={{width: '100vw', left: isMobile ? -40: null}}>
+          <div id="logo" className="divcenter">
             {logos.map((logo, idx)=>
               <a key={idx} href="/" className={logo.class} data-dark-logo={logo.image}><img style={{ width: '100vw' }} className="divcenter" src={logo.image} alt="Nainativu CDS Logo" /></a>              
             )}
