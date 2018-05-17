@@ -73,7 +73,7 @@ export default class Obituary extends Component {
         <div className="sidebar sticky-sidebar-wrap nobottommargin col_last clearfix">
           <div className="sidebar-widgets-wrap">
             <div className="widget clearfix"></div>
-            <ContactUsComponent />
+            <ContactUsComponent type="Obituary"/>
           </div>
         </div>
       </div>

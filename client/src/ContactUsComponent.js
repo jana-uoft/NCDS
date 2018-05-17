@@ -38,7 +38,21 @@ export default class ContactUsComponent extends Component {
   sendMessage = (event) => {
     event.preventDefault();
     this.setState({ loading: true });
-    console.log()
+    fetch('/api/mail', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: this.state.name,
+        email: this.state.email,
+        subject: "Re: Listing "+this.props.type,
+        message: this.state.message
+      })
+    })
+      .then(response => response.json())
+      .then(result => this.setState({ loading: false, responseMessage: true }));
   }
 
   isValid = () => {

@@ -74,7 +74,7 @@ export default class Events extends Component {
         <div className="sidebar sticky-sidebar-wrap nobottommargin col_last clearfix">
           <div className="sidebar-widgets-wrap">
             <div className="widget clearfix"></div>
-            <ContactUsComponent />
+            <ContactUsComponent type="Events" />
           </div>
         </div>
       </div>

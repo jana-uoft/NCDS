@@ -57,7 +57,7 @@
 	margin-right: 0px;
 }
 
-
+/* 
 @keyframes fontbulger {
   0%, 100% {
     font-size: 12px;
@@ -69,4 +69,9 @@
 
 .bulge {
    animation: fontbulger 10s infinite;
+} */
+
+.donate {
+	font-size: 25px;
+	color: wheat
 }

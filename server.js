@@ -4,21 +4,38 @@ const express = require('express');
 const cloudinary = require('cloudinary').v2;
 const fs = require('fs');
 const feedparser = require('feedparser-promised');
+var nodemailer = require('nodemailer');
+var bodyParser = require('body-parser')
 
 
 config = JSON.parse(fs.readFileSync('./.env.json', 'utf8'));
+
 cloudinary.config({
   cloud_name: config.cloud_name,
   api_key: config.api_key,
   api_secret: config.api_secret,
 });
 
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: config.email_user,
+    pass: config.email_pass
+  }
+});
+
 const baseURL = 'https://res.cloudinary.com/nainativucds/raw/upload/';
 
 const app = express();
 const port = process.env.PORT || 5000;
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
 
+// parse application/json
+app.use(bodyParser.json())
 
+// serve ReactJS
 app.use('/', express.static(`${__dirname}/client/build`));
 
 
@@ -121,10 +138,7 @@ app.get('/api/contributions', async (req, res) => {
 
 app.get('/api/gallery/:name', async (req, res) => {
   cloudinary.api.resources({ type: "upload", prefix: "gallery/" + req.params.name, max_results: 500, resource_type: 'raw' }, function (error, result) {
-    if (result.rate_limit_remaining < 50) {
-      if (error) result = JSON.parse(fs.readFileSync('./data/gallery/' + req.params.name + '.json', 'utf8'));
-      else fs.writeFileSync('./data/gallery/' + req.params.name + '.json', JSON.stringify(result, null, 4));
-    }
+    JSON.parse(fs.readFileSync('./data/gallery/' + req.params.name + '/details.json', 'utf8'));
     fetch(result.resources[0].secure_url)
       .then(response => response.json())
       .then(details => res.send(details))
@@ -135,10 +149,7 @@ app.get('/api/gallery/:name', async (req, res) => {
 
 app.get('/api/events/:name', async (req, res) => {
   cloudinary.api.resources({ type: "upload", prefix: "events/" + req.params.name, max_results: 500, resource_type: 'raw' }, function (error, result) {
-    if (result.rate_limit_remaining < 50) {
-      if (error) result = JSON.parse(fs.readFileSync('./data/events/' + req.params.name + '.json', 'utf8'));
-      else fs.writeFileSync('./data/events/' + req.params.name + '.json', JSON.stringify(result, null, 4));
-    }
+    JSON.parse(fs.readFileSync('./data/events/' + req.params.name + '/details.json', 'utf8'));
     fetch(result.resources[0].secure_url)
       .then(response => response.json())
       .then(details => res.send(details))
@@ -148,10 +159,7 @@ app.get('/api/events/:name', async (req, res) => {
 
 app.get('/api/contributions/:name', async (req, res) => {
   cloudinary.api.resources({ type: "upload", prefix: "contributions/" + req.params.name, max_results: 500, resource_type: 'raw' }, function (error, result) {
-    if (result.rate_limit_remaining < 50) {
-      if (error) result = JSON.parse(fs.readFileSync('./data/contributions/' + req.params.name + '.json', 'utf8'));
-      else fs.writeFileSync('./data/contributions/' + req.params.name + '.json', JSON.stringify(result, null, 4));
-    }
+    JSON.parse(fs.readFileSync('./data/contributions/' + req.params.name + '/details.json', 'utf8'));
     fetch(encodeURI(result.resources[0].secure_url))
       .then(response => response.json())
       .then(details => res.send(details))
@@ -161,10 +169,7 @@ app.get('/api/contributions/:name', async (req, res) => {
 
 app.get('/api/obituary/:name', async (req, res) => {
   cloudinary.api.resources({ type: "upload", prefix: "obituary/" + req.params.name, max_results: 500, resource_type: 'raw' }, function (error, result) {
-    if (result.rate_limit_remaining < 50) {
-      if (error) result = JSON.parse(fs.readFileSync('./data/obituary/' + req.params.name + '.json', 'utf8'));
-      else fs.writeFileSync('./data/obituary/' + req.params.name + '.json', JSON.stringify(result, null, 4));
-    }
+    JSON.parse(fs.readFileSync('./data/obituary/' + req.params.name + '/details.json', 'utf8'));
     fetch(result.resources[0].secure_url)
       .then(response => response.json())
       .then(details => res.send(details))
@@ -211,6 +216,44 @@ app.get('/api/updateNews', (req, res) => {
       res.send(e);
     });
 }); 
+
+
+
+
+
+
+
+app.post('/api/mail', (req, res) => {
+  let html = '<h1> Message from NainativuCDS.org </h1>';
+  html += '<p>' + req.body.message + '</p>';
+  if (req.body.hasOwnProperty('name')) html += '<br/><br/><p> Name: ' + req.body.name + '</p>';
+  if (req.body.hasOwnProperty('email')) html += '<br/><p> Email: ' + req.body.email + '</p>';
+  if (req.body.hasOwnProperty('phone')) html += '<br/><p> Contact No: ' + req.body.phone + '</p>';
+  var mailOptions = {
+    from: 'admin@nainativucds.org',
+    to: 'admin@nainativucds.org',
+    subject: req.body.subject,
+    html
+  };
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      res.send({ result: error });
+      console.log(error);
+    } else {
+      res.send({ result: info.response });
+      console.log('Email sent: ' + info.response);
+    }
+  });
+}); 
+
+
+
+
+
+
+app.get('*', function (req, res) {
+  res.sendfile('./client/build/index.html');
+});
 
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
