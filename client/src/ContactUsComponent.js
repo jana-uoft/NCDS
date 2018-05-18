@@ -102,7 +102,7 @@ export default class ContactUsComponent extends Component {
 
     return (
       <div className="widget widget_links clearfix">
-        <h4>Contact Us</h4>
+        <h4>Contact Us about {this.props.type} Listings</h4>
         {responseMessage}
         <div className="quick-contact-form-result"></div>
         {contactForm}

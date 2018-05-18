@@ -8,7 +8,7 @@ export default class Events extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      events: [],
+      events: null,
     };
   }
 
@@ -48,13 +48,14 @@ export default class Events extends Component {
 
   render() {
 
-
-    if (Object.values(this.state.events).length === 0) return <Loading />;
-    if (this.state.events[Object.keys(this.state.events)[0]].images.length === 0) return <Loading />;
+    let noEvents;
+    if (!this.state.events) return <Loading />;
+    if (this.state.events.length === 0) noEvents = <h1> No Events to display </h1>;
 
     return (
       <div className="container-fullwidth clearfix">
         <div className="postcontent nobottommargin clearfix">
+          {noEvents}
           <div id="posts" className="events small-thumbs">
             <div className="row">
               {Object.values(this.state.events).map(this.renderItem)}

@@ -1,33 +1,6 @@
 {
-    "resources": [
-        {
-            "public_id": "events/001/image",
-            "format": "jpg",
-            "version": 1526338555,
-            "resource_type": "image",
-            "type": "upload",
-            "created_at": "2018-05-14T22:55:55Z",
-            "bytes": 256393,
-            "width": 1920,
-            "height": 1080,
-            "url": "http://res.cloudinary.com/nainativucds/image/upload/v1526338555/events/001/image.jpg",
-            "secure_url": "https://res.cloudinary.com/nainativucds/image/upload/v1526338555/events/001/image.jpg"
-        },
-        {
-            "public_id": "events/002/image",
-            "format": "jpg",
-            "version": 1526338565,
-            "resource_type": "image",
-            "type": "upload",
-            "created_at": "2018-05-14T22:56:05Z",
-            "bytes": 246601,
-            "width": 1920,
-            "height": 1080,
-            "url": "http://res.cloudinary.com/nainativucds/image/upload/v1526338565/events/002/image.jpg",
-            "secure_url": "https://res.cloudinary.com/nainativucds/image/upload/v1526338565/events/002/image.jpg"
-        }
-    ],
+    "resources": [],
     "rate_limit_allowed": 500,
     "rate_limit_reset_at": "2018-05-18T21:00:00.000Z",
-    "rate_limit_remaining": 479
+    "rate_limit_remaining": 438
 }
