@@ -54,6 +54,6 @@
         }
     ],
     "rate_limit_allowed": 500,
-    "rate_limit_reset_at": "2018-05-18T05:00:00.000Z",
-    "rate_limit_remaining": 493
+    "rate_limit_reset_at": "2018-05-18T17:00:00.000Z",
+    "rate_limit_remaining": 455
 }

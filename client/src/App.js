@@ -5,6 +5,7 @@ import {
   Switch
 } from 'react-router-dom'
 import Header from './Header';
+import Footer from './Footer';
 import HomeComponent from './Home';
 import ContributionsComponent from './Contributions';
 import PublicationsComponent from './Publications';
@@ -25,11 +26,12 @@ const Home = () => (
         <HomeComponent />
       </div>
     </section>
+    <Footer />
   </div>
 );
 
 const Contributions = () => (
-  <div className="clearfix">
+  <div className="clearfix" >
     <Header contributions />
     <section id="page-title" className="page-title-mini page-title-dark">
       <div className="container clearfix">
@@ -41,6 +43,7 @@ const Contributions = () => (
         <ContributionsComponent />
       </div>
     </section>
+    <Footer />
   </div>
 );
 
@@ -57,6 +60,7 @@ const Publications = () => (
         <PublicationsComponent />
       </div>
     </section>
+    <Footer />
   </div>
 );
 
@@ -73,6 +77,7 @@ const News = () => (
         <NewsComponent />
       </div>
     </section>
+    <Footer />
   </div>
 );
 
@@ -89,6 +94,7 @@ const Gallery = () => (
         <GalleryComponent />
       </div>
     </section>
+    <Footer />
   </div>
 );
 
@@ -105,6 +111,7 @@ const Events = () => (
         <EventsComponent />
       </div>
     </section>
+    <Footer />
   </div>
 );
 
@@ -121,6 +128,7 @@ const Obituary = () => (
         <ObituaryComponent />
       </div>
     </section>
+    <Footer />
   </div>
 );
 
@@ -138,6 +146,7 @@ const Contact = () => (
         <ContactComponent />
       </div>
     </section>
+    <Footer />
   </div>
 );
 
@@ -154,6 +163,7 @@ const Donate = () => (
         <DonateComponent />
       </div>
     </section>
+    <Footer />
   </div>
 );
 
@@ -161,6 +171,7 @@ const FourOhFour = () => (
   <div className="clearfix">
     <Header />
     <FourOhFourComponent />
+    <Footer />
   </div>
 );
 

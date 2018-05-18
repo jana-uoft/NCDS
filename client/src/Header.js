@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 
 class Header extends Component {
   render() {
-    let bannerStyle = { maxWidth: '100vw', padding: 0, position: 'fixed', zIndex: 50, background: '#28616B' };
+    let bannerStyle = { maxWidth: '100vw', padding: 0, position: 'fixed', zIndex: 50, background: '#0D2B31' };
 
-    let menuStyle = { top: 100, background: '#28616B' };
+    let menuStyle = { top: 100, background: '#0D2B31' };
 
     let menus = [
       {
@@ -52,8 +52,8 @@ class Header extends Component {
     ];
 
     let logos = [
-      { class: "standard-logo", image: "https://res.cloudinary.com/nainativucds/image/upload/v1526614222/website/Web_Cover_page.png" },
-      { class: "retina-logo", image: "https://res.cloudinary.com/nainativucds/image/upload/v1526614222/website/Web_Cover_page.png" }
+      { class: "standard-logo", image: "/images/banner.jpg" },
+      { class: "retina-logo", image: "/images/banner_mobile.jpg", style:{width: '100vw'}, imgStyle: {left: '-40px'} }
     ];
 
     return (
@@ -62,7 +62,7 @@ class Header extends Component {
         <div className="container clearfix" style={bannerStyle}>
           <div id="logo" className="divcenter">
             {logos.map((logo, idx)=>
-              <a key={idx} href="/" className={logo.class} data-dark-logo={logo.image}><img style={{ width: '60vw' }} className="divcenter" src={logo.image} alt="Nainativu CDS Logo" /></a>              
+              <a key={idx} href="/" className={logo.class} data-dark-logo={logo.image} style={logo.style}><img style={logo.imgStyle} className="divcenter" src={logo.image} alt="Nainativu CDS Logo" /></a>              
             )}
 				  </div>
 			  </div>

@@ -75,3 +75,7 @@
 	font-size: 25px;
 	color: wheat
 }
+
+.dark #copyrights {
+	background-color: #333;
+}
