@@ -10,6 +10,7 @@ export default class Gallery extends Component {
     super(props);
     this.state = {
       events: [],
+      uniqueFilters: [],
       type: null,
       open: false,
       images: [],
@@ -21,7 +22,13 @@ export default class Gallery extends Component {
   componentDidMount = () => {
     fetch('/api/gallery')
       .then(response => response.json())
-      .then(events => this.setState({events}))
+      .then(events => {
+        let uniqueFilters = [];
+        events.forEach(event => {
+          if (!uniqueFilters.includes(event.details.type)) uniqueFilters.push(event.details.type);
+        });
+        this.setState({ events, uniqueFilters})
+      })
   }
 
 
@@ -61,9 +68,9 @@ export default class Gallery extends Component {
     this.setState({type: type})
   }
 
-  renderFilter = (item, idx) => {
+  renderFilter = (filter, idx) => {
     return (
-      <li key={idx} style={{ cursor: 'pointer' }} className={this.state.type === item.details.type ? "activeFilter" : ""}><a onClick={()=>this.filterItems(item.details.type)}>{item.details.type}</a></li>
+      <li key={idx} style={{ cursor: 'pointer' }} className={this.state.type === filter ? "activeFilter" : ""}><a onClick={()=>this.filterItems(filter)}>{filter}</a></li>
     );
   }
 
@@ -108,7 +115,7 @@ export default class Gallery extends Component {
       <div className="container-fullwidth clearfix">
         <ul id="portfolio-filter" className="portfolio-filter clearfix">
           <li style={{ cursor: 'pointer' }} key={0} className={this.state.type ? "" : "activeFilter"}><a onClick={() => this.filterItems(null)}>Show All</a></li>
-          {Object.values(this.state.events).map(this.renderFilter)}
+          {Object.values(this.state.uniqueFilters).map(this.renderFilter)}
         </ul>
         <div className="clear"></div>
         <div className="row">

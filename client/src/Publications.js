@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import Loading from './Loading';
 import "react-image-gallery/styles/css/image-gallery.css";
-import ImageGallery from 'react-image-gallery';
-import Modal from 'react-responsive-modal';
 import { isMobile } from 'react-device-detect';
+import Lightbox from 'react-image-lightbox';
 
 
 const baseURL = 'https://res.cloudinary.com/nainativucds/image/upload/';
@@ -14,7 +13,9 @@ export default class Publications extends Component {
     this.state = {
       publications: null,
       open: false,
-      images: []
+      images: [],
+      photoIndex: 0,
+      slideShow: false
     };
   }
 
@@ -24,22 +25,31 @@ export default class Publications extends Component {
       .then(publications => this.setState({ publications }));
   }
 
+
+  startSlideShow = () => {
+    if (this.state.slideShow)
+      clearInterval(this.interval);
+    else
+      this.interval = setInterval(this.showNextSlide, 5000);
+    this.setState({ slideShow: !this.state.slideShow })
+  }
+
+  showNextSlide = (nextButton) => {
+    document.getElementsByClassName("ril-next-button ril__navButtons ril__navButtonNext")[0].click();
+  }
+
   onOpenModal = () => {
     this.setState({ open: true });
   };
 
   onCloseModal = () => {
-    this.setState({ open: false });
+    clearInterval(this.interval);
+    this.setState({ open: false, photoIndex: 0, slideShow: false });
   };
 
   viewPublication = (date) => {
     let publication = this.state.publications.find(pub=>pub.publication===date);
-    let images = publication.images.map(pub => {
-      return {
-        original: baseURL + 'h_1000,w_800/' + pub + '.jpg',
-        thumbnail: baseURL + 'h_200,w_150/' + pub + '.jpg'
-      }
-    });
+    let images = publication.images.map(pub => baseURL + pub + '.jpg');
     this.setState({ images }, () => this.onOpenModal());
   }
 
@@ -64,26 +74,23 @@ export default class Publications extends Component {
       </div>
     );
 
-    let additionalProperties;
-    isMobile ? additionalProperties = {} : additionalProperties = {thumbnailPosition: 'left'};
 
-    let modal = (
-      <Modal 
-        open={this.state.open} 
-        onClose={this.onCloseModal} 
-        center
-        classNames={{
-          transitionEnter: 'transition-enter',
-          transitionEnterActive: 'transition-enter-active',
-          transitionExit: 'transition-exit-active',
-          transitionExitActive: 'transition-exit-active',
-        }}
-        animationDuration={1000}
-      >
-        <ImageGallery items={this.state.images} showThumbnails={!isMobile} autoPlay={true} slideInterval={5000} {...additionalProperties} />
-      </Modal>
+    let modal;
+    if (this.state.open) modal = (
+      <Lightbox
+        mainSrc={this.state.images[this.state.photoIndex]}
+        nextSrc={this.state.images[(this.state.photoIndex + 1) % this.state.images.length]}
+        prevSrc={this.state.images[(this.state.photoIndex + this.state.images.length - 1) % this.state.images.length]}
+        onCloseRequest={this.onCloseModal}
+        onMovePrevRequest={() => this.setState({
+          photoIndex: (this.state.photoIndex + this.state.images.length - 1) % this.state.images.length,
+        })}
+        onMoveNextRequest={() => this.setState({
+          photoIndex: (this.state.photoIndex + 1) % this.state.images.length,
+        })}
+        toolbarButtons={[<i className={this.state.slideShow ? "icon-pause" : "icon-googleplay"} onClick={this.startSlideShow}></i>]}
+      />
     );
-
 
     return (
       <div className="container-fullwidth clearfix">
