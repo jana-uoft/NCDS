@@ -8,7 +8,7 @@ export default class Footer extends Component {
   			<div id="copyrights" style={{padding: 0, paddingTop: 10}}>
           <div className="container clearfix">
             <div className="col_half">
-              <img src="images/footer_logo.jpg" alt="" className="footer-logo"/>          
+              <img src="images/footer_logo.jpg" alt="" className="footer-logo" style={isMobile ? {marginBottom: 0}: null}/>          
             </div>
 
             <div className="col_half col_last tright">

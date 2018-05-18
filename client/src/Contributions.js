@@ -97,6 +97,7 @@ export default class Contributions extends Component {
         <div className="row">
           {Object.values(this.state.events).map(this.renderItem)}
         </div>
+        <br /><br /><br /><br /><br /><br />
         {modal}
       </div>
     )
