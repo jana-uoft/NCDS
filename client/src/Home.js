@@ -11,12 +11,12 @@ export default class Home extends Component {
       <div className="sidebar sticky-sidebar-wrap nobottommargin clearfix">
         <div className="sidebar-widgets-wrap">
           <div className="sticky-sidebar">
-            <div className="widget clearfix"></div>
+            {/* <div className="widget clearfix"></div> */}
             <div className="widget clearfix">
-              <img src="http://fpoimg.com/300x250" alt="Advertisement 1"/>
+              <img src="/images/ad001.png" alt="Advertisement 1"/>
             </div>
             <div className="widget clearfix">
-              <img src="http://fpoimg.com/300x250" alt="Advertisement 2" />
+              <img src="/images/ad02.png" alt="Advertisement 2" />
             </div>
           </div>
         </div>
@@ -41,12 +41,12 @@ export default class Home extends Component {
       <div className="sidebar sticky-sidebar-wrap col_last nobottommargin clearfix">
         <div className="sidebar-widgets-wrap">
           <div className="sticky-sidebar">
-            <div className="widget clearfix"></div>
+            {/* <div className="widget clearfix"></div> */}
             <div className="widget clearfix">
-              <img src="http://fpoimg.com/300x250" alt="Advertisement 3" />
+              <img src="/images/ad03.png" alt="Advertisement 3" />
             </div>
             <div className="widget clearfix">
-              <img src="http://fpoimg.com/300x250" alt="Advertisement 4" />
+              <img src="/images/ad04.jpg" alt="Advertisement 4" />
             </div>
           </div>
         </div>

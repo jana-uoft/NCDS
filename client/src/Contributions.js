@@ -10,7 +10,7 @@ export default class Contributions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      events: {},
+      events: [],
       type: null,
       open: false,
       images: []
@@ -20,16 +20,7 @@ export default class Contributions extends Component {
   componentDidMount = () => {
     fetch('/api/contributions')
       .then(response => response.json())
-      .then(contributions => {
-        contributions.forEach(event => {
-          this.setState({ events: { ...this.state.events, [event.event]: { images: event.images, event: event.event, details: {} } } })
-        });
-        contributions.forEach(event => {
-          fetch('/api/contributions/' + event.event)
-            .then(response => response.json())
-            .then(details => this.setState({ events: { ...this.state.events, [event.event]: { ...this.state.events[event.event], details } } }))
-        });
-      });
+      .then(events => this.setState({ events }))
   }
 
 

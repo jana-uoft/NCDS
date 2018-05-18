@@ -8,23 +8,14 @@ export default class Obituary extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      events: {},
+      events: [],
     };
   }
 
   componentDidMount = () => {
     fetch('/api/obituary')
       .then(response => response.json())
-      .then(event => {
-        event.forEach(event => {
-          this.setState({ events: { ...this.state.events, [event.event]: { images: event.images, event: event.event, details: {} } } })
-        });
-        event.forEach(event => {
-          fetch('/api/obituary/' + event.event)
-            .then(response => response.json())
-            .then(details => this.setState({ events: { ...this.state.events, [event.event]: { ...this.state.events[event.event], details } } }))
-        });
-      });
+      .then(events => this.setState({ events }))
   }
 
 

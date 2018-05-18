@@ -60,7 +60,7 @@ app.get('/api/publications', (req, res) => {
 
 
 
-app.get('/api/gallery', async (req, res) => {
+app.get('/api/gallery', (req, res) => {
   cloudinary.api.resources({ type: "upload", prefix: "gallery/", max_results: 500 }, function (error, result) {
     if (error) result = JSON.parse(fs.readFileSync('./data/gallery.json', 'utf8'));
     else fs.writeFileSync('./data/gallery.json', JSON.stringify(result, null, 4));
@@ -72,15 +72,17 @@ app.get('/api/gallery', async (req, res) => {
     });
     let responseArray = [];
     Object.entries(response).forEach(([event, images]) => {
-      responseArray.push({ event, images })
+      details = JSON.parse(fs.readFileSync('./data/gallery/' + event + '/details.json', 'utf8'));    
+      responseArray.push({ event, images, details })
     });
+    // responseArray.sort(((a, b) => Date.parse(b.details.date) - Date.parse(a.details.date)));   
     res.send(responseArray);
   })
 });
 
 
 
-app.get('/api/events', async (req, res) => {
+app.get('/api/events', (req, res) => {
   cloudinary.api.resources({ type: "upload", prefix: "events/", max_results: 500 }, function (error, result) {
     if (error) result = JSON.parse(fs.readFileSync('./data/events.json', 'utf8'));
     else fs.writeFileSync('./data/events.json', JSON.stringify(result, null, 4));
@@ -92,14 +94,16 @@ app.get('/api/events', async (req, res) => {
     });
     let responseArray = [];
     Object.entries(response).forEach(([event, images]) => {
-      responseArray.push({ event, images })
+      details = JSON.parse(fs.readFileSync('./data/events/' + event + '/details.json', 'utf8'));
+      responseArray.push({ event, images, details })
     });
+    responseArray.sort(((a, b) => Date.parse(b.details.date) - Date.parse(a.details.date)));
     res.send(responseArray);
   })
 });
 
 
-app.get('/api/obituary', async (req, res) => {
+app.get('/api/obituary', (req, res) => {
   cloudinary.api.resources({ type: "upload", prefix: "obituary/", max_results: 500 }, function (error, result) {
     if (error) result = JSON.parse(fs.readFileSync('./data/obituary.json', 'utf8'));
     else fs.writeFileSync('./data/obituary.json', JSON.stringify(result, null, 4));
@@ -111,13 +115,15 @@ app.get('/api/obituary', async (req, res) => {
     });
     let responseArray = [];
     Object.entries(response).forEach(([event, images]) => {
-      responseArray.push({ event, images })
+      details = JSON.parse(fs.readFileSync('./data/obituary/' + event + '/details.json', 'utf8'));      
+      responseArray.push({ event, images, details })
     });
+    responseArray.sort(((a, b) => Date.parse(b.details.date) - Date.parse(a.details.date)));    
     res.send(responseArray);
   })
 });
 
-app.get('/api/contributions', async (req, res) => {
+app.get('/api/contributions', (req, res) => {
   cloudinary.api.resources({ type: "upload", prefix: "contributions/", max_results: 500 }, function (error, result) {
     if (error) result = JSON.parse(fs.readFileSync('./data/contributions.json', 'utf8'));
     else fs.writeFileSync('./data/obituary.json', JSON.stringify(result, null, 4));
@@ -129,52 +135,54 @@ app.get('/api/contributions', async (req, res) => {
     });
     let responseArray = [];
     Object.entries(response).forEach(([event, images]) => {
-      responseArray.push({ event, images })
+      details = JSON.parse(fs.readFileSync('./data/events/' + event + '/details.json', 'utf8'));      
+      responseArray.push({ event, images, details })
     });
+    responseArray.sort(((a, b) => Date.parse(b.details.date) - Date.parse(a.details.date)));        
     res.send(responseArray);
   })
 });
 
 
-app.get('/api/gallery/:name', async (req, res) => {
-  cloudinary.api.resources({ type: "upload", prefix: "gallery/" + req.params.name, max_results: 500, resource_type: 'raw' }, function (error, result) {
-    JSON.parse(fs.readFileSync('./data/gallery/' + req.params.name + '/details.json', 'utf8'));
-    fetch(result.resources[0].secure_url)
-      .then(response => response.json())
-      .then(details => res.send(details))
-  })
-});
+// app.get('/api/gallery/:name', async (req, res) => {
+//   cloudinary.api.resources({ type: "upload", prefix: "gallery/" + req.params.name, max_results: 500, resource_type: 'raw' }, function (error, result) {
+//     JSON.parse(fs.readFileSync('./data/gallery/' + req.params.name + '/details.json', 'utf8'));
+//     fetch(result.resources[0].secure_url)
+//       .then(response => response.json())
+//       .then(details => res.send(details))
+//   })
+// });
 
 
 
-app.get('/api/events/:name', async (req, res) => {
-  cloudinary.api.resources({ type: "upload", prefix: "events/" + req.params.name, max_results: 500, resource_type: 'raw' }, function (error, result) {
-    JSON.parse(fs.readFileSync('./data/events/' + req.params.name + '/details.json', 'utf8'));
-    fetch(result.resources[0].secure_url)
-      .then(response => response.json())
-      .then(details => res.send(details))
-  })
-});
+// app.get('/api/events/:name', async (req, res) => {
+//   cloudinary.api.resources({ type: "upload", prefix: "events/" + req.params.name, max_results: 500, resource_type: 'raw' }, function (error, result) {
+//     JSON.parse(fs.readFileSync('./data/events/' + req.params.name + '/details.json', 'utf8'));
+//     fetch(result.resources[0].secure_url)
+//       .then(response => response.json())
+//       .then(details => res.send(details))
+//   })
+// });
 
 
-app.get('/api/contributions/:name', async (req, res) => {
-  cloudinary.api.resources({ type: "upload", prefix: "contributions/" + req.params.name, max_results: 500, resource_type: 'raw' }, function (error, result) {
-    JSON.parse(fs.readFileSync('./data/contributions/' + req.params.name + '/details.json', 'utf8'));
-    fetch(encodeURI(result.resources[0].secure_url))
-      .then(response => response.json())
-      .then(details => res.send(details))
-  })
-});
+// app.get('/api/contributions/:name', async (req, res) => {
+//   cloudinary.api.resources({ type: "upload", prefix: "contributions/" + req.params.name, max_results: 500, resource_type: 'raw' }, function (error, result) {
+//     JSON.parse(fs.readFileSync('./data/contributions/' + req.params.name + '/details.json', 'utf8'));
+//     fetch(encodeURI(result.resources[0].secure_url))
+//       .then(response => response.json())
+//       .then(details => res.send(details))
+//   })
+// });
 
 
-app.get('/api/obituary/:name', async (req, res) => {
-  cloudinary.api.resources({ type: "upload", prefix: "obituary/" + req.params.name, max_results: 500, resource_type: 'raw' }, function (error, result) {
-    JSON.parse(fs.readFileSync('./data/obituary/' + req.params.name + '/details.json', 'utf8'));
-    fetch(result.resources[0].secure_url)
-      .then(response => response.json())
-      .then(details => res.send(details))
-  })
-});
+// app.get('/api/obituary/:name', async (req, res) => {
+//   cloudinary.api.resources({ type: "upload", prefix: "obituary/" + req.params.name, max_results: 500, resource_type: 'raw' }, function (error, result) {
+//     JSON.parse(fs.readFileSync('./data/obituary/' + req.params.name + '/details.json', 'utf8'));
+//     fetch(result.resources[0].secure_url)
+//       .then(response => response.json())
+//       .then(details => res.send(details))
+//   })
+// });
 
 
 app.get('/api/deleteDerived', (req, res) => {
@@ -252,7 +260,7 @@ app.post('/api/mail', (req, res) => {
 
 
 app.get('*', function (req, res) {
-  res.sendfile('./client/build/index.html');
+  res.sendFile(__dirname + '/client/build/index.html');
 });
 
 
