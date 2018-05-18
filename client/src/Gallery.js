@@ -51,7 +51,7 @@ export default class Gallery extends Component {
       <div key={idx} className="col-lg-3 bottommargin">
         <div className="ipost clearfix">
           <div className="entry-image">
-            <a style={{ cursor: 'pointer' }} onClick={() => this.viewItem(item.event)}><img className="image_fade" src={baseURL + 'w_400,h_250,c_scale,a_ignore/' +item.images[0] + '.jpg'} alt="Thumbnail" /></a>
+            <a style={{ cursor: 'pointer' }} onClick={() => this.viewItem(item.event)}><img className="image_fade" src={baseURL + 'w_400,h_250,c_scale/' +item.images[0] + '.jpg'} alt="Thumbnail" /></a>
           </div>
           <div className="entry-title">
             <h3 style={{ cursor: 'pointer' }}>{item.details.title}</h3>
@@ -85,7 +85,7 @@ export default class Gallery extends Component {
 
   viewItem = (event) => {
     let singleItem = this.state.events.find(ev=>ev.event===event);
-    let images = singleItem.images.map(pub => baseURL + 'a_ignore/' + pub + '.jpg');
+    let images = singleItem.images.map(pub => baseURL + pub + '.jpg');
     this.setState({ images }, () => this.onOpenModal());
   }
 
