@@ -87,12 +87,6 @@ export default class Gallery extends Component {
     if (this.state.events[Object.keys(this.state.events)[0]].images.length === 0) return <Loading />;
 
 
-    // let additionalProperties;
-    // isMobile ? additionalProperties = {} : additionalProperties = { thumbnailPosition: 'bottom' };
-    
-    if (this.state.slideShow)
-      setInterval(this.showNextSlide(), 5000);
-
     let modal;
     if (this.state.open) modal = (
       <Lightbox
@@ -106,7 +100,7 @@ export default class Gallery extends Component {
         onMoveNextRequest={() => this.setState({
           photoIndex: (this.state.photoIndex + 1) % this.state.images.length,
         })}
-        toolbarButtons={[<i className={this.state.slideShow ? "icon-pause" : "icon-play"} onClick={this.startSlideShow}></i>]}
+        toolbarButtons={[<i className={this.state.slideShow ? "icon-pause" : "icon-googleplay"} onClick={this.startSlideShow}></i>]}
       />
     );
 
