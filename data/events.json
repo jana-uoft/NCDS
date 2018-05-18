@@ -25,35 +25,9 @@
             "height": 1080,
             "url": "http://res.cloudinary.com/nainativucds/image/upload/v1526338565/events/002/image.jpg",
             "secure_url": "https://res.cloudinary.com/nainativucds/image/upload/v1526338565/events/002/image.jpg"
-        },
-        {
-            "public_id": "events/003/image",
-            "format": "jpg",
-            "version": 1526338571,
-            "resource_type": "image",
-            "type": "upload",
-            "created_at": "2018-05-14T22:56:11Z",
-            "bytes": 389663,
-            "width": 1920,
-            "height": 1080,
-            "url": "http://res.cloudinary.com/nainativucds/image/upload/v1526338571/events/003/image.jpg",
-            "secure_url": "https://res.cloudinary.com/nainativucds/image/upload/v1526338571/events/003/image.jpg"
-        },
-        {
-            "public_id": "events/004/image",
-            "format": "jpg",
-            "version": 1526338577,
-            "resource_type": "image",
-            "type": "upload",
-            "created_at": "2018-05-14T22:56:17Z",
-            "bytes": 151413,
-            "width": 1920,
-            "height": 1080,
-            "url": "http://res.cloudinary.com/nainativucds/image/upload/v1526338577/events/004/image.jpg",
-            "secure_url": "https://res.cloudinary.com/nainativucds/image/upload/v1526338577/events/004/image.jpg"
         }
     ],
     "rate_limit_allowed": 500,
-    "rate_limit_reset_at": "2018-05-18T17:00:00.000Z",
-    "rate_limit_remaining": 455
+    "rate_limit_reset_at": "2018-05-18T21:00:00.000Z",
+    "rate_limit_remaining": 479
 }

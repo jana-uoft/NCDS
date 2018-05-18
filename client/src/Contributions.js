@@ -48,7 +48,7 @@ export default class Contributions extends Component {
             <h3 style={{ cursor: 'pointer' }}>{item.details.title}</h3>
           </div>
           <ul className="entry-meta clearfix">
-            <li><i className="icon-location" onClick={() => this.viewItem(item.event)}></i>{item.details.location}</li>
+            {item.details.location !== "" ? <li><i className="icon-location" onClick={() => this.viewItem(item.event)}></i>{item.details.location}</li> : null}            
           </ul>
         </div>
       </div>

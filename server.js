@@ -79,7 +79,7 @@ app.get('/api/gallery', (req, res) => {
       }
       responseArray.push({ event, images, details })
     });
-    // responseArray.sort(((a, b) => Date.parse(b.details.date) - Date.parse(a.details.date)));   
+    responseArray.sort(((a, b) => Date.parse(b.details.date) - Date.parse(a.details.date)));   
     res.send(responseArray);
   })
 });
@@ -148,7 +148,7 @@ app.get('/api/contributions', (req, res) => {
     let responseArray = [];
     Object.entries(response).forEach(([event, images]) => {
       try{
-      details = JSON.parse(fs.readFileSync('./data/events/' + event + '/details.json', 'utf8'));      
+      details = JSON.parse(fs.readFileSync('./data/contributions/' + event + '/details.json', 'utf8'));      
     }catch (err) {
       details = JSON.parse(fs.readFileSync('./data/details.json', 'utf8'));
     }
