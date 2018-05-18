@@ -30,7 +30,7 @@ export default class Contributions extends Component {
       <div key={idx} className="col-lg-3 bottommargin">
         <div className="ipost clearfix">
           <div className="entry-image">
-            <a style={{ cursor: 'pointer' }} onClick={() => this.viewItem(item.event)}><img className="image_fade" src={baseURL + item.images[0] + '.jpg'} alt="Thumbnail" /></a>
+            <a style={{ cursor: 'pointer' }} onClick={() => this.viewItem(item.event)}><img className="image_fade" src={baseURL + 'h_200,w_300/' + item.images[0] + '.jpg'} alt="Thumbnail" /></a>
           </div>
           <div className="entry-title">
             <h3 style={{ cursor: 'pointer' }}>{item.details.title}</h3>
@@ -57,7 +57,7 @@ export default class Contributions extends Component {
   };
 
   viewItem = (event) => {
-    let singleItem = this.state.events[event];
+    let singleItem = this.state.events.find(ev => ev.event === event);
     let images = singleItem.images.map(pub => {
       return {
         original: baseURL + 'h_1080,w_1920/' + pub + '.jpg',

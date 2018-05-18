@@ -72,7 +72,11 @@ app.get('/api/gallery', (req, res) => {
     });
     let responseArray = [];
     Object.entries(response).forEach(([event, images]) => {
-      details = JSON.parse(fs.readFileSync('./data/gallery/' + event + '/details.json', 'utf8'));    
+      try{
+        details = JSON.parse(fs.readFileSync('./data/gallery/' + event + '/details.json', 'utf8'));    
+      }catch(err) {
+        details = JSON.parse(fs.readFileSync('./data/details.json', 'utf8'));    
+      }
       responseArray.push({ event, images, details })
     });
     // responseArray.sort(((a, b) => Date.parse(b.details.date) - Date.parse(a.details.date)));   
@@ -94,7 +98,11 @@ app.get('/api/events', (req, res) => {
     });
     let responseArray = [];
     Object.entries(response).forEach(([event, images]) => {
+      try{
       details = JSON.parse(fs.readFileSync('./data/events/' + event + '/details.json', 'utf8'));
+    }catch (err) {
+      details = JSON.parse(fs.readFileSync('./data/details.json', 'utf8'));
+    }
       responseArray.push({ event, images, details })
     });
     responseArray.sort(((a, b) => Date.parse(b.details.date) - Date.parse(a.details.date)));
@@ -115,10 +123,14 @@ app.get('/api/obituary', (req, res) => {
     });
     let responseArray = [];
     Object.entries(response).forEach(([event, images]) => {
-      details = JSON.parse(fs.readFileSync('./data/obituary/' + event + '/details.json', 'utf8'));      
+      try{
+      details = JSON.parse(fs.readFileSync('./data/obituary/' + event + '/details.json', 'utf8'));  
+    }catch (err) {
+      details = JSON.parse(fs.readFileSync('./data/details.json', 'utf8'));
+    }    
       responseArray.push({ event, images, details })
     });
-    responseArray.sort(((a, b) => Date.parse(b.details.date) - Date.parse(a.details.date)));    
+    responseArray.sort(((a, b) => Date.parse(b.details.death_date) - Date.parse(a.details.death_date)));    
     res.send(responseArray);
   })
 });
@@ -135,7 +147,11 @@ app.get('/api/contributions', (req, res) => {
     });
     let responseArray = [];
     Object.entries(response).forEach(([event, images]) => {
+      try{
       details = JSON.parse(fs.readFileSync('./data/events/' + event + '/details.json', 'utf8'));      
+    }catch (err) {
+      details = JSON.parse(fs.readFileSync('./data/details.json', 'utf8'));
+    }
       responseArray.push({ event, images, details })
     });
     responseArray.sort(((a, b) => Date.parse(b.details.date) - Date.parse(a.details.date)));        
