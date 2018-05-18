@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import Loading from './Loading';
-import { isMobile } from 'react-device-detect';
-import ImageGallery from 'react-image-gallery';
-import Modal from 'react-responsive-modal';
+import Lightbox from 'react-image-lightbox';
+
 
 const baseURL = 'https://res.cloudinary.com/nainativucds/image/upload/';
 
@@ -13,7 +12,9 @@ export default class Gallery extends Component {
       events: [],
       type: null,
       open: false,
-      images: []
+      images: [],
+      photoIndex: 0,
+      slideShow: false
     };
   }
 
@@ -24,13 +25,26 @@ export default class Gallery extends Component {
   }
 
 
+  startSlideShow = () => {
+    if (this.state.slideShow)
+      clearInterval(this.interval);
+    else 
+      this.interval = setInterval(this.showNextSlide, 5000);
+    this.setState({ slideShow: !this.state.slideShow })     
+  }
+
+  showNextSlide = (nextButton) => {
+    document.getElementsByClassName("ril-next-button ril__navButtons ril__navButtonNext")[0].click();
+  }
+
+
   renderItem = (item, idx) => {
     if (this.state.type && this.state.type!==item.details.type) return null;
     return (
       <div key={idx} className="col-lg-3 bottommargin">
         <div className="ipost clearfix">
           <div className="entry-image">
-            <a style={{ cursor: 'pointer' }} onClick={() => this.viewItem(item.event)}><img className="image_fade" src={baseURL + 'h_200,w_300/' +item.images[0] + '.jpg'} alt="Thumbnail" /></a>
+            <a style={{ cursor: 'pointer' }} onClick={() => this.viewItem(item.event)}><img className="image_fade" src={baseURL + 'w_400,h_250,c_scale/' +item.images[0] + '.jpg'} alt="Thumbnail" /></a>
           </div>
           <div className="entry-title">
             <h3 style={{ cursor: 'pointer' }}>{item.details.title}</h3>
@@ -58,17 +72,13 @@ export default class Gallery extends Component {
   };
 
   onCloseModal = () => {
-    this.setState({ open: false });
+    clearInterval(this.interval);
+    this.setState({ open: false, photoIndex: 0, slideShow: false });
   };
 
   viewItem = (event) => {
     let singleItem = this.state.events.find(ev=>ev.event===event);
-    let images = singleItem.images.map(pub => {
-      return {
-        original: baseURL + 'h_1080,w_1920/' + pub + '.jpg',
-        thumbnail: baseURL + 'h_150,w_200/' + pub + '.jpg'
-      }
-    });
+    let images = singleItem.images.map(pub => baseURL + pub + '.jpg');
     this.setState({ images }, () => this.onOpenModal());
   }
 
@@ -77,25 +87,27 @@ export default class Gallery extends Component {
     if (this.state.events[Object.keys(this.state.events)[0]].images.length === 0) return <Loading />;
 
 
-    let additionalProperties;
-    isMobile ? additionalProperties = {} : additionalProperties = { thumbnailPosition: 'bottom' };
+    // let additionalProperties;
+    // isMobile ? additionalProperties = {} : additionalProperties = { thumbnailPosition: 'bottom' };
+    
+    if (this.state.slideShow)
+      setInterval(this.showNextSlide(), 5000);
 
-
-    let modal = (
-      <Modal
-        open={this.state.open}
-        onClose={this.onCloseModal}
-        center
-        classNames={{
-          transitionEnter: 'transition-enter',
-          transitionEnterActive: 'transition-enter-active',
-          transitionExit: 'transition-exit-active',
-          transitionExitActive: 'transition-exit-active',
-        }}
-        animationDuration={1000}
-      >
-        <ImageGallery items={this.state.images} showThumbnails={!isMobile} autoPlay={true} slideInterval={5000} {...additionalProperties} />
-      </Modal>
+    let modal;
+    if (this.state.open) modal = (
+      <Lightbox
+        mainSrc={this.state.images[this.state.photoIndex]}
+        nextSrc={this.state.images[(this.state.photoIndex + 1) % this.state.images.length]}
+        prevSrc={this.state.images[(this.state.photoIndex + this.state.images.length - 1) % this.state.images.length]}
+        onCloseRequest={this.onCloseModal}
+        onMovePrevRequest={() => this.setState({
+          photoIndex: (this.state.photoIndex + this.state.images.length - 1) % this.state.images.length,
+        })}
+        onMoveNextRequest={() => this.setState({
+          photoIndex: (this.state.photoIndex + 1) % this.state.images.length,
+        })}
+        toolbarButtons={[<i className={this.state.slideShow ? "icon-pause" : "icon-play"} onClick={this.startSlideShow}></i>]}
+      />
     );
 
     return (

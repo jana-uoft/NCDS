@@ -15,7 +15,7 @@ import ObituaryComponent from './Obituary';
 import ContactComponent from './Contact';
 import DonateComponent from './Donate';
 import FourOhFourComponent from './FourOhFour';
-
+import 'react-image-lightbox/style.css';
 
 const Home = () => (
   <div className="clearfix">
