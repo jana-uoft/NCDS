@@ -25,7 +25,7 @@ export default class Obituary extends Component {
         <div className="entry" style={{ margin: 0, marginBottom: 20, padding: 10 }}>
           <div className="entry-image">
             <a>
-              <img src={baseURL + 'h_150,w_200/' +item.images[0] + '.jpg'} alt={item.details.name} />
+              <img src={baseURL + 'h_170,w_300/' +item.images[0] + '.jpg'} alt={item.details.name} />
             </a>
           </div>
           <div className="entry-c">
@@ -34,10 +34,10 @@ export default class Obituary extends Component {
               <p>{item.details.birth_date} - {item.details.death_date}</p>
             </div>
             <ul className="entry-meta clearfix">
-              <li><a><i className="icon-time"></i> {item.details.start_time} - {item.details.end_time}</a></li>
+              {/* <li><a><i className="icon-time"></i> {item.details.start_time} - {item.details.end_time}</a></li>
               <li><a><i className="icon-map-marker2"></i>{item.details.location}</a></li>
               <li><a><i className="icon-map-marker2"></i>{item.details.address}</a></li>
-              <li><a><i className="icon-call"></i>{item.details.contact_name}: {item.details.contact_number}</a></li>
+              <li><a><i className="icon-call"></i>{item.details.contact_name}: {item.details.contact_number}</a></li> */}
             </ul>
           </div>
         </div>

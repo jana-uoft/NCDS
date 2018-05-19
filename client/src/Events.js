@@ -37,8 +37,10 @@ export default class Events extends Component {
             </div>
             <ul className="entry-meta clearfix">
               <li><a><i className="icon-time"></i> {item.details.start_time} - {item.details.end_time}</a></li>
-              {/* <li><a><i className="icon-map-marker2"></i>{item.details.location}</a></li> */}
+              <li><a><i className="icon-map-marker2"></i>{item.details.location}</a></li>
               <li><a><i className="icon-map-marker2"></i>{item.details.address}</a></li>
+              <li><a><i className="icon-map-marker2"></i>{item.details.contact_name}</a></li>
+              <li><a><i className="icon-map-marker2"></i>{item.details.contact_number}</a></li>
             </ul>
           </div>
         </div>
