@@ -36,7 +36,7 @@ class Header extends Component {
       {
         link: "/obituary",
         icon: "icon-eye-close",
-        label: this.props.obituary ? <strong style={{ color: 'MediumSeaGreen' }}>Obituary</strong> : "துயர்வு",
+        label: this.props.obituary ? <strong style={{ color: 'MediumSeaGreen' }}>Obituary</strong> : "துயர்வுகள்",
       },
       {
         link: "/contact",
