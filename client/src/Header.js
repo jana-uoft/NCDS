@@ -11,42 +11,42 @@ class Header extends Component {
       {
         link: "/contributions",
         icon: "icon-users",
-        label: this.props.contributions ? <strong style={{ color: 'MediumSeaGreen' }}>Contributions</strong> : "Contributions",
+        label: this.props.contributions ? <strong style={{ color: 'MediumSeaGreen' }}>Contributions</strong> : "அபிவிருத்து",
       },
       {
         link: "/publications",
         icon: "icon-book3",
-        label: this.props.publications ? <strong style={{ color: 'MediumSeaGreen' }}>Publications</strong> : "Publications",
+        label: this.props.publications ? <strong style={{ color: 'MediumSeaGreen' }}>Publications</strong> : "வெளியீடுகள்",
       },
       {
         link: "/news",
         icon: "icon-newspaper",
-        label: this.props.news ? <strong style={{ color: 'MediumSeaGreen' }}>News</strong> : "News",
+        label: this.props.news ? <strong style={{ color: 'MediumSeaGreen' }}>News</strong> : "செய்திகள்",
       },
       {
         link: "/gallery",
         icon: "icon-line-camera",
-        label: this.props.gallery ? <strong style={{ color: 'MediumSeaGreen' }}>Gallery</strong> : "Gallery",
+        label: this.props.gallery ? <strong style={{ color: 'MediumSeaGreen' }}>Gallery</strong> : "புகைப்படங்கள்",
       },
       {
         link: "/events",
         icon: "icon-line-location",
-        label: this.props.events ? <strong style={{ color: 'MediumSeaGreen' }}>Events</strong> : "Events",
+        label: this.props.events ? <strong style={{ color: 'MediumSeaGreen' }}>Events</strong> : "நிகழ்வுகள்",
       },
       {
         link: "/obituary",
         icon: "icon-eye-close",
-        label: this.props.obituary ? <strong style={{ color: 'MediumSeaGreen' }}>Obituary</strong> : "Obituary",
+        label: this.props.obituary ? <strong style={{ color: 'MediumSeaGreen' }}>Obituary</strong> : "மரன அறிவித்தல்கள்",
       },
       {
         link: "/contact",
         icon: "icon-line-mail",
-        label: this.props.contact ? <strong style={{ color: 'MediumSeaGreen' }}>Contact Us</strong> : "Contact Us",
+        label: this.props.contact ? <strong style={{ color: 'MediumSeaGreen' }}>Contact Us</strong> : "தொடர்புகள்",
       },
       {
         link: "/donate",
         icon: "icon-dollar",
-        label: this.props.donate ? <strong style={{ color: 'MediumSeaGreen' }}>Donate</strong> : "Donate",
+        label: this.props.donate ? <strong style={{ color: 'MediumSeaGreen' }}>Donate</strong> : "நிதி",
         class: "donate"
       }
     ];
