@@ -73,7 +73,7 @@ class Header extends Component {
               <div id="primary-menu-trigger" style={{ left: '42%' }}><i className="icon-arrow-down2"></i></div>
               <ul>
                 {menus.map((menu, idx)=>
-                  <li key={idx}><a href={menu.link}><div className={menu.class}><i className={menu.icon}></i>{menu.label}</div></a></li>               
+                  <li key={idx}><a href={menu.link}><div className={menu.class} style={{fontSize: 14}}><i className={menu.icon}></i>{menu.label}</div></a></li>               
                 )}
               </ul>       
             </div>
