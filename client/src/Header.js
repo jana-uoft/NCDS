@@ -11,7 +11,7 @@ class Header extends Component {
       {
         link: "/contributions",
         icon: "icon-users",
-        label: this.props.contributions ? <strong style={{ color: 'MediumSeaGreen' }}>Contributions</strong> : "அபிவிருத்து",
+        label: this.props.contributions ? <strong style={{ color: 'MediumSeaGreen' }}>Contributions</strong> : "அபிவிருத்தி",
       },
       {
         link: "/publications",
@@ -36,7 +36,7 @@ class Header extends Component {
       {
         link: "/obituary",
         icon: "icon-eye-close",
-        label: this.props.obituary ? <strong style={{ color: 'MediumSeaGreen' }}>Obituary</strong> : "மரன அறிவித்தல்கள்",
+        label: this.props.obituary ? <strong style={{ color: 'MediumSeaGreen' }}>Obituary</strong> : "துயர்வு",
       },
       {
         link: "/contact",
