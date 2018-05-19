@@ -47,7 +47,7 @@ class Header extends Component {
         link: "/donate",
         icon: "icon-dollar",
         label: this.props.donate ? <strong style={{ color: 'MediumSeaGreen' }}>Donate</strong> : "நிதி",
-        class: "donate"
+        // class: "donate"
       }
     ];
 
