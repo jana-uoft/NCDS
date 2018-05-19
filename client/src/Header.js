@@ -11,7 +11,7 @@ class Header extends Component {
       {
         link: "/contributions",
         icon: "icon-users",
-        label: this.props.contributions ? <strong style={{ color: 'MediumSeaGreen' }}>Contributions</strong> : "அபிவிருத்தி",
+        label: this.props.contributions ? <strong style={{ color: 'MediumSeaGreen' }}>Contributions</strong> : "அபிவிருத்திகள்",
       },
       {
         link: "/publications",
