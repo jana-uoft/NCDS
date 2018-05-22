@@ -27,15 +27,15 @@ export default class Events extends Component {
           <div className="entry-image">
             <a>
               <img src={baseURL + item.images[0] + '.jpg'} alt={item.details.title} />
-              <div className="entry-date">{date.getDate()}<span>{date.toLocaleString("en-US", { month: "long" })}</span></div>
             </a>
           </div>
           <div className="entry-c">
             <div className="entry-title">
               <h4>{item.details.title}</h4>
-              <p>{item.details.description}</p>
+              {/* <p>{item.details.description}</p> */}
             </div>
             <ul className="entry-meta clearfix">
+              <li><a><i className="icon-time"></i>{item.details.date}</a></li>
               <li><a><i className="icon-time"></i> {item.details.start_time} - {item.details.end_time}</a></li>
               <li><a><i className="icon-map-marker2"></i>{item.details.location}</a></li>
               <li><a><i className="icon-map-marker2"></i>{item.details.address}</a></li>
