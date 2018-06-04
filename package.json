@@ -1,9 +1,10 @@
 {
-  "name": "nainativu-cds",
+  "name": "Nainativu-CDS",
   "version": "1.0.0",
+  "private": true,
   "scripts": {
     "client": "cd client && yarn start",
-    "server": "nodemon server.js",
+    "server": "node server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "dependencies": {
