@@ -36,7 +36,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 // serve ReactJS
-app.use('/', express.static(`${__dirname}/client/build`));
+app.use('/', express.static(`../build`));
 
 
 app.get('/api/publications', (req, res) => {
@@ -272,11 +272,10 @@ app.post('/api/mail', (req, res) => {
 
 
 
+var path = require('path');
 
-
-
-app.get('*', function (req, res) {
-  res.sendFile(__dirname + '/client/build/index.html');
+app.get('*', function (req, res) { 
+  res.sendFile('index.html');
 });
 
 
