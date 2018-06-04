@@ -1,28 +1,18 @@
 import React, { Component } from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 
-const styles = theme => ({
-  root: {
-    padding: theme.spacing.unit,
-  },
-});
+import Example from './containers/Example';
 
 
 class App extends Component {
   render() {
-    const { classes } = this.props;
     return (
-      <div className={classes.root}>
-        <Button variant="contained" color="primary">Hello</Button>
-      </div>
+      <Example />
+
     )
   }
 }
-
-
 
 const theme = createMuiTheme();
 
@@ -39,4 +29,4 @@ function withRoot(Component) {
 }
 
 
-export default withRoot(withStyles(styles)(App));
+export default withRoot(App);
