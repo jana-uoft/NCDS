@@ -1,4 +1,5 @@
 let nextTodoId = 0
+
 export const addTodo = text => ({
   type: 'ADD_TODO',
   id: nextTodoId++,
@@ -8,4 +9,9 @@ export const addTodo = text => ({
 export const toggleTodo = id => ({
   type: 'TOGGLE_TODO',
   id
+})
+
+export const goToPage = activePage => ({
+  type: 'GO_TO_PAGE',
+  activePage
 })
