@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { goToPage } from '../../actions';
@@ -32,13 +32,24 @@ const styles = theme => ({
     width: 'auto',
   },
   paper: {
-    // height: 'calc(100% - 100px)',
     top: 100
   },
   padding: {
     margin: '0 20%'
   }
 });
+
+const menus = [
+  {label: 'Contributions', link: '/contributions', icon: 'people'},
+  {label: 'Publications', link: '/publications', icon: 'book'},
+  {label: 'News', link: '/news', icon: 'library_books'},
+  {label: 'Gallery', link: '/gallery', icon: 'camera_alt'},
+  {label: 'Events', link: '/events', icon: 'event'},
+  {label: 'Obituary', link: '/obituary', icon: 'remove_red_eye'},
+  {label: 'Contact', link: '/contact', icon: 'contact_mail'},
+  {label: 'Donate', link: '/donate', icon: 'attach_money'}
+];
+
 
 class Header extends Component {
   state = {
@@ -67,16 +78,11 @@ class Header extends Component {
               value={this.props.activePage}
               onChange={this.props.goToPage}
               centered
-              style={{background: '#0D2B31'}}
+              style={{background: '#0D2B31', height: 50}}
             >
-              <Tab label={<div><Icon style={{ fontSize: 15 }}>people</Icon>&nbsp;&nbsp;Contributions</div>} value="/contributions" style={{color: '#fff'}} />
-              <Tab label={<div><Icon style={{ fontSize: 15 }}>book</Icon>&nbsp;&nbsp;Publications</div>} value="/publications" style={{color: '#fff'}}/>
-              <Tab label={<div><Icon style={{ fontSize: 15 }}>library_books</Icon>&nbsp;&nbsp;News</div>} value="/news" style={{color: '#fff'}}/>
-              <Tab label={<div><Icon style={{ fontSize: 15 }}>camera_alt</Icon>&nbsp;&nbsp;Gallery</div>} value="/gallery" style={{color: '#fff'}}/>
-              <Tab label={<div><Icon style={{ fontSize: 15 }}>event</Icon>&nbsp;&nbsp;Events</div>} value="/events" style={{color: '#fff'}}/>
-              <Tab label={<div><Icon style={{ fontSize: 15 }}>remove_red_eye</Icon>&nbsp;&nbsp;Obituary</div>} value="/obituary" style={{color: '#fff'}}/>
-              <Tab label={<div><Icon style={{ fontSize: 15 }}>contact_mail</Icon>&nbsp;&nbsp;Contact</div>} value="/contact" style={{color: '#fff'}}/>
-              <Tab label={<div><Icon style={{ fontSize: 15 }}>attach_money</Icon>&nbsp;&nbsp;Donate</div>} value="/donate" style={{color: '#fff'}}/>
+              {menus.map(({ label, link, icon }, idx)=>
+                <Tab key={idx} label={<div><Icon style={{ fontSize: 15 }}>{icon}</Icon>&nbsp;&nbsp;{label}</div>} value={link} style={{color: '#fff'}} />
+              )}
             </Tabs>
           </Desktop>
           <Mobile>
@@ -97,61 +103,17 @@ class Header extends Component {
               >
                 <div className={classes.fullList}>
                   <List classes={{padding: classes.padding}}>
-                    <ListItem button onClick={()=>this.props.goToPage(null, '/contributions')}>
-                      <ListItemIcon>
-                        <Icon>people</Icon>
-                      </ListItemIcon>
-                      <ListItemText primary="CONTRIBUTIONS"/>
-                    </ListItem>
-                    <Divider />
-                    <ListItem button onClick={()=>this.props.goToPage(null, '/publications')}>
-                      <ListItemIcon>
-                        <Icon>book</Icon>
-                      </ListItemIcon>
-                      <ListItemText primary="PUBLICATIONS" />
-                    </ListItem>
-                    <Divider />
-                    <ListItem button onClick={()=>this.props.goToPage(null, '/news')}>
-                      <ListItemIcon>
-                        <Icon>library_books</Icon>
-                      </ListItemIcon>
-                      <ListItemText primary="NEWS" />
-                    </ListItem>
-                    <Divider />
-                    <ListItem button onClick={()=>this.props.goToPage(null, '/gallery')}>
-                      <ListItemIcon>
-                        <Icon>camera_alt</Icon>
-                      </ListItemIcon>
-                      <ListItemText primary="GALLERY" />
-                    </ListItem>
-                    <Divider />
-                    <ListItem button onClick={()=>this.props.goToPage(null, '/events')}>
-                      <ListItemIcon>
-                        <Icon>event</Icon>
-                      </ListItemIcon>
-                      <ListItemText primary="EVENTS" />
-                    </ListItem>
-                    <Divider />
-                    <ListItem button onClick={()=>this.props.goToPage(null, '/obituary')}>
-                      <ListItemIcon>
-                        <Icon>remove_red_eye</Icon>
-                      </ListItemIcon>
-                      <ListItemText primary="OBITUARY" />
-                    </ListItem>
-                    <Divider />
-                    <ListItem button onClick={()=>this.props.goToPage(null, '/contact')}>
-                      <ListItemIcon>
-                        <Icon>contact_mail</Icon>
-                      </ListItemIcon>
-                      <ListItemText primary="CONTACT" />
-                    </ListItem>
-                    <Divider />
-                    <ListItem button onClick={()=>this.props.goToPage(null, '/donate')}>
-                      <ListItemIcon>
-                        <Icon>attach_money</Icon>
-                      </ListItemIcon>
-                      <ListItemText primary="DONATE" />
-                    </ListItem>
+                    {menus.map(({ label, link, icon }, idx)=>
+                      <Fragment key={idx}>
+                        <ListItem button onClick={()=>this.props.goToPage(null, link)}>
+                          <ListItemIcon>
+                            <Icon>{icon}</Icon>
+                          </ListItemIcon>
+                          <ListItemText primary={label}/>
+                        </ListItem>
+                        <Divider />
+                      </Fragment>
+                    )}
                   </List>
                 </div>
               </div>
