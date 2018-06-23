@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { goToPage } from '../../actions';
@@ -7,8 +7,13 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+import Icon from '@material-ui/core/Icon';
 
 const Desktop = props => <Responsive {...props} minWidth={768} />;
 const Mobile = props => <Responsive {...props} maxWidth={767} />;
@@ -23,80 +28,96 @@ const styles = theme => ({
   menuButton: {
     margin: '0 45%',
   },
+  fullList: {
+    width: 'auto',
+  },
+  paper: {
+    top: 100
+  },
+  padding: {
+    margin: '0 20%'
+  }
 });
 
-class Header extends Component {
+const menus = [
+  {label: 'Contributions', link: '/contributions', icon: 'people'},
+  {label: 'Publications', link: '/publications', icon: 'book'},
+  {label: 'News', link: '/news', icon: 'library_books'},
+  {label: 'Gallery', link: '/gallery', icon: 'camera_alt'},
+  {label: 'Events', link: '/events', icon: 'event'},
+  {label: 'Obituary', link: '/obituary', icon: 'remove_red_eye'},
+  {label: 'Contact', link: '/contact', icon: 'contact_mail'},
+  {label: 'Donate', link: '/donate', icon: 'attach_money'}
+];
 
+
+class Header extends Component {
+  state = {
+    open: false
+  };
+
+  toggleDrawer = (open) => () => {
+    this.setState({open});
+  };
 
   render() {
     const { classes } = this.props;
 
-    let menus = [
-      {
-        link: "/contributions",
-        icon: "icon-users",
-        label: this.props.contributions ? <strong style={{ color: 'MediumSeaGreen' }}>Contributions</strong> : "அபிவிருத்திகள்",
-      },
-      {
-        link: "/publications",
-        icon: "icon-book3",
-        label: this.props.publications ? <strong style={{ color: 'MediumSeaGreen' }}>Publications</strong> : "வெளியீடுகள்",
-      },
-      {
-        link: "/news",
-        icon: "icon-newspaper",
-        label: this.props.news ? <strong style={{ color: 'MediumSeaGreen' }}>News</strong> : "செய்திகள்",
-      },
-      {
-        link: "/gallery",
-        icon: "icon-line-camera",
-        label: this.props.gallery ? <strong style={{ color: 'MediumSeaGreen' }}>Gallery</strong> : "புகைப்படங்கள்",
-      },
-      {
-        link: "/events",
-        icon: "icon-line-location",
-        label: this.props.events ? <strong style={{ color: 'MediumSeaGreen' }}>Events</strong> : "நிகழ்வுகள்",
-      },
-      {
-        link: "/obituary",
-        icon: "icon-eye-close",
-        label: this.props.obituary ? <strong style={{ color: 'MediumSeaGreen' }}>Obituary</strong> : "துயர்வுகள்",
-      },
-      {
-        link: "/contact",
-        icon: "icon-line-mail",
-        label: this.props.contact ? <strong style={{ color: 'MediumSeaGreen' }}>Contact Us</strong> : "தொடர்புகள்",
-      },
-      {
-        link: "/donate",
-        icon: "icon-dollar",
-        label: this.props.donate ? <strong style={{ color: 'MediumSeaGreen' }}>Donate</strong> : "நிதி",
-      }
-    ];
     return (
       <div className={classes.root}>
-        <AppBar position="static" color="default">
+        <AppBar position="static" style={{backgroundColor:"#0D2B31"}}>
           <Desktop>
-            <img src="https://res.cloudinary.com/nainativucds/image/upload/v1528159926/website/banner.jpg" height={120}/>
+            <img 
+              alt="logo"
+              src="https://res.cloudinary.com/nainativucds/image/upload/v1528159926/website/banner.jpg" 
+              height={100} 
+              onClick={()=>this.props.goToPage(null, '')}
+              style={{cursor: 'pointer'}}
+            />
             <Tabs
               value={this.props.activePage}
               onChange={this.props.goToPage}
               centered
-              style={{background: '#0D2B31'}}
+              style={{background: '#0D2B31', height: 50}}
             >
-              <Tab label="Contributions" value="/contributions" style={{color: '#fff'}} />
-              <Tab label="Publications"  value="/publications" style={{color: '#fff'}}/>
-              <Tab label="News" value="/news" style={{color: '#fff'}}/>
-              <Tab label="Gallery" value="/gallery" style={{color: '#fff'}}/>
-              <Tab label="Events" value="/events" style={{color: '#fff'}}/>
-              <Tab label="Obituary" value="/obituary" style={{color: '#fff'}}/>
-              <Tab label="Contact" value="/contact" style={{color: '#fff'}}/>
-              <Tab label="Donate" value="/donate" style={{color: '#fff'}}/>
+              {menus.map(({ label, link, icon }, idx)=>
+                <Tab key={idx} label={<div><Icon style={{ fontSize: 15 }}>{icon}</Icon>&nbsp;&nbsp;{label}</div>} value={link} style={{color: '#fff'}} />
+              )}
             </Tabs>
           </Desktop>
           <Mobile>
-            <img src="https://res.cloudinary.com/nainativucds/image/upload/v1528169496/website/banner_mobile.jpg" height={120}/>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu"><MenuIcon /></IconButton>
+            <img 
+              alt="logo"
+              src="https://res.cloudinary.com/nainativucds/image/upload/v1528169496/website/banner_mobile.jpg" 
+              height={100}
+              onClick={()=>this.props.goToPage(null, '')}
+              style={{cursor: 'pointer'}}
+            />
+            <IconButton onClick={this.toggleDrawer(true)} className={classes.menuButton} color="inherit" aria-label="Menu"><Icon>arrow_downward</Icon></IconButton>
+            <Drawer anchor="top" open={this.state.open} onClose={this.toggleDrawer(false)} classes={{paper: classes.paper}}>
+              <div
+                tabIndex={0}
+                role="button"
+                onClick={this.toggleDrawer(false)}
+                onKeyDown={this.toggleDrawer(false)}
+              >
+                <div className={classes.fullList}>
+                  <List classes={{padding: classes.padding}}>
+                    {menus.map(({ label, link, icon }, idx)=>
+                      <Fragment key={idx}>
+                        <ListItem button onClick={()=>this.props.goToPage(null, link)}>
+                          <ListItemIcon>
+                            <Icon>{icon}</Icon>
+                          </ListItemIcon>
+                          <ListItemText primary={label}/>
+                        </ListItem>
+                        <Divider />
+                      </Fragment>
+                    )}
+                  </List>
+                </div>
+              </div>
+            </Drawer>
           </Mobile>
         </AppBar>
       </div>
