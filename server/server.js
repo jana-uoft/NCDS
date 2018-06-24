@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import userRoutes from './routes/userRoutes';
+import contributionRoutes from './routes/contributionRoutes';
+
 
 // const cloudinary = require('cloudinary').v2;
 // const fs = require('fs');
@@ -41,7 +43,8 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 // Routes
-app.use('/auth', userRoutes);
+app.use('/api/auth', userRoutes);
+app.use('/api/contributions', contributionRoutes);
 
 // Catch 404 Errors
 app.use((req, res, next) => {

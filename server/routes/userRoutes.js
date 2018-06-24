@@ -1,7 +1,7 @@
 import UserController from '../controllers/userController';
 import PromiseRouter from 'express-promise-router';
 import passport from '../passport';
-import { validateParam, validateBody, schemas } from '../helpers/validationHelpers';
+import { validateParam, validateBody, schemas } from '../helpers/userValidations';
 
 const router = PromiseRouter();
 const passportSignIn = passport.authenticate('local', { session: false });
