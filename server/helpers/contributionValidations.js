@@ -6,7 +6,7 @@ module.exports = {
     return (req, res, next) => {
       const result = Joi.validate({param: req.params[name]}, schema)
       if (result.error) {
-        return res.status(422).json(result.error);
+        return res.status(422).json({ error: result.error.message });
       } else {
         if (!req.value)
           req.value = {};
@@ -36,7 +36,7 @@ module.exports = {
 
   schemas: {
     idSchema: Joi.object().keys({
-      param: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
+      param: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required().error(new Error('ID should be a valid ObjectID.'))
     }),
 
     contributionCreateUpdateSchema: Joi.object().keys({
@@ -47,10 +47,6 @@ module.exports = {
       images: Joi.array().items(Joi.string()),
       coverImage: Joi.number()
     }),
-
-    contributionDeleteSchema: Joi.object().keys({
-      param: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
-    })
 
   }
 }

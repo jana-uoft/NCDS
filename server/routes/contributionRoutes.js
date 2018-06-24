@@ -13,8 +13,8 @@ router.route('/')
 
 router.route('/:id')
 .get(
-  validateParam(schemas.contributionDeleteSchema, 'id'),
-  ContributionController.retrive
+  validateParam(schemas.idSchema, 'id'),
+  ContributionController.retrieve
 )
 
 router.route('/')
@@ -33,7 +33,7 @@ router.route('/:id')
 
 router.route('/:id')
   .delete(
-    validateParam(schemas.contributionDeleteSchema, 'id'),
+    validateParam(schemas.idSchema, 'id'),
     passportJWT,
     ContributionController.delete
   )

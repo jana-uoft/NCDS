@@ -6,12 +6,14 @@ let config = JSON.parse(fs.readFileSync('.env.json', 'utf8'));
 module.exports = {
   list: async (req, res, next) => {
     const contributions = await Contribution.find({});
-    res.status(200).json({ contributions });
+    res.status(200).json([ ...contributions ]);
   },
 
-  retrive: async (req, res, next) => {
+  retrieve: async (req, res, next) => {
     const id = req.params.id;
     const contribution = await Contribution.findById(id);
+    if (!contribution)
+      return res.status(404).json({ error: `Contribution with id ${id} was not found` });
     res.status(200).json({ ...contribution['_doc'] });
   },
 
@@ -23,19 +25,19 @@ module.exports = {
   update: async (req, res, next) => {
     const id = req.params.id;
     const updatedContribution = req.value.body;
-    const existingContribution = await Contribution.findById(id);
-    if (!existingContribution)
+    const contribution = await Contribution.findById(id);
+    if (!contribution)
       return res.status(404).json({ error: `Contribution with id ${id} was not found` });
-    await existingContribution.update(updatedContribution);
-    res.status(200).json({ ...existingContribution['_doc'] });
+    await contribution.update(updatedContribution);
+    res.status(200).json({ ...contribution['_doc'] });
   },
 
   delete: async (req, res, next) => {
     const id = req.params.id;
-    const existingContribution = await Contribution.findById(id);
-    if (!existingContribution)
+    const contribution = await Contribution.findById(id);
+    if (!contribution)
       return res.status(404).json({ error: `Contribution with id ${id} was not found` });
-    await existingContribution.remove();
+    await contribution.remove();
     res.status(204).json();
   },
 }
