@@ -6,25 +6,20 @@ const gallerySchema = new Schema({
     type: String,
     required: true
   },
-
   type: {
     type: String
   },
-
   date: {
     type: Date,
     required: true,
     default: Date.now
   },
-
   address: {
     type: String
   },
-
   images: [
     {type: String}
   ],
-
   coverImage: {
     type: Number,
     default: -1

@@ -3,8 +3,8 @@ import Gallery from '../models/galleryModel';
 
 module.exports = {
   list: async (req, res, next) => {
-    const gallerys = await Gallery.find({}, null, { sort: {date: -1}});
-    res.status(200).json([ ...gallerys ]);
+    const galleries = await Gallery.find({}, null, { sort: {date: -1}});
+    res.status(200).json([ ...galleries ]);
   },
 
   retrieve: async (req, res, next) => {

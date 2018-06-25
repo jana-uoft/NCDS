@@ -7,11 +7,9 @@ const publicationSchema = new Schema({
     required: true,
     default: Date.now
   },
-
   images: [
     {type: String}
   ],
-
   coverImage: {
     type: Number,
     default: -1
