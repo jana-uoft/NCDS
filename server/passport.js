@@ -4,10 +4,9 @@ import LocalStrategy from 'passport-local';
 import User from './models/userModel';
 import fs from 'fs';
 
-let config = JSON.parse(fs.readFileSync('.env.json', 'utf8'));
-
 
 // JWT Strategy
+let config = JSON.parse(fs.readFileSync('.env.json', 'utf8'));
 passport.use(new JwtStrategy.Strategy({
   jwtFromRequest: ExtractJwt.fromHeader('authorization'),
   secretOrKey: config.JWT_SECRET

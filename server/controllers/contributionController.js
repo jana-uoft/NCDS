@@ -1,11 +1,9 @@
 import Contribution from '../models/contributionModel';
-import fs from 'fs';
 
-let config = JSON.parse(fs.readFileSync('.env.json', 'utf8'));
 
 module.exports = {
   list: async (req, res, next) => {
-    const contributions = await Contribution.find({});
+    const contributions = await Contribution.find({}, null, { sort: {date: -1}});
     res.status(200).json([ ...contributions ]);
   },
 
@@ -25,19 +23,25 @@ module.exports = {
   update: async (req, res, next) => {
     const id = req.params.id;
     const updatedContribution = req.value.body;
-    const contribution = await Contribution.findById(id);
-    if (!contribution)
-      return res.status(404).json({ error: `Contribution with id ${id} was not found` });
-    await contribution.update(updatedContribution);
-    res.status(200).json({ ...contribution['_doc'] });
+    Contribution.findByIdAndUpdate(id, updatedContribution, (error, contribution) => {
+      if (error)
+        return res.status(404).json({ error: error.message });
+      else if (!contribution)
+        return res.status(404).json({ error: `Contribution with id ${id} was not found` });
+      else
+        return res.status(200).json({ ...contribution['_doc'], ...updatedContribution });
+    })
   },
 
   delete: async (req, res, next) => {
     const id = req.params.id;
-    const contribution = await Contribution.findById(id);
-    if (!contribution)
-      return res.status(404).json({ error: `Contribution with id ${id} was not found` });
-    await contribution.remove();
-    res.status(204).json();
+    Contribution.findByIdAndRemove(id, (error, contribution) => {
+      if (error)
+        return res.status(404).json({ error: error.message });
+      else if (!contribution)
+        return res.status(404).json({ error: `Contribution with id ${id} was not found` });
+      else
+        return res.status(204).json();
+    })
   },
 }

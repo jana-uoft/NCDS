@@ -1,5 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
+
 const contributionSchema = new Schema({
   title: {
     type: String,

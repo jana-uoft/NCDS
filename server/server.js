@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import userRoutes from './routes/userRoutes';
 import contributionRoutes from './routes/contributionRoutes';
+import publicationRoutes from './routes/publicationRoutes';
 
 
 // const cloudinary = require('cloudinary').v2;
@@ -45,6 +46,7 @@ app.use(bodyParser.json());
 // Routes
 app.use('/api/auth', userRoutes);
 app.use('/api/contributions', contributionRoutes);
+app.use('/api/publications', publicationRoutes);
 
 // Catch 404 Errors
 app.use((req, res, next) => {
