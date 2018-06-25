@@ -1,4 +1,4 @@
-import UserController from '../controllers/userController';
+import { regsiter, login, remove } from '../controllers/userController';
 import PromiseRouter from 'express-promise-router';
 import passport from '../passport';
 import { validateParam, validateBody } from '../helpers/validations';
@@ -12,21 +12,21 @@ const passportJWT = passport.authenticate('jwt', { session: false });
 router.route('/register')
   .post(
     validateBody(schemas.userRegisterSchema),
-    UserController.regsiter
+    regsiter
   )
 
 router.route('/login')
   .post(
     validateBody(schemas.userLoginSchema),
     passportSignIn,
-    UserController.login
+    login
   )
 
 router.route('/delete/:email')
   .delete(
     validateParam(schemas.userDeleteSchema, 'email'),
     passportJWT,
-    UserController.delete
+    remove
   )
 
 

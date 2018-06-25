@@ -1,4 +1,4 @@
-import ObituaryController from '../controllers/obituaryController';
+import { list, retrieve, create, update, remove } from '../controllers/obituaryController';
 import PromiseRouter from 'express-promise-router';
 import passport from '../passport';
 import { validateParam, validateBody } from '../helpers/validations';
@@ -10,34 +10,34 @@ const passportJWT = passport.authenticate('jwt', { session: false });
 
 router.route('/')
   .get(
-    ObituaryController.list
+    list
   )
 
 router.route('/:id')
 .get(
   validateParam(schemas.idSchema, 'id'),
-  ObituaryController.retrieve
+  retrieve
 )
 
 router.route('/')
   .post(
     validateBody(schemas.obituaryCreateUpdateSchema),
     passportJWT,
-    ObituaryController.create
+    create
   )
 
 router.route('/:id')
   .put(
     validateBody(schemas.obituaryCreateUpdateSchema),
     passportJWT,
-    ObituaryController.update
+    update
   )
 
 router.route('/:id')
   .delete(
     validateParam(schemas.idSchema, 'id'),
     passportJWT,
-    ObituaryController.delete
+    remove
   )
 
 

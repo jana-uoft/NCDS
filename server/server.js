@@ -63,7 +63,7 @@ app.use((req, res, next) => {
 
 // Error handler function
 app.use((err, req, res, next) => {
-  const error = app.get('env') === 'development' ? err : {};
+  const error = app.get('env') === 'development' ? err : { message: "Something went wrong. We're working on it."};
   const status = err.status || 500;
   res.status(status).json({
     error: {
