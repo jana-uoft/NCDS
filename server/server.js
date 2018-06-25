@@ -6,6 +6,7 @@ import helmet from 'helmet';
 import userRoutes from './routes/userRoutes';
 import contributionRoutes from './routes/contributionRoutes';
 import publicationRoutes from './routes/publicationRoutes';
+import galleryRoutes from './routes/galleryRoutes';
 
 
 // const cloudinary = require('cloudinary').v2;
@@ -47,6 +48,7 @@ app.use(bodyParser.json());
 app.use('/api/auth', userRoutes);
 app.use('/api/contributions', contributionRoutes);
 app.use('/api/publications', publicationRoutes);
+app.use('/api/galleries', galleryRoutes);
 
 // Catch 404 Errors
 app.use((req, res, next) => {
