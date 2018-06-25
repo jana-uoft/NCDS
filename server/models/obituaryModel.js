@@ -1,8 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
 
 
-const eventSchema = new Schema({
-  title: {
+const obituarySchema = new Schema({
+  name: {
     type: String,
     required: true
   },
@@ -10,20 +10,26 @@ const eventSchema = new Schema({
     type: String,
     required: true
   },
-  date: {
+  birthDate: {
+    type: Date,
+    required: true,
+    default: Date.now
+  },
+  deathDate: {
+    type: Date,
+    required: true,
+    default: Date.now
+  },
+  viewingDate: {
     type: Date,
     required: true,
     default: Date.now
   },
   startTime: {
-    type: Number,
-    required: true,
-    default: 0
+    type: Number
   },
   endTime: {
-    type: Number,
-    required: true,
-    default: 0
+    type: Number
   },
   coverImage: {
     type: String
@@ -43,4 +49,4 @@ const eventSchema = new Schema({
 });
 
 
-export default mongoose.model('event', eventSchema);
+export default mongoose.model('obituary', obituarySchema);

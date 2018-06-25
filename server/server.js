@@ -8,6 +8,7 @@ import contributionRoutes from './routes/contributionRoutes';
 import publicationRoutes from './routes/publicationRoutes';
 import galleryRoutes from './routes/galleryRoutes';
 import eventRoutes from './routes/eventRoutes';
+import obituaryRoutes from './routes/obituaryRoutes';
 
 
 // const cloudinary = require('cloudinary').v2;
@@ -51,6 +52,7 @@ app.use('/api/contributions', contributionRoutes);
 app.use('/api/publications', publicationRoutes);
 app.use('/api/galleries', galleryRoutes);
 app.use('/api/events', eventRoutes);
+app.use('/api/obituaries', obituaryRoutes);
 
 // Catch 404 Errors
 app.use((req, res, next) => {

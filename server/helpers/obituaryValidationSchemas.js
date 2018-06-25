@@ -7,10 +7,12 @@ module.exports = {
       param: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required().error(new Error('ID should be a valid ObjectID.'))
     }),
 
-    eventCreateUpdateSchema: Joi.object().keys({
-      title: Joi.string().required(),
+    obituaryCreateUpdateSchema: Joi.object().keys({
+      name: Joi.string().required(),
       description: Joi.string().required(),
-      date: Joi.date().iso().required(),
+      birthDate: Joi.date().iso().required(),
+      deathDate: Joi.date().iso().required(),
+      viewingDate: Joi.date().iso().required(),
       startTime: Joi.date().timestamp().required(),
       endTime: Joi.date().timestamp().required(),
       location: Joi.string(),
