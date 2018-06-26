@@ -17,6 +17,8 @@ import Contact from './containers/public/Contact';
 import Donate from './containers/public/Donate';
 import FourOhFour from './components/public/FourOhFour';
 
+import AdminHome from './containers/admin/Home';
+
 
 class App extends Component {
 
@@ -34,6 +36,7 @@ class App extends Component {
           <Route path="/obituary" component={Obituary} />
           <Route path="/contact" component={Contact} />
           <Route path="/donate" component={Donate} />
+          <Route path="/admin" component={AdminHome} />
           <Route component={FourOhFour} />
         </Switch>
       </Router>

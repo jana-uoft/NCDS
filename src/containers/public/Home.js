@@ -10,7 +10,7 @@ import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 
 const Desktop = props => <Responsive {...props} minWidth={768} />;
-const Mobile = props => <Responsive {...props} maxWidth={767} />;
+// const Mobile = props => <Responsive {...props} maxWidth={767} />;
 
 const styles = theme => ({
   root: {
@@ -46,7 +46,7 @@ class Home extends Component {
             variant="permanent"
             classes={{ paper: classes.drawerPaper }}
           >
-          
+
           <Card className={classes.card}>
             <CardMedia
               className={classes.media}

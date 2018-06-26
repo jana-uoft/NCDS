@@ -39,7 +39,9 @@
     "react-responsive": "^4.1.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
-    "redux": "^4.0.0"
+    "redux": "^4.0.0",
+    "redux-persist": "^5.10.0",
+    "styled-components": "^3.3.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -54,7 +56,8 @@
   "babel": {
     "presets": [
       "latest",
-      "stage-2"
+      "stage-2",
+      "env"
     ]
   },
   "proxy": "http://localhost:5000/"
