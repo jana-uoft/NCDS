@@ -16,6 +16,7 @@
   "dependencies": {
     "@material-ui/core": "^1.2.0",
     "@material-ui/icons": "^1.1.0",
+    "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cloudinary": "^1.11.0",
@@ -40,7 +41,9 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
     "redux": "^4.0.0",
+    "redux-axios-middleware": "^4.0.0",
     "redux-persist": "^5.10.0",
+    "redux-persist-transform-filter": "^0.0.18",
     "styled-components": "^3.3.3"
   },
   "devDependencies": {

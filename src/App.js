@@ -18,6 +18,7 @@ import Donate from './containers/public/Donate';
 import FourOhFour from './components/public/FourOhFour';
 
 import AdminHome from './containers/admin/Home';
+import Login from './containers/admin/Login';
 
 
 class App extends Component {
@@ -28,15 +29,16 @@ class App extends Component {
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/contributions" component={Contributions} />
-          <Route path="/publications" component={Publications} />
-          <Route path="/news" component={News} />
-          <Route path="/gallery" component={Gallery} />
-          <Route path="/events" component={Events} />
-          <Route path="/obituary" component={Obituary} />
-          <Route path="/contact" component={Contact} />
-          <Route path="/donate" component={Donate} />
-          <Route path="/admin" component={AdminHome} />
+          <Route exact path="/contributions" component={Contributions} />
+          <Route exact path="/publications" component={Publications} />
+          <Route exact path="/news" component={News} />
+          <Route exact path="/gallery" component={Gallery} />
+          <Route exact path="/events" component={Events} />
+          <Route exact path="/obituary" component={Obituary} />
+          <Route exact path="/contact" component={Contact} />
+          <Route exact path="/donate" component={Donate} />
+          <Route exact path="/admin" component={AdminHome} />
+          <Route exact path="/admin/login" component={Login} />
           <Route component={FourOhFour} />
         </Switch>
       </Router>
