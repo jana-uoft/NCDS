@@ -30,11 +30,11 @@ class Login extends Component {
   }
 
   componentDidMount = () => {
-    if (this.props.token) this.props.history.push('/admin');
+    if (this.props.token) this.props.history.push('/admin/contributions');
   }
 
   componentDidUpdate = () => {
-    if (this.props.token) this.props.history.push('/admin');
+    if (this.props.token) this.props.history.push('/admin/contributions');
   }
 
   handleTextChange = (event) => {
