@@ -1,15 +1,9 @@
 const initialState = {
-  activePage: "",
   loading: false
 };
 
 const general = (state = initialState, action) => {
   switch (action.type) {
-    case 'GO_TO_PAGE':
-      return {
-        ...state,
-        activePage: action.activePage,
-      }
     case 'LOADING':
       return {
         ...state,

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
-import { toggleTodo } from '../../actions'
 import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
@@ -24,11 +23,9 @@ class FourOhFour extends Component {
 
 
 const mapStateToProps = state => ({
-  todos: []
 })
 
 const mapDispatchToProps = dispatch => ({
-  toggleTodo: id => dispatch(toggleTodo(id))
 })
 
 export default connect(
