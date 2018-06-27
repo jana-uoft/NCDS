@@ -17,7 +17,15 @@ import Contact from './containers/public/Contact';
 import Donate from './containers/public/Donate';
 import FourOhFour from './components/public/FourOhFour';
 
-import AdminHome from './containers/admin/Home';
+import AdminContributions from './containers/admin/Contributions';
+import AdminPublications from './containers/admin/Publications';
+import AdminNews from './containers/admin/News';
+import AdminGallery from './containers/admin/Gallery';
+import AdminEvents from './containers/admin/Events';
+import AdminObituary from './containers/admin/Obituary';
+import AdminContact from './containers/admin/Contact';
+import AdminDonate from './containers/admin/Donate';
+
 import Login from './containers/admin/Login';
 
 
@@ -37,8 +45,15 @@ class App extends Component {
           <Route exact path="/obituary" component={Obituary} />
           <Route exact path="/contact" component={Contact} />
           <Route exact path="/donate" component={Donate} />
-          <Route exact path="/admin" component={AdminHome} />
           <Route exact path="/admin/login" component={Login} />
+          <Route exact path="/admin/contributions" component={AdminContributions} />
+          <Route exact path="/admin/publications" component={AdminPublications} />
+          <Route exact path="/admin/news" component={AdminNews} />
+          <Route exact path="/admin/gallery" component={AdminGallery} />
+          <Route exact path="/admin/events" component={AdminEvents} />
+          <Route exact path="/admin/obituary" component={AdminObituary} />
+          <Route exact path="/admin/contact" component={AdminContact} />
+          <Route exact path="/admin/donate" component={AdminDonate} />
           <Route component={FourOhFour} />
         </Switch>
       </Router>

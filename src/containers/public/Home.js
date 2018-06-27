@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Responsive from 'react-responsive';
 import { withStyles } from '@material-ui/core/styles';
-import { toggleTodo } from '../../actions'
 import Button from '@material-ui/core/Button';
 import Header from '../../components/public/Header';
 import Drawer from '@material-ui/core/Drawer';
@@ -31,16 +30,12 @@ const styles = theme => ({
 
 class Home extends Component {
 
-  componentDidUpdate = (prevProps, prevState) => {
-    if (prevProps.activePage!==this.props.activePage)
-      this.props.history.push(this.props.activePage);
-  }
 
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Header/>
+        <Header activePage={this.props.match.path} gotoPage={(link)=>this.props.history.push(link)}/>
         <Desktop>
           <Drawer
             variant="permanent"
@@ -80,11 +75,9 @@ class Home extends Component {
 
 
 const mapStateToProps = state => ({
-  activePage: state.general.activePage
 })
 
 const mapDispatchToProps = dispatch => ({
-  toggleTodo: id => dispatch(toggleTodo(id))
 })
 
 export default connect(

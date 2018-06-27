@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Responsive from 'react-responsive';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import { login } from '../../actions/auth';
-import Loading from '../../components/global/Loading';
-
-const Desktop = props => <Responsive {...props} minWidth={768} />;
-const Mobile = props => <Responsive {...props} maxWidth={767} />;
 
 const styles = theme => ({
   root: {
@@ -32,6 +27,14 @@ class Login extends Component {
       email: "",
       password: ""
     }
+  }
+
+  componentDidMount = () => {
+    if (this.props.token) this.props.history.push('/admin');
+  }
+
+  componentDidUpdate = () => {
+    if (this.props.token) this.props.history.push('/admin');
   }
 
   handleTextChange = (event) => {
@@ -84,7 +87,8 @@ class Login extends Component {
 
 
 const mapStateToProps = state => ({
-  loginError: state.auth.loginError
+  loginError: state.auth.loginError,
+  token: state.auth.token
 })
 
 const mapDispatchToProps = dispatch => ({

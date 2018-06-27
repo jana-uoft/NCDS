@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import { goToPage } from '../../actions';
 import Responsive from 'react-responsive';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -67,16 +65,16 @@ class Header extends Component {
       <div className={classes.root}>
         <AppBar position="static" style={{backgroundColor:"#0D2B31"}}>
           <Desktop>
-            <img 
+            <img
               alt="logo"
-              src="https://res.cloudinary.com/nainativucds/image/upload/v1528159926/website/banner.jpg" 
-              height={100} 
-              onClick={()=>this.props.goToPage(null, '')}
+              src="https://res.cloudinary.com/nainativucds/image/upload/v1528159926/website/banner.jpg"
+              height={100}
+              onClick={()=>this.props.gotoPage('')}
               style={{cursor: 'pointer'}}
             />
             <Tabs
               value={this.props.activePage}
-              onChange={this.props.goToPage}
+              onChange={(event, value)=>this.props.gotoPage(value)}
               centered
               style={{background: '#0D2B31', height: 50}}
             >
@@ -86,11 +84,11 @@ class Header extends Component {
             </Tabs>
           </Desktop>
           <Mobile>
-            <img 
+            <img
               alt="logo"
-              src="https://res.cloudinary.com/nainativucds/image/upload/v1528169496/website/banner_mobile.jpg" 
+              src="https://res.cloudinary.com/nainativucds/image/upload/v1528169496/website/banner_mobile.jpg"
               height={100}
-              onClick={()=>this.props.goToPage(null, '')}
+              onClick={()=>this.props.gotoPage('')}
               style={{cursor: 'pointer'}}
             />
             <IconButton onClick={this.toggleDrawer(true)} className={classes.menuButton} color="inherit" aria-label="Menu"><Icon>arrow_downward</Icon></IconButton>
@@ -105,7 +103,7 @@ class Header extends Component {
                   <List classes={{padding: classes.padding}}>
                     {menus.map(({ label, link, icon }, idx)=>
                       <Fragment key={idx}>
-                        <ListItem button onClick={()=>this.props.goToPage(null, link)}>
+                        <ListItem button onClick={()=>this.props.gotoPage(link)}>
                           <ListItemIcon>
                             <Icon>{icon}</Icon>
                           </ListItemIcon>
@@ -125,17 +123,6 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  activePage: state.general.activePage,
-  activePageValue: state.general.activePageValue
-})
 
-const mapDispatchToProps = dispatch => ({
-  goToPage: (event, value) => dispatch(goToPage(value))
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(Header))
+export default withStyles(styles)(Header)
 

@@ -20,6 +20,10 @@ const auth = (state = initialState, action) => {
         ...state,
         loginError: "Invalid Email or Password. Please try again."
       }
+    case 'LOGOUT':
+      return {
+        ...initialState
+      }
     default:
       return state
   }
