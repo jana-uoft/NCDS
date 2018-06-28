@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Responsive from 'react-responsive';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Header from '../../components/public/Header';
 import Drawer from '@material-ui/core/Drawer';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -35,7 +34,6 @@ class Home extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Header activePage={this.props.match.path} gotoPage={(link)=>this.props.history.push(link)}/>
         <Desktop>
           <Drawer
             variant="permanent"

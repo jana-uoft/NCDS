@@ -6,6 +6,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom'
+import publicPage from './components/public/PublicPageWrap';
 import Home from './containers/public/Home';
 import Contributions from './containers/public/Contributions';
 import Publications from './containers/public/Publications';
@@ -17,7 +18,6 @@ import Contact from './containers/public/Contact';
 import Donate from './containers/public/Donate';
 import FourOhFour from './components/public/FourOhFour';
 import adminPage from './components/admin/AdminPageWrap';
-
 import AdminContributions from './containers/admin/Contributions';
 import AdminPublications from './containers/admin/Publications';
 import AdminNews from './containers/admin/News';
@@ -37,15 +37,15 @@ class App extends Component {
     return (
       <Router>
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/contributions" component={Contributions} />
-          <Route exact path="/publications" component={Publications} />
-          <Route exact path="/news" component={News} />
-          <Route exact path="/gallery" component={Gallery} />
-          <Route exact path="/events" component={Events} />
-          <Route exact path="/obituary" component={Obituary} />
-          <Route exact path="/contact" component={Contact} />
-          <Route exact path="/donate" component={Donate} />
+          <Route exact path="/" component={publicPage(Home)} />
+          <Route exact path="/contributions" component={publicPage(Contributions)} />
+          <Route exact path="/publications" component={publicPage(Publications)} />
+          <Route exact path="/news" component={publicPage(News)} />
+          <Route exact path="/gallery" component={publicPage(Gallery)} />
+          <Route exact path="/events" component={publicPage(Events)} />
+          <Route exact path="/obituary" component={publicPage(Obituary)} />
+          <Route exact path="/contact" component={publicPage(Contact)} />
+          <Route exact path="/donate" component={publicPage(Donate)} />
           <Route exact path="/admin/login" component={Login} />
           <Route exact path="/admin/contributions" component={adminPage(AdminContributions)} />
           <Route exact path="/admin/publications" component={adminPage(AdminPublications)} />
