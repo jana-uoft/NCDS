@@ -28,13 +28,30 @@ const client = axios.create({
   responseType: 'json'
 })
 
+const middlewareConfig = {
+  interceptors: {
+    request: [
+      function ({getState, dispatch, getSourceAction}, req) {
+        if (getState().auth.token)
+          req.headers['Authorization'] = 'Bearer ' + getState().auth.token
+        return req
+      }
+    ],
+    // response: [
+    //   function ({getState, dispatch, getSourceAction}, req) {
+    //     console.log(req); //contains information about request object
+    //     //...
+    //   },
+    // ]
+  }
+};
 
 
 let storeEnhancers;
 if (process.env.NODE_ENV === 'development') {
   storeEnhancers = compose(
     applyMiddleware(
-      axiosMiddleware(client),
+      axiosMiddleware(client, middlewareConfig),
     ),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
