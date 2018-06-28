@@ -9,8 +9,8 @@ const general = (state = initialState, action) => {
         ...state,
         loading: true,
       }
-    case 'LOGIN_SUCCESS':
-    case 'LOGIN_FAILED':
+    case (action.type.match(/_SUCCESS$/) || {}).input:
+    case (action.type.match(/_FAILED$/) || {}).input:
       return {
         ...state,
         loading: false,

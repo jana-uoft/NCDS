@@ -13,18 +13,21 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import Loading from './components/global/Loading';
 
+const generalFilter = createBlacklistFilter('general', ['loading']);
 const authFilter = createBlacklistFilter('auth', ['loginError']);
 const persistConfig = {
   key: 'root',
   storage,
-  transforms: [authFilter]
+  transforms: [generalFilter, authFilter]
 }
 const persistedReducer = persistReducer(persistConfig, rootReducer)
+
 
 const client = axios.create({
   baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:5000/api' : '/api',
   responseType: 'json'
 })
+
 
 
 let storeEnhancers;

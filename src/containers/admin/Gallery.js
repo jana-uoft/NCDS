@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import { logout } from '../../actions/auth';
 import Header from '../../components/admin/Header';
 import Sidebar from '../../components/admin/Sidebar';
 // import Loading from '../../components/global/Loading';
@@ -27,14 +26,6 @@ const styles = theme => ({
 
 class Gallery extends Component {
 
-  componentDidMount = () => {
-    if (!this.props.token) this.props.history.push('/admin/login');
-  }
-
-  componentDidUpdate = (prevProps, prevState) => {
-    if (!this.props.token) this.props.history.push('/admin/login');
-  }
-
   render() {
     const { classes } = this.props;
 
@@ -53,11 +44,9 @@ class Gallery extends Component {
 
 
 const mapStateToProps = state => ({
-  token: state.auth.token
 })
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout()),
 })
 
 export default connect(
