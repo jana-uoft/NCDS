@@ -1,16 +1,10 @@
 import { combineReducers } from 'redux';
-import general from './general';
-import auth from './auth';
-import events from './events';
 import { persistReducer } from 'redux-persist'
 import { createBlacklistFilter } from 'redux-persist-transform-filter';
 import storage from 'redux-persist/lib/storage'
-
-const rootReducer = combineReducers({
-  general,
-  auth,
-  events
-})
+import general from './general';
+import auth from './auth';
+import events from './events';
 
 
 const generalFilter = createBlacklistFilter('general', ['loading']);
@@ -20,5 +14,11 @@ const persistConfig = {
   storage,
   transforms: [generalFilter, authFilter]
 }
+
+const rootReducer = combineReducers({
+  general,
+  auth,
+  events
+})
 
 export default persistReducer(persistConfig, rootReducer)

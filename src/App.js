@@ -16,7 +16,7 @@ import Obituary from './containers/public/Obituary';
 import Contact from './containers/public/Contact';
 import Donate from './containers/public/Donate';
 import FourOhFour from './components/public/FourOhFour';
-import requireAuth from './components/global/RequireAuth';
+import adminPage from './components/admin/AdminPageWrap';
 
 import AdminContributions from './containers/admin/Contributions';
 import AdminPublications from './containers/admin/Publications';
@@ -47,14 +47,14 @@ class App extends Component {
           <Route exact path="/contact" component={Contact} />
           <Route exact path="/donate" component={Donate} />
           <Route exact path="/admin/login" component={Login} />
-          <Route exact path="/admin/contributions" component={requireAuth(AdminContributions)} />
-          <Route exact path="/admin/publications" component={requireAuth(AdminPublications)} />
-          <Route exact path="/admin/news" component={requireAuth(AdminNews)} />
-          <Route exact path="/admin/gallery" component={requireAuth(AdminGallery)} />
-          <Route exact path="/admin/events" component={requireAuth(AdminEvents)} />
-          <Route exact path="/admin/obituary" component={requireAuth(AdminObituary)} />
-          <Route exact path="/admin/contact" component={requireAuth(AdminContact)} />
-          <Route exact path="/admin/donate" component={requireAuth(AdminDonate)} />
+          <Route exact path="/admin/contributions" component={adminPage(AdminContributions)} />
+          <Route exact path="/admin/publications" component={adminPage(AdminPublications)} />
+          <Route exact path="/admin/news" component={adminPage(AdminNews)} />
+          <Route exact path="/admin/gallery" component={adminPage(AdminGallery)} />
+          <Route exact path="/admin/events" component={adminPage(AdminEvents)} />
+          <Route exact path="/admin/obituary" component={adminPage(AdminObituary)} />
+          <Route exact path="/admin/contact" component={adminPage(AdminContact)} />
+          <Route exact path="/admin/donate" component={adminPage(AdminDonate)} />
           <Route component={FourOhFour} />
         </Switch>
       </Router>
