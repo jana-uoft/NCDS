@@ -16,14 +16,14 @@ const eventSchema = new Schema({
     default: Date.now
   },
   startTime: {
-    type: Number,
+    type: Date,
     required: true,
-    default: 0
+    default: Date.now
   },
   endTime: {
-    type: Number,
+    type: Date,
     required: true,
-    default: 0
+    default: Date.now
   },
   coverImage: {
     type: String

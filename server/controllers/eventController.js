@@ -21,7 +21,7 @@ export async function create(req, res, next) {
 
 export async function update(req, res, next) {
   const id = req.params.id;
-  const updatedEvent = req.value.body;
+  let updatedEvent = req.value.body;
   Event.findByIdAndUpdate(id, updatedEvent, (error, event) => {
     if (error)
       return res.status(404).json({ error: error.message });
