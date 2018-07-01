@@ -62,17 +62,17 @@ class Event extends Component {
   }
 
   selectEvent = (selectedEvent) => {
-    if (this.state.editMode){
+    if (this.state.editMode && this.state.lastEditedField){
       this.unsavedConfirmationSave = () => {
         this.saveEvent()
-        this.setState({selectedEvent, editMode: false, unsavedConfirmation: false})
+        this.setState({selectedEvent, editMode: false, unsavedConfirmation: false, lastEditedField: null})
       }
       this.unsavedConfirmationDiscard = () => {
-        this.setState({selectedEvent,  editMode: false, unsavedConfirmation: false})
+        this.setState({selectedEvent, editMode: false, unsavedConfirmation: false, lastEditedField: null})
       }
       this.setState({unsavedConfirmation: true})
     } else {
-      this.setState({selectedEvent})
+      this.setState({selectedEvent, editMode: false})
     }
   }
 
@@ -85,7 +85,7 @@ class Event extends Component {
   deleteConfirmationCancel = () => this.setState({deleteConfirmation: false})
 
   addNewEvent = () => {
-    if (this.state.editMode){
+    if (this.state.editMode && this.state.lastEditedField){
       this.unsavedConfirmationSave = () => {
         this.setState({selectedEvent: {...newEvent}, editMode: true, unsavedConfirmation: false}, ()=>this.saveEvent())
       }
@@ -99,13 +99,17 @@ class Event extends Component {
   }
 
   cancelNewEvent = () => {
-    this.unsavedConfirmationSave = () => {
-      this.setState({selectedEvent: this.props.events[0], editMode: false, unsavedConfirmation: false}, ()=>this.saveEvent())
+    if (this.state.editMode && this.state.lastEditedField) {
+      this.unsavedConfirmationSave = () => {
+        this.setState({selectedEvent: this.props.events[0], editMode: false, unsavedConfirmation: false, lastEditedField: null}, ()=>this.saveEvent())
+      }
+      this.unsavedConfirmationDiscard = () => {
+        this.setState({selectedEvent: this.props.events[0], editMode: false, unsavedConfirmation: false, lastEditedField: null})
+      }
+      this.setState({unsavedConfirmation: true})
+    } else {
+      this.setState({selectedEvent: this.props.events[0], editMode: false})
     }
-    this.unsavedConfirmationDiscard = () => {
-      this.setState({selectedEvent: this.props.events[0],  editMode: false, unsavedConfirmation: false})
-    }
-    this.setState({unsavedConfirmation: true})
   }
 
   handleSearch = (value) => {
@@ -115,7 +119,7 @@ class Event extends Component {
     this.deleteConfirmationProceed = () => {
       this.setState({deleteConfirmation: false}, ()=>{
         this.props.deleteEvent(this.state.selectedEvent._id)
-        .then(()=>this.setState({selectedEvent: this.props.events[0]}))
+        .then(()=>this.setState({selectedEvent: this.props.events[0], lastEditedField: null}))
       })
     }
     this.setState({deleteConfirmation: true})
@@ -133,10 +137,10 @@ class Event extends Component {
   saveEvent = () => {
     if (this.state.selectedEvent.hasOwnProperty('_id')){
       this.props.updateEvent({...this.state.selectedEvent})
-      .then(()=>this.setState({editMode: false}))
+      .then(()=>this.setState({editMode: false, lastEditedField: null}))
     } else {
       this.props.createEvent(this.state.selectedEvent)
-      .then(()=>this.setState({editMode: false, selectedEvent: this.props.events[0]}))
+      .then(()=>this.setState({editMode: false, selectedEvent: this.props.events[0], lastEditedField: null}))
     }
   }
 
@@ -413,7 +417,7 @@ class Event extends Component {
                 variant="contained"
                 style={{marginRight: 20}}
                 color="primary"
-                disabled={this.state.loading}
+                disabled={this.state.loading || (this.state.selectedEvent && !this.state.selectedEvent.hasOwnProperty('_id'))}
                 onClick={this.addNewEvent}
               >
                 Add New
