@@ -16,7 +16,7 @@ export async function retrieve(req, res, next) {
 
 export async function create(req, res, next) {
   const publication = await new Publication(req.value.body).save();
-  res.status(201).json({ publication });
+  res.status(201).json({ ...publication['_doc'] });
 }
 
 export async function update(req, res, next) {

@@ -16,7 +16,7 @@ export async function retrieve(req, res, next) {
 
 export async function create(req, res, next) {
   const gallery = await new Gallery(req.value.body).save();
-  res.status(201).json({ gallery });
+  res.status(201).json({ ...gallery['_doc'] });
 }
 
 export async function update(req, res, next) {

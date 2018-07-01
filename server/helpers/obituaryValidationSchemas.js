@@ -13,12 +13,10 @@ export const schemas = {
     viewingDate: Joi.date().iso().required(),
     startTime: Joi.date().timestamp().required(),
     endTime: Joi.date().timestamp().required(),
-    location: Joi.string(),
-    address: Joi.string(),
-    coverImage: Joi.string().uri(),
+    location: Joi.string().allow(''),
+    address: Joi.string().allow(''),
+    coverImage: Joi.string().uri().allow(''),
     contactName: Joi.string().required(),
-    contactNumber: Joi.string().required(),
-    location: Joi.string(),
-    address: Joi.string()
+    contactNumber: Joi.string().required()
   }),
 };

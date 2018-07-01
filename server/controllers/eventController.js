@@ -16,7 +16,7 @@ export async function retrieve(req, res, next) {
 
 export async function create(req, res, next) {
   const event = await new Event(req.value.body).save();
-  res.status(201).json({ event });
+  res.status(201).json({ ...event['_doc'] });
 }
 
 export async function update(req, res, next) {
@@ -40,6 +40,6 @@ export async function remove(req, res, next) {
     else if (!event)
       return res.status(404).json({ error: `Event with id ${id} was not found` });
     else
-      return res.status(204).json();
+      return res.status(200).json({...event['_doc']});
   });
 }

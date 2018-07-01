@@ -8,8 +8,8 @@ export const schemas = {
   contributionCreateUpdateSchema: Joi.object().keys({
     title: Joi.string().required(),
     date: Joi.date().iso().required(),
-    location: Joi.string(),
-    address: Joi.string(),
+    location: Joi.string().allow(''),
+    address: Joi.string().allow(''),
     images: Joi.array().items(Joi.string().uri()),
     coverImage: Joi.number()
   }),

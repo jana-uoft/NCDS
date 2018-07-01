@@ -16,7 +16,7 @@ export async function retrieve(req, res, next) {
 
 export async function create(req, res, next) {
   const contribution = await new Contribution(req.value.body).save();
-  res.status(201).json({ contribution });
+  res.status(201).json({ ...contribution['_doc'] });
 }
 
 export async function update(req, res, next) {

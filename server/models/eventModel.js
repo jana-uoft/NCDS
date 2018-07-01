@@ -35,10 +35,12 @@ const eventSchema = new Schema({
     type: String
   },
   location: {
-    type: String
+    type: String,
+    default: ""
   },
   address: {
-    type: String
+    type: String,
+    default: ""
   }
 });
 

@@ -7,7 +7,7 @@ export const schemas = {
   }),
   galleryCreateUpdateSchema: Joi.object().keys({
     title: Joi.string().required(),
-    type: Joi.string(),
+    type: Joi.string().allow(''),
     date: Joi.date().iso().required(),
     images: Joi.array().items(Joi.string().uri()),
     coverImage: Joi.number()

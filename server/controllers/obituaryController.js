@@ -16,7 +16,7 @@ export async function retrieve(req, res, next) {
 
 export async function create(req, res, next) {
   const obituary = await new Event(req.value.body).save();
-  res.status(201).json({ obituary });
+  res.status(201).json({ ...obituary['_doc'] });
 }
 
 export async function update(req, res, next) {
