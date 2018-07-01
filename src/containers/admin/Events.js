@@ -8,6 +8,8 @@ import TextField from '@material-ui/core/TextField';
 import { DatePicker, TimePicker } from 'material-ui-pickers';
 import NumberFormat from 'react-number-format';
 import { updateEvent } from '../../actions/events';
+import Card from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
 
 class Event extends Component {
   // constructor(props) {
@@ -26,6 +28,11 @@ class Event extends Component {
 
   handleDateChange = (event, field, date) => {
     this.props.updateEvent({...event, [field]: date.toISOString()})
+  }
+
+  selectImage = (event) => {
+    console.log('SELECT MDEIA');
+
   }
 
   renderEvent = (event, idx) => {
@@ -73,10 +80,14 @@ class Event extends Component {
           value={new Date(event.endTime)}
           onChange={time => this.handleDateChange(event, 'endTime', time)}
         />
-        <TextField
-          id={event._id}
-          onChange={(e)=>this.handleTextChange(event, 'coverImage', e.target.value)}
-        />
+        <Card>
+          <CardMedia
+            style={{ paddingTop: '56.25%', cursor: 'pointer' }}
+            image={event.coverImage}
+            title={event.title}
+            onClick={()=>this.selectImage(event)}
+          />
+        </Card>
         <TextField
           id={event._id}
           onChange={(e)=>this.handleTextChange(event, 'location', e.target.value)}

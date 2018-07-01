@@ -36,20 +36,23 @@ const ball2 = keyframes`
 
 const Rotate = keyframes`
   0% {
-    -webkit-transform: rotate(0deg) scale(0.8);
-    -moz-transform: rotate(0deg) scale(0.8);
+    -webkit-transform: rotate(0deg) scale(1.4);
+    -moz-transform: rotate(0deg) scale(1.4);
   }
   50% {
-    -webkit-transform: rotate(360deg) scale(1.2);
-    -moz-transform: rotate(360deg) scale(1.2);
+    -webkit-transform: rotate(360deg) scale(2.0);
+    -moz-transform: rotate(360deg) scale(2.0);
   }
   100% {
-    -webkit-transform: rotate(720deg) scale(0.8);
-    -moz-transform: rotate(720deg) scale(0.8);
+    -webkit-transform: rotate(720deg) scale(1.4);
+    -moz-transform: rotate(720deg) scale(1.4);
   }
 `;
 
 const Loader = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
   animation: ${Rotate} 1s infinite;
   height: 50px;
   width: 50px;

@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage'
 import general from './general';
 import auth from './auth';
 import events from './events';
+import imageManager from './imageManager';
 
 
 const generalFilter = createBlacklistFilter('general', ['loading']);
@@ -18,7 +19,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
   general,
   auth,
-  events
+  events,
+  imageManager
 })
 
 export default persistReducer(persistConfig, rootReducer)

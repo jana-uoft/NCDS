@@ -25,7 +25,8 @@ const menus = [
   {label: 'Events', link: '/admin/events', icon: 'event'},
   {label: 'Obituary', link: '/admin/obituary', icon: 'remove_red_eye'},
   {label: 'Contact', link: '/admin/contact', icon: 'contact_mail'},
-  {label: 'Donate', link: '/admin/donate', icon: 'attach_money'}
+  {label: 'Donate', link: '/admin/donate', icon: 'attach_money'},
+  {label: 'Manage Images', link: '/admin/imageManager', icon: 'insert_photo'}
 ];
 
 class Sidebar extends Component {
