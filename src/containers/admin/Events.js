@@ -409,7 +409,7 @@ class Event extends Component {
               <Button
                 variant="contained"
                 color="primary"
-                disabled={!this.state.editMode || this.state.selectedEvent.coverImage!==defaultCoverImage}
+                disabled={!this.state.editMode || this.state.selectedEvent.coverImage!==defaultCoverImage || (this.state.selectedEvent && !this.state.selectedEvent.hasOwnProperty('_id'))}
                 onClick={()=>{document.getElementById('selectedFile').click()}}
               >
                 Add New Image
