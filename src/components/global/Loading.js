@@ -51,7 +51,7 @@ const Rotate = keyframes`
 
 const Loader = styled.div`
   position: absolute;
-  top: 50%;
+  top: 30%;
   left: 50%;
   animation: ${Rotate} 1s infinite;
   height: 50px;

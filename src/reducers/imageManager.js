@@ -1,14 +1,12 @@
 const initialState = {
-  images: [],
-
 };
 
-const auth = (state = initialState, action) => {
+const auth = (state = {}, action) => {
   switch (action.type) {
     case 'GET_IMAGES_SUCCESS':
       return {
         ...initialState,
-        images: action.payload.data
+        ...action.payload.data
       }
     default:
       return state
