@@ -29,7 +29,7 @@ export default (props) => {
         <Button onClick={props.confirmationDiscard} color="secondary">
           Discard Changes
         </Button>
-        <Button onClick={props.confirmationSave} color="primary" autoFocus>
+        <Button onClick={props.confirmationSave} color="primary" autoFocus disabled={props.disabled}>
           Save Changes
         </Button>
       </DialogActions>

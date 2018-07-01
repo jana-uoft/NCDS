@@ -26,7 +26,8 @@ const eventSchema = new Schema({
     default: Date.now
   },
   coverImage: {
-    type: String
+    type: String,
+    default: "https://res.cloudinary.com/nainativucds/image/upload/v1530461653/website/No-image-available.jpg"
   },
   contactName: {
     type: String

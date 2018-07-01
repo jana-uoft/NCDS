@@ -19,14 +19,14 @@ export default (props) => {
       <DialogTitle id="alert-dialog-title">{"Deleting !"}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Are you sure you want to delete the selected item ?
+          Are you sure you want to delete this ?
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={props.confirmationCancel} color="inherit">
           Go Back
         </Button>
-        <Button onClick={props.confirmationDelete} color="secondary" autoFocus>
+        <Button onClick={props.confirmationDelete} color="secondary" autoFocus disabled={props.disabled}>
           Delete
         </Button>
       </DialogActions>

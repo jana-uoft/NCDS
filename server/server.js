@@ -53,7 +53,7 @@ app.use(function(req, res, next) {
 // Middlewares
 app.use(helmet());
 app.use(morgan('dev'));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '1000mb'}));
 
 // Routes
 app.use('/api/auth', userRoutes);

@@ -17,9 +17,10 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import UnsavedConfirmation from '../../components/admin/UnsavedConfirmation';
 import DeleteConfirmation from '../../components/admin/DeleteConfirmation';
 import Button from '@material-ui/core/Button';
+import { isEqual } from 'lodash';
 
 import { getEvents, createEvent, updateEvent, deleteEvent } from '../../actions/events';
-
+import { uploadImagesByTags, deleteImagesByTag } from '../../actions/imageManager';
 
 
 const defaultCoverImage = "https://res.cloudinary.com/nainativucds/image/upload/v1530461653/website/No-image-available.jpg"
@@ -53,12 +54,22 @@ class Event extends Component {
     .then(()=>this.setState({selectedEvent: this.props.events[0]}))
   }
 
+  componentDidUpdate = (prevProps, prevState, snapshot) => {
+    if (!isEqual(prevProps.events, this.props.events)) {
+      if (prevState.selectedEvent && prevState.selectedEvent.hasOwnProperty('_id')) {
+        const selectedEventID = prevState.selectedEvent._id
+        const updatedSelectedEvent = this.props.events.find(event=>event._id===selectedEventID)
+        this.setState({selectedEvent: {...updatedSelectedEvent}})
+      }
+    }
+  }
+
   handleTextChange = (field, value) => {
     this.setState({selectedEvent: {...this.state.selectedEvent, [field]: value }, lastEditedField: field})
   }
 
   handleDateChange = (field, date) => {
-    this.setState({selectedEvent: {...this.state.selectedEvent, [field]: date.toISOString() }})
+    this.setState({selectedEvent: {...this.state.selectedEvent, [field]: date.toISOString() }, lastEditedField: field})
   }
 
   selectEvent = (selectedEvent) => {
@@ -72,7 +83,7 @@ class Event extends Component {
       }
       this.setState({unsavedConfirmation: true})
     } else {
-      this.setState({selectedEvent, editMode: false})
+      this.setState({selectedEvent, editMode: false, lastEditedField: null})
     }
   }
 
@@ -108,7 +119,7 @@ class Event extends Component {
       }
       this.setState({unsavedConfirmation: true})
     } else {
-      this.setState({selectedEvent: this.props.events[0], editMode: false})
+      this.setState({selectedEvent: this.props.events[0], editMode: false, lastEditedField: null})
     }
   }
 
@@ -153,6 +164,30 @@ class Event extends Component {
     const contactNameEmpty = this.state.selectedEvent.contactName==="";
     const contactNumberEmpty = this.state.selectedEvent.contactNumber==="";
     return dateEmpty || titleEmpty || descriptionEmpty || startTimeEmpty || endTimeEmpty || contactNameEmpty || contactNumberEmpty
+  }
+
+  addNewImage = (files) => {
+    let file = files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () =>{
+      this.props.uploadImagesByTags([{file: reader.result, tags: [this.state.selectedEvent._id, 'event']}])
+      .then(data=>{
+        let coverImage = data.payload.data[0].secure_url;
+        let selectedEvent = {...this.state.selectedEvent, coverImage}
+        this.props.updateEvent(selectedEvent)
+      })
+    }
+  }
+
+  deleteImage = () => {
+    this.deleteConfirmationProceed = () => {
+      this.setState({deleteConfirmation: false, selectedEvent: {...this.state.selectedEvent, coverImage: defaultCoverImage}}, ()=>{
+        this.props.deleteImagesByTag(this.state.selectedEvent._id)
+        this.props.updateEvent({...this.state.selectedEvent})
+      })
+    }
+    this.setState({deleteConfirmation: true})
   }
 
   renderEvent = () => {
@@ -203,6 +238,7 @@ class Event extends Component {
               disabled={!this.state.editMode || this.props.loading}
               required
               error={this.state.selectedEvent.title===""}
+              helperText={this.state.selectedEvent.title==="" ? "Required" : null}
             />
           </div>
           <div style={{
@@ -224,6 +260,7 @@ class Event extends Component {
               disabled={!this.state.editMode || this.props.loading}
               required
               error={this.state.selectedEvent.description===""}
+              helperText={this.state.selectedEvent.description==="" ? "Required" : null}
             />
           </div>
           <div style={{
@@ -319,6 +356,7 @@ class Event extends Component {
               disabled={!this.state.editMode || this.props.loading}
               required
               error={this.state.selectedEvent.contactName===""}
+              helperText={this.state.selectedEvent.contactName==="" ? "Required" : null}
             />
           </div>
           <div style={{
@@ -348,6 +386,7 @@ class Event extends Component {
               disabled={!this.state.editMode || this.props.loading}
               style={{paddingRight: 20}}
               error={this.state.selectedEvent.contactNumber===""}
+              helperText={this.state.selectedEvent.contactNumber==="" ? "Required" : null}
             />
           </div>
           <br/>
@@ -367,8 +406,24 @@ class Event extends Component {
               alignItems: 'center'
             }}>
               <img src={this.state.selectedEvent.coverImage} alt={this.state.selectedEvent.title} style={{width: '50%', maxHeight: 150}}/>
-              <Button variant="contained" style={{marginLeft: 20}} color="primary" disabled={!this.state.editMode || this.state.selectedEvent.coverImage!==defaultCoverImage}>Add New Image</Button>
-              <Button variant="contained" style={{marginRight: 20}} color="primary" disabled={!this.state.editMode || this.state.selectedEvent.coverImage===defaultCoverImage}>Delete Image</Button>
+              <Button
+                variant="contained"
+                color="primary"
+                disabled={!this.state.editMode || this.state.selectedEvent.coverImage!==defaultCoverImage}
+                onClick={()=>{document.getElementById('selectedFile').click()}}
+              >
+                Add New Image
+              </Button>
+              <input id="selectedFile" type="file" accept="image/*" style={{display: 'none'}} onChange={(event)=>this.addNewImage(event.target.files)}></input>
+              <Button
+                variant="contained"
+                style={{marginRight: 20}}
+                color="primary"
+                disabled={!this.state.editMode || this.state.selectedEvent.coverImage===defaultCoverImage}
+                onClick={this.deleteImage}
+              >
+                Delete Image
+              </Button>
             </div>
           </div>
           <br/>
@@ -380,10 +435,9 @@ class Event extends Component {
               alignItems: 'center'
             }}>
               <Button
-                variant="contained"
                 style={{marginLeft: 20}}
                 color="secondary"
-                disabled={this.state.loading}
+                disabled={this.props.loading}
                 onClick={this.cancelNewEvent}
               >
                 Cancel
@@ -392,7 +446,7 @@ class Event extends Component {
                 variant="contained"
                 style={{marginLeft: 20}}
                 color="primary"
-                disabled={this.state.loading || this.checkValidation()}
+                disabled={this.props.loading || this.checkValidation()}
                 onClick={this.saveEvent}
               >
                 Save
@@ -404,12 +458,14 @@ class Event extends Component {
     )
   }
 
+  checkIfCurrentEvent = event => this.state.selectedEvent && this.state.selectedEvent._id===event._id
+  checkIfNotCurrentEvent = event => this.state.selectedEvent && this.state.selectedEvent._id!==event._id
 
   render() {
-    if (this.props.loading) return <Loading />
 
     return (
       <div>
+        {this.props.loading && <Loading />}
         <div style={{display: 'grid', gridGap: 20, gridTemplateColumns: '1fr 3fr'}}>
           <List component="nav">
             <div style={{display: 'grid', gridGap: 20, gridTemplateColumns: '2fr 2fr'}}>
@@ -417,7 +473,7 @@ class Event extends Component {
                 variant="contained"
                 style={{marginRight: 20}}
                 color="primary"
-                disabled={this.state.loading || (this.state.selectedEvent && !this.state.selectedEvent.hasOwnProperty('_id'))}
+                disabled={this.props.loading || (this.state.selectedEvent && !this.state.selectedEvent.hasOwnProperty('_id'))}
                 onClick={this.addNewEvent}
               >
                 Add New
@@ -434,22 +490,22 @@ class Event extends Component {
                 button
                 divider
                 onClick={()=>this.selectEvent(event)}
-                style={{background: this.state.selectedEvent && this.state.selectedEvent._id===event._id ? 'mediumseagreen' : ''}}
-                disabled={this.state.selectedEvent && this.state.selectedEvent._id===event._id}
+                style={{background: this.checkIfCurrentEvent(event) ? 'mediumseagreen' : ''}}
+                disabled={this.props.loading || this.checkIfCurrentEvent(event)}
               >
                 <ListItemText primary={event.title} secondary={event.date.slice(0, 10)} />
                 <ListItemSecondaryAction>
                   <IconButton
                     aria-label="Toggle Edit/Save"
-                    disabled={this.state.selectedEvent && this.state.selectedEvent._id!==event._id}
+                    disabled={this.props.loading || this.checkIfNotCurrentEvent(event) || (this.checkIfCurrentEvent(event) && this.checkValidation())}
                     onClick={this.toggleEditMode}
                     color='primary'
                   >
-                    {this.state.editMode && this.state.selectedEvent && this.state.selectedEvent._id===event._id ? <SaveIcon/> : <EditIcon/>}
+                    {this.state.editMode && this.checkIfCurrentEvent(event) ? <SaveIcon/> : <EditIcon/>}
                   </IconButton>
                   <IconButton
                     aria-label="Delete"
-                    disabled={this.state.selectedEvent && this.state.selectedEvent._id!==event._id}
+                    disabled={this.props.loading || this.checkIfNotCurrentEvent(event)}
                     onClick={this.deleteEvent}
                     color='secondary'
                   >
@@ -466,11 +522,13 @@ class Event extends Component {
           confirmationSave={this.unsavedConfirmationSave}
           confirmationCancel={this.unsavedConfirmationCancel}
           confirmationDiscard={this.unsavedConfirmationDiscard}
+          disabled={this.state.selectedEvent && this.checkValidation()}
         />
         <DeleteConfirmation
           open={this.state.deleteConfirmation}
           confirmationDelete={this.deleteConfirmationProceed}
           confirmationCancel={this.deleteConfirmationCancel}
+          disabled={this.state.selectedEvent && this.checkValidation()}
         />
       </div>
     )
@@ -487,7 +545,9 @@ const mapDispatchToProps = dispatch => ({
   getEvents: () => dispatch(getEvents()),
   createEvent: event => dispatch(createEvent(event)),
   updateEvent: event => dispatch(updateEvent(event)),
-  deleteEvent: eventID => dispatch(deleteEvent(eventID))
+  deleteEvent: eventID => dispatch(deleteEvent(eventID)),
+  uploadImagesByTags: images => dispatch(uploadImagesByTags(images)),
+  deleteImagesByTag: eventID => dispatch(deleteImagesByTag(eventID))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Event)

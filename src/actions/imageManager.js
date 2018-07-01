@@ -8,3 +8,25 @@ export const getImages = () => ({
     }
   }
 })
+
+export const uploadImagesByTags = (images) => ({
+  types: ['LOADING', 'UPLOAD_IMAGES_SUCCESS', 'UPLOAD_IMAGES_FAILED'],
+  payload: {
+    request:{
+      url: '/cloudinary',
+      method: 'POST',
+      data: { images }
+    }
+  }
+})
+
+export const deleteImagesByTag = tag => ({
+  types: ['LOADING', 'DELETE_IMAGES_SUCCESS', 'DELETE_IMAGES_FAILED'],
+  payload: {
+    request:{
+      url: '/cloudinary',
+      method: 'DELETE',
+      data: { tag }
+    }
+  }
+})
