@@ -21,9 +21,9 @@ const menus = [
   {label: 'Contributions', link: '/admin/contributions', icon: 'people'},
   {label: 'Publications', link: '/admin/publications', icon: 'book'},
   {label: 'News', link: '/admin/news', icon: 'library_books'},
-  {label: 'Gallery', link: '/admin/gallery', icon: 'camera_alt'},
+  {label: 'Galleries', link: '/admin/galleries', icon: 'camera_alt'},
   {label: 'Events', link: '/admin/events', icon: 'event'},
-  {label: 'Obituary', link: '/admin/obituary', icon: 'remove_red_eye'},
+  {label: 'Obituaries', link: '/admin/obituaries', icon: 'remove_red_eye'},
   {label: 'Contact', link: '/admin/contact', icon: 'contact_mail'},
   {label: 'Donate', link: '/admin/donate', icon: 'attach_money'},
   {label: 'Manage Images', link: '/admin/imageManager', icon: 'insert_photo'}

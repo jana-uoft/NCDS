@@ -51,9 +51,9 @@ class App extends Component {
           <Route exact path="/admin/contributions" component={adminPage(AdminContributions)} />
           <Route exact path="/admin/publications" component={adminPage(AdminPublications)} />
           <Route exact path="/admin/news" component={adminPage(AdminNews)} />
-          <Route exact path="/admin/gallery" component={adminPage(AdminGallery)} />
+          <Route exact path="/admin/galleries" component={adminPage(AdminGallery)} />
           <Route exact path="/admin/events" component={adminPage(AdminEvents)} />
-          <Route exact path="/admin/obituary" component={adminPage(AdminObituary)} />
+          <Route exact path="/admin/obituaries" component={adminPage(AdminObituary)} />
           <Route exact path="/admin/contact" component={adminPage(AdminContact)} />
           <Route exact path="/admin/donate" component={adminPage(AdminDonate)} />
           <Route exact path="/admin/imageManager" component={adminPage(ImageManager)} />
