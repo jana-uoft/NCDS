@@ -105,44 +105,6 @@ app.listen(port, () => {
 //   });
 // });
 
-// app.get('/api/news', (req, res) => {
-//   result = JSON.parse(fs.readFileSync('./data/news.json', 'utf8'));
-//   res.send(shuffle(result));
-// });
-
-// app.get('/api/updateNews', (req, res) => {
-//   const news_channels = [
-//     'http://www.jvpnews.com/rss.xml',
-//     'http://news.lankasri.com/rss.xml',
-//     'http://www.canadamirror.com/rss.xml',
-//     'http://www.tamilwin.com/rss.xml',
-//     'http://www.cineulagam.com/rss.xml',
-//     'http://www.manithan.com/rss.xml'
-//   ];
-//   let promises = [];
-//   for (var channel of news_channels) {
-//     promises.push(feedparser.parse(channel));
-//   }
-//   Promise.all(promises)
-//     .then((items) => {
-//       try {
-//         var allNews = Array.prototype.concat.apply([], items);
-//         fs.writeFileSync('./data/news.json', JSON.stringify(allNews, null, 4));
-//         res.send({ success: allNews });
-//       } catch (err) {
-//         res.send(err);
-//       }
-//     })
-//     .catch((e) => {
-//       res.send(e);
-//     });
-// });
-
-
-
-
-
-
 
 // app.post('/api/mail', (req, res) => {
 //   let html = '<h1> Message from NainativuCDS.org </h1>';
