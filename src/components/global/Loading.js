@@ -56,6 +56,7 @@ const Loader = styled.div`
   animation: ${Rotate} 1s infinite;
   height: 50px;
   width: 50px;
+  z-index: 999;
 
   &:before,
   &:after {

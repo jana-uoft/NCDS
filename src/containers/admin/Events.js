@@ -136,7 +136,8 @@ class Event extends Component {
 
   toggleEditMode = () => {
     if (this.state.editMode){
-      this.saveEvent();
+      if (this.state.lastEditedField)
+        this.saveEvent();
       this.setState({editMode: false})
     } else {
       this.setState({editMode: true})
@@ -416,7 +417,7 @@ class Event extends Component {
               <Button
                 variant="contained"
                 style={{marginRight: 20}}
-                color="primary"
+                color="secondary"
                 disabled={this.props.loading || !this.state.editMode || this.state.selectedEvent.coverImage===defaultCoverImage}
                 onClick={this.deleteImage}
               >

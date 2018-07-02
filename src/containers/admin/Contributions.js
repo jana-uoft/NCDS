@@ -134,7 +134,8 @@ class Contribution extends Component {
 
   toggleEditMode = () => {
     if (this.state.editMode){
-      this.saveContribution();
+      if (this.state.lastEditedField)
+        this.saveContribution();
       this.setState({editMode: false})
     } else {
       this.setState({editMode: true})
@@ -187,7 +188,7 @@ class Contribution extends Component {
     }
   }
 
-  deleteImage = () => {
+  deleteImagesByTag = () => {
     this.deleteConfirmationProceed = () => {
       this.setState({deleteConfirmation: false, selectedContribution: {...this.state.selectedContribution, coverImage: defaultCoverImage}}, ()=>{
         this.props.deleteImagesByTag(this.state.selectedContribution._id)
@@ -197,7 +198,7 @@ class Contribution extends Component {
     this.setState({deleteConfirmation: true})
   }
 
-  deleteImages = (images) => {
+  deleteImagesByURLs = (images) => {
     this.deleteConfirmationProceed = () => {
       let updatedImages = this.state.selectedContribution.images.filter(img=>!images.includes(img))
       let selectedContribution = {...this.state.selectedContribution, images: updatedImages}
@@ -356,9 +357,9 @@ class Contribution extends Component {
               <Button
                 variant="contained"
                 style={{marginRight: 20}}
-                color="primary"
+                color="secondary"
                 disabled={this.props.loading || !this.state.editMode || this.state.selectedContribution.coverImage===defaultCoverImage}
-                onClick={this.deleteImage}
+                onClick={this.deleteImagesByTag}
               >
                 Delete Image
               </Button>
@@ -498,17 +499,21 @@ class Contribution extends Component {
           confirmationCancel={this.deleteConfirmationCancel}
           disabled={this.state.selectedContribution && this.checkValidation()}
         />
-        <ManageImages
-          open={this.state.openManageImages}
-          handleClickOpen={this.openManageImages}
-          handleClose={this.closeManageImages}
-          images={this.state.selectedContribution && this.state.selectedContribution.images}
-          title={this.state.selectedContribution && `Managing Images for ${this.state.selectedContribution.title}`}
-          tags={this.state.selectedContribution && [this.state.selectedContribution._id, 'contribution']}
-          loading={this.props.loading}
-          addNewImages={this.addNewImages}
-          deleteImages={this.deleteImages}
-        />
+        {this.state.selectedContribution &&
+          <ManageImages
+            open={this.state.openManageImages}
+            handleClickOpen={this.openManageImages}
+            handleClose={this.closeManageImages}
+            selected={this.state.selectedContribution}
+            updateSelected={this.props.updateContribution}
+            title={this.state.selectedContribution && `Managing Images for ${this.state.selectedContribution.title}`}
+            tags={this.state.selectedContribution && [this.state.selectedContribution._id, 'contribution']}
+            loading={this.props.loading}
+            addNewImages={this.addNewImages}
+            deleteImages={this.deleteImagesByURLs}
+          />
+        }
+
       </div>
     )
   }
