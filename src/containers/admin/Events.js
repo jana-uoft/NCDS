@@ -488,12 +488,28 @@ class Event extends Component {
               <ListItem
                 key={idx}
                 button
-                divider
-                onClick={()=>this.selectEvent(event)}
-                style={{background: this.checkIfCurrentEvent(event) ? 'mediumseagreen' : ''}}
-                disabled={this.props.loading || this.checkIfCurrentEvent(event)}
+                onClick={()=>!this.checkIfCurrentEvent(event) && this.selectEvent(event)}
+                style={this.checkIfCurrentEvent(event) ? {background: '#a18be6'} : {}}
+                disabled={this.props.loading}
               >
-                <ListItemText primary={event.title} secondary={event.date.slice(0, 10)} />
+                <ListItemText
+                  secondary={
+                    <Typography
+                    variant="body2"
+                    style={this.checkIfCurrentEvent(event) ? {color: 'white'} : {}}
+                  >
+                    {event.date.slice(0, 10)}
+                  </Typography>
+                  }
+                  primary={
+                    <Typography
+                      variant="subheading"
+                      style={this.checkIfCurrentEvent(event) ? {color: 'white'} : {}}
+                    >
+                      {event.title.length > 30 ? event.title.slice(0, 30)+'...' : event.title}
+                    </Typography>
+                  }
+                />
                 <ListItemSecondaryAction>
                   <IconButton
                     aria-label="Toggle Edit/Save"

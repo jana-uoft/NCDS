@@ -58,7 +58,7 @@ class Sidebar extends Component {
                 disableTypography
                 primary={
                   <Typography
-                    type="body2"
+                    variant="body2"
                     style={{ color: this.props.activePage===link ? '#FFFFFF' : 'inherit' }}
                   >
                     {label}
