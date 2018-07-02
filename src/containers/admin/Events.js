@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { isEqual } from 'lodash';
+import { DatePicker, TimePicker } from 'material-ui-pickers';
 import Loading from '../../components/global/Loading';
+import UnsavedConfirmation from '../../components/admin/UnsavedConfirmation';
+import DeleteConfirmation from '../../components/admin/DeleteConfirmation';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import { DatePicker, TimePicker } from 'material-ui-pickers';
 import NumberFormat from 'react-number-format';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -14,10 +17,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SaveIcon from '@material-ui/icons/Save';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import UnsavedConfirmation from '../../components/admin/UnsavedConfirmation';
-import DeleteConfirmation from '../../components/admin/DeleteConfirmation';
 import Button from '@material-ui/core/Button';
-import { isEqual } from 'lodash';
 
 import { getEvents, createEvent, updateEvent, deleteEvent } from '../../actions/events';
 import { uploadImagesByTags, deleteImagesByTag } from '../../actions/imageManager';
@@ -123,8 +123,6 @@ class Event extends Component {
     }
   }
 
-  handleSearch = (value) => {
-  }
 
   deleteEvent = () => {
     this.deleteConfirmationProceed = () => {
@@ -170,7 +168,7 @@ class Event extends Component {
     let file = files[0];
     let reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onloadend = () =>{
+    reader.onloadend = () => {
       this.props.uploadImagesByTags([{file: reader.result, tags: [this.state.selectedEvent._id, 'event']}])
       .then(data=>{
         let coverImage = data.payload.data[0].secure_url;
@@ -409,7 +407,7 @@ class Event extends Component {
               <Button
                 variant="contained"
                 color="primary"
-                disabled={!this.state.editMode || this.state.selectedEvent.coverImage!==defaultCoverImage || (this.state.selectedEvent && !this.state.selectedEvent.hasOwnProperty('_id'))}
+                disabled={this.props.loading || !this.state.editMode || this.state.selectedEvent.coverImage!==defaultCoverImage || (this.state.selectedEvent && !this.state.selectedEvent.hasOwnProperty('_id'))}
                 onClick={()=>{document.getElementById('selectedFile').click()}}
               >
                 Add New Image
@@ -419,40 +417,13 @@ class Event extends Component {
                 variant="contained"
                 style={{marginRight: 20}}
                 color="primary"
-                disabled={!this.state.editMode || this.state.selectedEvent.coverImage===defaultCoverImage}
+                disabled={this.props.loading || !this.state.editMode || this.state.selectedEvent.coverImage===defaultCoverImage}
                 onClick={this.deleteImage}
               >
                 Delete Image
               </Button>
             </div>
           </div>
-          <br/>
-          {!this.state.selectedEvent.hasOwnProperty('_id') &&
-            <div style={{
-              display: 'grid',
-              gridGap: 20,
-              gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
-              alignItems: 'center'
-            }}>
-              <Button
-                style={{marginLeft: 20}}
-                color="secondary"
-                disabled={this.props.loading}
-                onClick={this.cancelNewEvent}
-              >
-                Cancel
-              </Button>
-              <Button
-                variant="contained"
-                style={{marginLeft: 20}}
-                color="primary"
-                disabled={this.props.loading || this.checkValidation()}
-                onClick={this.saveEvent}
-              >
-                Save
-              </Button>
-            </div>
-          }
           <br/>
       </Paper>
     )
@@ -467,22 +438,43 @@ class Event extends Component {
       <div>
         {this.props.loading && <Loading />}
         <div style={{display: 'grid', gridGap: 20, gridTemplateColumns: '1fr 3fr'}}>
-          <List component="nav">
-            <div style={{display: 'grid', gridGap: 20, gridTemplateColumns: '2fr 2fr'}}>
+          <List>
+          {this.state.selectedEvent && this.state.selectedEvent.hasOwnProperty('_id') &&
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={this.props.loading || (this.state.selectedEvent && !this.state.selectedEvent.hasOwnProperty('_id'))}
+              onClick={this.addNewEvent}
+              fullWidth
+            >
+              Create New Event
+            </Button>
+          }
+          {this.state.selectedEvent && !this.state.selectedEvent.hasOwnProperty('_id') &&
+            <div style={{
+              display: 'grid',
+              gridGap: 20,
+              gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
+              alignItems: 'center'
+            }}>
+              <Button
+                color="secondary"
+                disabled={this.props.loading}
+                onClick={this.cancelNewEvent}
+              >
+                Cancel
+              </Button>
               <Button
                 variant="contained"
-                style={{marginRight: 20}}
                 color="primary"
-                disabled={this.props.loading || (this.state.selectedEvent && !this.state.selectedEvent.hasOwnProperty('_id'))}
-                onClick={this.addNewEvent}
+                disabled={this.props.loading || this.checkValidation()}
+                onClick={this.saveEvent}
               >
-                Add New
+                Save
               </Button>
-              <TextField
-                onChange={(e)=>this.handleSearch(e.target.value)}
-                placeholder="Search Events"
-              />
             </div>
+          }
+            <br/>
             <br/>
             {this.props.events.map((event, idx)=>
               <ListItem

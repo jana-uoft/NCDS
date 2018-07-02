@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage'
 import general from './general';
 import auth from './auth';
 import events from './events';
+import contributions from './contributions';
 import imageManager from './imageManager';
 
 
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   general,
   auth,
   events,
+  contributions,
   imageManager
 })
 

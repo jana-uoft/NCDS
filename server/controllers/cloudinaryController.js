@@ -29,7 +29,7 @@ export async function update(req, res, next) {
   return res.status(200).json(resource);
 }
 
-export async function remove(req, res, next) {
+export async function removeByTag(req, res, next) {
   const { tag } = req.body;
   const resources = await cloudinary.api.delete_resources_by_tag(tag);
   return res.status(200).json(resources);
@@ -42,4 +42,10 @@ export async function create(req, res, next) {
     uploadedImages.push(await cloudinary.uploader.upload(file, {tags: tags}))
   }
   return res.status(200).json(uploadedImages);
+}
+
+export async function removeByURLs(req, res, next) {
+  const public_ids = req.body.map(url=>url.split('/').pop().split('.')[0])
+  const resources = await cloudinary.api.delete_resources(public_ids);
+  return res.status(200).json(resources);
 }

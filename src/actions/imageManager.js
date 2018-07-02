@@ -24,9 +24,20 @@ export const deleteImagesByTag = tag => ({
   types: ['LOADING', 'DELETE_IMAGES_SUCCESS', 'DELETE_IMAGES_FAILED'],
   payload: {
     request:{
-      url: '/cloudinary',
+      url: '/cloudinary/tag',
       method: 'DELETE',
       data: { tag }
+    }
+  }
+})
+
+export const deleteImagesByURLs = urls => ({
+  types: ['LOADING', 'DELETE_IMAGES_SUCCESS', 'DELETE_IMAGES_FAILED'],
+  payload: {
+    request:{
+      url: '/cloudinary/urls',
+      method: 'DELETE',
+      data: urls
     }
   }
 })

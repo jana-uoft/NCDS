@@ -1,6 +1,6 @@
 import PromiseRouter from 'express-promise-router';
 import passport from '../passport';
-import { list, create, update, remove } from '../controllers/cloudinaryController';
+import { list, create, update, removeByTag, removeByURLs } from '../controllers/cloudinaryController';
 
 
 const router = PromiseRouter();
@@ -24,11 +24,17 @@ router.route('/')
   update
 )
 
-router.route('/')
+router.route('/tag')
 .delete(
   passportJWT,
-  remove
+  removeByTag
 )
+
+router.route('/urls')
+  .delete(
+    passportJWT,
+    removeByURLs
+  )
 
 
 export default router;

@@ -11,6 +11,9 @@ const contributionSchema = new Schema({
     required: true,
     default: Date.now
   },
+  description: {
+    type: String
+  },
   location: {
     type: String
   },
@@ -21,8 +24,8 @@ const contributionSchema = new Schema({
     {type: String}
   ],
   coverImage: {
-    type: Number,
-    default: -1
+    type: String,
+    default: "https://res.cloudinary.com/nainativucds/image/upload/v1530461653/website/No-image-available.jpg"
   },
 });
 
