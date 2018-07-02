@@ -168,7 +168,8 @@ class Gallery extends Component {
     const dateEmpty = this.state.selectedGallery.date==="";
     const titleEmpty = this.state.selectedGallery.title==="";
     const descriptionEmpty = this.state.selectedGallery.description==="";
-    return dateEmpty || titleEmpty || descriptionEmpty
+    const typeEmpty = this.state.selectedGallery.type==="";
+    return dateEmpty || titleEmpty || descriptionEmpty || typeEmpty;
   }
 
   addNewImages = (files, imageManager=false) => {
