@@ -6,6 +6,9 @@ const gallerySchema = new Schema({
     type: String,
     required: true
   },
+  description: {
+    type: String
+  },
   type: {
     type: String
   },
@@ -14,7 +17,7 @@ const gallerySchema = new Schema({
     required: true,
     default: Date.now
   },
-  address: {
+  location: {
     type: String
   },
   images: [

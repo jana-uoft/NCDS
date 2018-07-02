@@ -32,7 +32,8 @@ const styles = {
     padding: '12px 24px',
     border: 'none',
     cursor: 'pointer',
-    borderRadius: '5px'
+    borderRadius: '5px',
+    background: '#D3D3D3'
   },
   viewButton: {
     position: 'absolute',
@@ -45,7 +46,8 @@ const styles = {
     padding: '12px 24px',
     border: 'none',
     cursor: 'pointer',
-    borderRadius: '5px'
+    borderRadius: '5px',
+    background: '#D3D3D3'
   }
 };
 

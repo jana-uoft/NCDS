@@ -1,5 +1,5 @@
 
-export const getGallerys = () => ({
+export const getGalleries = () => ({
   types: ['LOADING', 'GET_GALLERIES_SUCCESS', 'GET_GALLERIES_FAILED'],
   payload: {
     request:{
