@@ -2,6 +2,10 @@ import mongoose, { Schema } from 'mongoose';
 
 
 const publicationSchema = new Schema({
+  title: {
+    type: String,
+    required: true
+  },
   date: {
     type: Date,
     required: true,
@@ -11,9 +15,9 @@ const publicationSchema = new Schema({
     {type: String}
   ],
   coverImage: {
-    type: Number,
-    default: -1
-  },
+    type: String,
+    default: "https://res.cloudinary.com/nainativucds/image/upload/v1530461653/website/No-image-available.jpg"
+  }
 });
 
 

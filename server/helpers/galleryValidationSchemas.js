@@ -10,6 +10,6 @@ export const schemas = {
     type: Joi.string().allow(''),
     date: Joi.date().iso().required(),
     images: Joi.array().items(Joi.string().uri()),
-    coverImage: Joi.number()
+    coverImage: Joi.string().uri().allow(''),
   }),
 };

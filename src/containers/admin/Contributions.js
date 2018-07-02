@@ -156,11 +156,7 @@ class Contribution extends Component {
     const dateEmpty = this.state.selectedContribution.date==="";
     const titleEmpty = this.state.selectedContribution.title==="";
     const descriptionEmpty = this.state.selectedContribution.description==="";
-    const startTimeEmpty = this.state.selectedContribution.startTime==="";
-    const endTimeEmpty = this.state.selectedContribution.endTime==="";
-    const contactNameEmpty = this.state.selectedContribution.contactName==="";
-    const contactNumberEmpty = this.state.selectedContribution.contactNumber==="";
-    return dateEmpty || titleEmpty || descriptionEmpty || startTimeEmpty || endTimeEmpty || contactNameEmpty || contactNumberEmpty
+    return dateEmpty || titleEmpty || descriptionEmpty
   }
 
   addNewImages = (files, imageManager=false) => {

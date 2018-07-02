@@ -6,8 +6,9 @@ export const schemas = {
     param: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required().error(new Error('ID should be a valid ObjectID.'))
   }),
   publicationCreateUpdateSchema: Joi.object().keys({
+    title: Joi.string().required(),
     date: Joi.date().iso().required(),
     images: Joi.array().items(Joi.string().uri()),
-    coverImage: Joi.number()
+    coverImage: Joi.string().uri().allow(''),
   }),
 };
