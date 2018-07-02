@@ -10,7 +10,8 @@ const gallerySchema = new Schema({
     type: String
   },
   type: {
-    type: String
+    type: String,
+    required: true
   },
   date: {
     type: Date,

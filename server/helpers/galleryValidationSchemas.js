@@ -9,7 +9,7 @@ export const schemas = {
     title: Joi.string().required(),
     description: Joi.string().required(),
     location: Joi.string().allow(''),
-    type: Joi.string().allow(''),
+    type: Joi.string().required(),
     date: Joi.date().iso().required(),
     images: Joi.array().items(Joi.string().uri()),
     coverImage: Joi.string().uri().allow(''),
