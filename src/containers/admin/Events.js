@@ -51,7 +51,12 @@ class Event extends Component {
 
   componentDidMount = () => {
     this.props.getEvents()
-    .then(()=>this.setState({selectedEvent: this.props.events[0]}))
+    .then(()=>{
+      if (this.props.events.length===0)
+        this.setState({selectedEvent: {...newEvent}, editMode: true})
+      else
+        this.setState({selectedEvent: this.props.events[0]})
+    })
   }
 
   componentDidUpdate = (prevProps, prevState, snapshot) => {
@@ -128,19 +133,27 @@ class Event extends Component {
     this.deleteConfirmationProceed = () => {
       this.setState({deleteConfirmation: false}, ()=>{
         this.props.deleteEvent(this.state.selectedEvent._id)
-        .then(()=>this.setState({selectedEvent: this.props.events[0], lastEditedField: null}))
+        .then(()=>{
+          if (this.props.events.length===0)
+            this.setState({selectedEvent: {...newEvent}, lastEditedField: null, editMode: true})
+          else
+            this.setState({selectedEvent: this.props.events[0], lastEditedField: null, editMode: false})
+        })
       })
     }
     this.setState({deleteConfirmation: true})
   }
 
-  toggleEditMode = () => {
+  toggleEditMode = (event) => {
     if (this.state.editMode){
       if (this.state.lastEditedField)
         this.saveEvent();
       this.setState({editMode: false})
     } else {
-      this.setState({editMode: true})
+      if (!isEqual(this.state.selectedEvent, event))
+        this.setState({editMode: true, selectedEvent: {...event}})
+      else
+        this.setState({editMode: true})
     }
   }
 
@@ -439,92 +452,94 @@ class Event extends Component {
       <div>
         {this.props.loading && <Loading />}
         <div style={{display: 'grid', gridGap: 20, gridTemplateColumns: '1fr 3fr'}}>
-          <List>
-          {this.state.selectedEvent && this.state.selectedEvent.hasOwnProperty('_id') &&
-            <Button
-              variant="contained"
-              color="primary"
-              disabled={this.props.loading || (this.state.selectedEvent && !this.state.selectedEvent.hasOwnProperty('_id'))}
-              onClick={this.addNewEvent}
-              fullWidth
-            >
-              Create New Event
-            </Button>
-          }
-          {this.state.selectedEvent && !this.state.selectedEvent.hasOwnProperty('_id') &&
-            <div style={{
-              display: 'grid',
-              gridGap: 20,
-              gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
-              alignItems: 'center'
-            }}>
-              <Button
-                color="secondary"
-                disabled={this.props.loading}
-                onClick={this.cancelNewEvent}
-              >
-                Cancel
-              </Button>
+          <div>
+            {this.state.selectedEvent && this.state.selectedEvent.hasOwnProperty('_id') &&
               <Button
                 variant="contained"
                 color="primary"
-                disabled={this.props.loading || this.checkValidation()}
-                onClick={this.saveEvent}
+                disabled={this.props.loading || (this.state.selectedEvent && !this.state.selectedEvent.hasOwnProperty('_id'))}
+                onClick={this.addNewEvent}
+                fullWidth
               >
-                Save
+                Create New Event
               </Button>
-            </div>
-          }
-            <br/>
-            <br/>
-            {this.props.events.map((event, idx)=>
-              <ListItem
-                key={idx}
-                button
-                onClick={()=>!this.checkIfCurrentEvent(event) && this.selectEvent(event)}
-                style={this.checkIfCurrentEvent(event) ? {background: '#a18be6'} : {}}
-                disabled={this.props.loading}
-              >
-                <ListItemText
-                  secondary={
-                    <Typography
-                    variant="body2"
-                    style={this.checkIfCurrentEvent(event) ? {color: 'white'} : {}}
-                  >
-                    {event.date.slice(0, 10)}
-                  </Typography>
-                  }
-                  primary={
-                    <Typography
-                      variant="subheading"
+            }
+            {this.state.selectedEvent && !this.state.selectedEvent.hasOwnProperty('_id') &&
+              <div style={{
+                display: 'grid',
+                gridGap: 20,
+                gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
+                alignItems: 'center'
+              }}>
+                <Button
+                  color="secondary"
+                  disabled={this.props.loading}
+                  onClick={this.cancelNewEvent}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  disabled={this.props.loading || this.checkValidation()}
+                  onClick={this.saveEvent}
+                >
+                  Save
+                </Button>
+              </div>
+            }
+              <br/>
+              <br/>
+              <List style={{height: '82vh', overflowY: 'scroll'}}>
+              {this.props.events.map((event, idx)=>
+                <ListItem
+                  key={idx}
+                  button
+                  onClick={()=>!this.checkIfCurrentEvent(event) && this.selectEvent(event)}
+                  style={this.checkIfCurrentEvent(event) ? {background: '#a18be6'} : {}}
+                  disabled={this.props.loading}
+                >
+                  <ListItemText
+                    secondary={
+                      <Typography
+                      variant="body2"
                       style={this.checkIfCurrentEvent(event) ? {color: 'white'} : {}}
                     >
-                      {event.title.length > 30 ? event.title.slice(0, 30)+'...' : event.title}
+                      {event.date.slice(0, 10)}
                     </Typography>
-                  }
-                />
-                <ListItemSecondaryAction>
-                  <IconButton
-                    aria-label="Toggle Edit/Save"
-                    disabled={this.props.loading || this.checkIfNotCurrentEvent(event) || (this.checkIfCurrentEvent(event) && this.checkValidation())}
-                    onClick={this.toggleEditMode}
-                    color='primary'
-                  >
-                    {this.state.editMode && this.checkIfCurrentEvent(event) ? <SaveIcon/> : <EditIcon/>}
-                  </IconButton>
-                  <IconButton
-                    aria-label="Delete"
-                    disabled={this.props.loading || this.checkIfNotCurrentEvent(event)}
-                    onClick={this.deleteEvent}
-                    color='secondary'
-                  >
-                    <DeleteIcon/>
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            )}
-          </List>
-          {this.state.selectedEvent && this.renderEvent()}
+                    }
+                    primary={
+                      <Typography
+                        variant="subheading"
+                        style={this.checkIfCurrentEvent(event) ? {color: 'white'} : {}}
+                      >
+                        {event.title.length > 30 ? event.title.slice(0, 30)+'...' : event.title}
+                      </Typography>
+                    }
+                  />
+                  <ListItemSecondaryAction>
+                    <IconButton
+                      aria-label="Toggle Edit/Save"
+                      disabled={(this.state.editMode || this.state.lastEditedField) && (this.props.loading || this.checkIfNotCurrentEvent(event) || (this.checkIfCurrentEvent(event) && this.checkValidation()))}
+                      onClick={()=>this.toggleEditMode(event)}
+                      color='primary'
+                    >
+                      {this.state.editMode && this.checkIfCurrentEvent(event) ? <SaveIcon/> : <EditIcon/>}
+                    </IconButton>
+                    <IconButton
+                      aria-label="Delete"
+                      disabled={(this.state.editMode || this.state.lastEditedField) && (this.props.loading || this.checkIfNotCurrentEvent(event))}
+                      onClick={this.deleteEvent}
+                      color='secondary'
+                    >
+                      <DeleteIcon/>
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              )}
+            </List>
+          </div>
+          {this.state.selectedEvent && Object.keys(this.state.selectedEvent).length !== 0 && this.renderEvent()}
         </div>
         <UnsavedConfirmation
           open={this.state.unsavedConfirmation}

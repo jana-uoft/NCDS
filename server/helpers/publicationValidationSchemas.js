@@ -7,6 +7,7 @@ export const schemas = {
   }),
   publicationCreateUpdateSchema: Joi.object().keys({
     title: Joi.string().required(),
+    description: Joi.string().allow(''),
     date: Joi.date().iso().required(),
     images: Joi.array().items(Joi.string().uri()),
     coverImage: Joi.string().uri().allow(''),

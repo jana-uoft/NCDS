@@ -169,7 +169,7 @@ class DragSortableList extends React.Component {
           margin: '0 20px',
           display: 'grid',
           gridGap: 20,
-          gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, 150px)',
           alignItems: 'center',
           justifyContent: 'center',
           gridTemplateRows: 150

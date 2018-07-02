@@ -40,6 +40,6 @@ export async function remove(req, res, next) {
     else if (!gallery)
       return res.status(404).json({ error: `Gallery with id ${id} was not found` });
     else
-      return res.status(204).json();
+      return res.status(200).json({...gallery['_doc']});
   });
 }

@@ -49,7 +49,12 @@ class Contribution extends Component {
 
   componentDidMount = () => {
     this.props.getContributions()
-    .then(()=>this.setState({selectedContribution: this.props.contributions[0]}))
+    .then(()=>{
+      if (this.props.contributions.length===0)
+        this.setState({selectedContribution: {...newContribution}, editMode: true})
+      else
+        this.setState({selectedContribution: this.props.contributions[0]})
+    })
   }
 
   componentDidUpdate = (prevProps, prevState, snapshot) => {
@@ -126,19 +131,26 @@ class Contribution extends Component {
     this.deleteConfirmationProceed = () => {
       this.setState({deleteConfirmation: false}, ()=>{
         this.props.deleteContribution(this.state.selectedContribution._id)
-        .then(()=>this.setState({selectedContribution: this.props.contributions[0], lastEditedField: null}))
+        .then(()=>{
+          if (this.props.contributions.length===0)
+            this.setState({selectedContribution: {...newContribution}, lastEditedField: null, editMode: true})
+          else
+            this.setState({selectedContribution: this.props.contributions[0], lastEditedField: null, editMode: false})
+        })
       })
     }
     this.setState({deleteConfirmation: true})
   }
 
-  toggleEditMode = () => {
+  toggleEditMode = (contribution) => {
     if (this.state.editMode){
-      if (this.state.lastEditedField)
-        this.saveContribution();
+      if (this.state.lastEditedField) this.saveContribution()
       this.setState({editMode: false})
     } else {
-      this.setState({editMode: true})
+      if (!isEqual(this.state.selectedContribution, contribution))
+        this.setState({editMode: true, selectedContribution: {...contribution}})
+      else
+        this.setState({editMode: true})
     }
   }
 
@@ -338,7 +350,8 @@ class Contribution extends Component {
               display: 'grid',
               gridGap: 10,
               gridTemplateColumns: '2fr 1fr 1fr',
-              alignItems: 'center'
+              alignItems: 'center',
+              justifyItems: 'center'
             }}>
               <img src={this.state.selectedContribution.coverImage} alt={this.state.selectedContribution.title} style={{width: '50%', maxHeight: 150}}/>
               <Button
@@ -395,92 +408,94 @@ class Contribution extends Component {
       <div>
         {this.props.loading && <Loading />}
         <div style={{display: 'grid', gridGap: 20, gridTemplateColumns: '1fr 3fr'}}>
-          <List>
-          {this.state.selectedContribution && this.state.selectedContribution.hasOwnProperty('_id') &&
-            <Button
-              variant="contained"
-              color="primary"
-              disabled={this.props.loading || (this.state.selectedContribution && !this.state.selectedContribution.hasOwnProperty('_id'))}
-              onClick={this.addNewContribution}
-              fullWidth
-            >
-              Create New Contribution
-            </Button>
-          }
-          {this.state.selectedContribution && !this.state.selectedContribution.hasOwnProperty('_id') &&
-            <div style={{
-              display: 'grid',
-              gridGap: 20,
-              gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
-              alignItems: 'center'
-            }}>
-              <Button
-                color="secondary"
-                disabled={this.props.loading}
-                onClick={this.cancelNewContribution}
-              >
-                Cancel
-              </Button>
+          <div>
+            {this.state.selectedContribution && this.state.selectedContribution.hasOwnProperty('_id') &&
               <Button
                 variant="contained"
                 color="primary"
-                disabled={this.props.loading || this.checkValidation()}
-                onClick={this.saveContribution}
+                disabled={this.props.loading || (this.state.selectedContribution && !this.state.selectedContribution.hasOwnProperty('_id'))}
+                onClick={this.addNewContribution}
+                fullWidth
               >
-                Save
+                Create New Contribution
               </Button>
-            </div>
-          }
-            <br/>
-            <br/>
-            {this.props.contributions.map((contribution, idx)=>
-              <ListItem
-                key={idx}
-                button
-                onClick={()=>!this.checkIfCurrentContribution(contribution) && this.selectContribution(contribution)}
-                style={this.checkIfCurrentContribution(contribution) ? {background: '#a18be6'} : {}}
-                disabled={this.props.loading}
-              >
-                <ListItemText
-                  secondary={
-                    <Typography
-                    variant="body2"
-                    style={this.checkIfCurrentContribution(contribution) ? {color: 'white'} : {}}
-                  >
-                    {contribution.date.slice(0, 10)}
-                  </Typography>
-                  }
-                  primary={
-                    <Typography
-                      variant="subheading"
+            }
+            {this.state.selectedContribution && !this.state.selectedContribution.hasOwnProperty('_id') &&
+              <div style={{
+                display: 'grid',
+                gridGap: 20,
+                gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
+                alignItems: 'center'
+              }}>
+                <Button
+                  color="secondary"
+                  disabled={this.props.loading}
+                  onClick={this.cancelNewContribution}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  disabled={this.props.loading || this.checkValidation()}
+                  onClick={this.saveContribution}
+                >
+                  Save
+                </Button>
+              </div>
+            }
+              <br/>
+              <br/>
+              <List style={{height: '82vh', overflowY: 'scroll'}}>
+              {this.props.contributions.map((contribution, idx)=>
+                <ListItem
+                  key={idx}
+                  button
+                  onClick={()=>!this.checkIfCurrentContribution(contribution) && this.selectContribution(contribution)}
+                  style={this.checkIfCurrentContribution(contribution) ? {background: '#a18be6'} : {}}
+                  disabled={this.props.loading}
+                >
+                  <ListItemText
+                    secondary={
+                      <Typography
+                      variant="body2"
                       style={this.checkIfCurrentContribution(contribution) ? {color: 'white'} : {}}
                     >
-                      {contribution.title.length > 30 ? contribution.title.slice(0, 30)+'...' : contribution.title}
+                      {contribution.date.slice(0, 10)}
                     </Typography>
-                  }
-                />
-                <ListItemSecondaryAction>
-                  <IconButton
-                    aria-label="Toggle Edit/Save"
-                    disabled={this.props.loading || this.checkIfNotCurrentContribution(contribution) || (this.checkIfCurrentContribution(contribution) && this.checkValidation())}
-                    onClick={this.toggleEditMode}
-                    color='primary'
-                  >
-                    {this.state.editMode && this.checkIfCurrentContribution(contribution) ? <SaveIcon/> : <EditIcon/>}
-                  </IconButton>
-                  <IconButton
-                    aria-label="Delete"
-                    disabled={this.props.loading || this.checkIfNotCurrentContribution(contribution)}
-                    onClick={this.deleteContribution}
-                    color='secondary'
-                  >
-                    <DeleteIcon/>
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            )}
-          </List>
-          {this.state.selectedContribution && this.renderContribution()}
+                    }
+                    primary={
+                      <Typography
+                        variant="subheading"
+                        style={this.checkIfCurrentContribution(contribution) ? {color: 'white'} : {}}
+                      >
+                        {contribution.title.length > 30 ? contribution.title.slice(0, 30)+'...' : contribution.title}
+                      </Typography>
+                    }
+                  />
+                  <ListItemSecondaryAction>
+                    <IconButton
+                      aria-label="Toggle Edit/Save"
+                      disabled={(this.state.editMode || this.state.lastEditedField) && (this.props.loading || this.checkIfNotCurrentContribution(contribution) || (this.checkIfCurrentContribution(contribution) && this.checkValidation()))}
+                      onClick={()=>this.toggleEditMode(contribution)}
+                      color='primary'
+                    >
+                      {this.state.editMode && this.checkIfCurrentContribution(contribution) ? <SaveIcon/> : <EditIcon/>}
+                    </IconButton>
+                    <IconButton
+                      aria-label="Delete"
+                      disabled={(this.state.editMode || this.state.lastEditedField) && (this.props.loading || this.checkIfNotCurrentContribution(contribution))}
+                      onClick={this.deleteContribution}
+                      color='secondary'
+                    >
+                      <DeleteIcon/>
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              )}
+            </List>
+          </div>
+          {this.state.selectedContribution && Object.keys(this.state.selectedContribution).length !== 0 && this.renderContribution()}
         </div>
         <UnsavedConfirmation
           open={this.state.unsavedConfirmation}
@@ -495,7 +510,7 @@ class Contribution extends Component {
           confirmationCancel={this.deleteConfirmationCancel}
           disabled={this.state.selectedContribution && this.checkValidation()}
         />
-        {this.state.selectedContribution &&
+        {this.state.selectedContribution && Object.keys(this.state.selectedContribution).length !== 0 &&
           <ManageImages
             open={this.state.openManageImages}
             handleClickOpen={this.openManageImages}
@@ -509,7 +524,6 @@ class Contribution extends Component {
             deleteImages={this.deleteImagesByURLs}
           />
         }
-
       </div>
     )
   }

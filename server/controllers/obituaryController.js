@@ -40,6 +40,6 @@ export async function remove(req, res, next) {
     else if (!obituary)
       return res.status(404).json({ error: `Event with id ${id} was not found` });
     else
-      return res.status(204).json();
+      return res.status(200).json({...obituary['_doc']});
   });
 }

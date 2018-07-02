@@ -82,7 +82,7 @@ class ManageImages extends React.Component {
   }
 
   componentDidUpdate = (prevProps) => {
-    if (prevProps.selected && (prevProps.selected.images.length !== this.props.selected.images.length)) {
+    if (prevProps.selected && this.props.selected && (prevProps.selected.images.length !== this.props.selected.images.length)) {
       if (prevProps.selected.images.length > this.props.selected.images.length)
         this.setState({images: this.props.selected.images, selected: []})
       else
