@@ -20,6 +20,25 @@ const validateRSSFeed = async (rss) => {
   return result;
 }
 
+
+export async function rss(req, res, next) {
+  const news = await News.find({rss: {$ne: ''}}, null, { sort: { title: -1 } });
+  const rssFeeds = news.map(item=>item.rss).filter((v, i, a) => a.indexOf(v) === i);
+  let result = [];
+  for (let rssFeed of rssFeeds) {
+    const rssParser = await feedparser.parse(rssFeed);
+    for (let rssNews of rssParser) {
+      result.push({
+        guid: rssNews.guid,
+        title: rssNews.title,
+        date: rssNews.date,
+        image: rssNews.image.url
+      })
+    }
+  }
+  res.status(200).json(result);
+}
+
 export async function list(req, res, next) {
   const news = await News.find({}, null, { sort: { title: -1 } });
   res.status(200).json([...news]);
