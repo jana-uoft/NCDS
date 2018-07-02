@@ -4,6 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Header from '../../components/admin/Header';
 import Sidebar from '../../components/admin/Sidebar';
 import { logout } from '../../actions/auth';
+import Responsive from 'react-responsive';
+const Desktop = props => <Responsive {...props} minWidth={768} />;
+const Mobile = props => <Responsive {...props} maxWidth={767} />;
 
 const styles = theme => ({
   root: {
@@ -37,12 +40,15 @@ export default function (ComposedComponent) {
 
       return (
         <div className={classes.root}>
-          <Header logout={this.props.logout}/>
-          <Sidebar activePage={this.props.match.path} gotoLink={(link)=>this.props.history.push(link)}/>
-          <main className={classes.content}>
-            <div className={classes.toolbar} />
-            <ComposedComponent {...this.props} />
-          </main>
+          <Desktop>
+            <Header logout={this.props.logout}/>
+            <Sidebar activePage={this.props.match.path} gotoLink={(link)=>this.props.history.push(link)}/>
+            <main className={classes.content}>
+              <div className={classes.toolbar} />
+              <ComposedComponent {...this.props} />
+            </main>
+          </Desktop>
+          <Mobile> <h1 align="center"> Admin page is not available in mobile devices !</h1> </Mobile>
         </div>
       )
     }
