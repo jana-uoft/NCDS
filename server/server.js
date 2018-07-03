@@ -10,32 +10,9 @@ import galleryRoutes from './routes/galleryRoutes';
 import eventRoutes from './routes/eventRoutes';
 import obituaryRoutes from './routes/obituaryRoutes';
 import newsRoutes from './routes/newsRoutes';
+import contactRoutes from './routes/contactRoutes';
 import cloudinaryRoutes from './routes/cloudinaryRoutes';
 
-
-// const cloudinary = require('cloudinary').v2;
-// const fs = require('fs');
-// const feedparser = require('feedparser-promised');
-// var nodemailer = require('nodemailer');
-
-
-// config = JSON.parse(fs.readFileSync('./.env.json', 'utf8'));
-
-// cloudinary.config({
-//   cloud_name: config.cloudinary_name,
-//   api_key: config.cloudinary_api_key,
-//   api_secret: config.cloudinary_api_secret,
-// });
-
-// var transporter = nodemailer.createTransport({
-//   service: 'gmail',
-//   auth: {
-//     user: config.admin_email_user,
-//     pass: config.admin_email_pass
-//   }
-// });
-
-// const baseURL = 'https://res.cloudinary.com/nainativucds/raw/upload/';
 
 const app = express();
 
@@ -64,6 +41,7 @@ app.use('/api/galleries', galleryRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/obituaries', obituaryRoutes);
 app.use('/api/news', newsRoutes);
+app.use('/api/contact', contactRoutes);
 app.use('/api/cloudinary', cloudinaryRoutes);
 
 // Catch 404 Errors
@@ -104,36 +82,6 @@ app.listen(port, () => {
 //     else res.send(result);
 //   });
 // });
-
-
-// app.post('/api/mail', (req, res) => {
-//   let html = '<h1> Message from NainativuCDS.org </h1>';
-//   html += '<p>' + req.body.message + '</p>';
-//   if (req.body.hasOwnProperty('name')) html += '<br/><br/><p> Name: ' + req.body.name + '</p>';
-//   if (req.body.hasOwnProperty('email')) html += '<br/><p> Email: ' + req.body.email + '</p>';
-//   if (req.body.hasOwnProperty('phone')) html += '<br/><p> Contact No: ' + req.body.phone + '</p>';
-//   var mailOptions = {
-//     from: 'admin@nainativucds.org',
-//     to: 'admin@nainativucds.org',
-//     subject: req.body.subject,
-//     html
-//   };
-//   transporter.sendMail(mailOptions, function (error, info) {
-//     if (error) {
-//       res.send({ result: error });
-//       console.log(error);
-//     } else {
-//       res.send({ result: info.response });
-//       console.log('Email sent: ' + info.response);
-//     }
-//   });
-// });
-
-
-
-
-
-
 
 /**
  * Shuffles array in place.

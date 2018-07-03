@@ -26,10 +26,8 @@ import AdminEvents from './containers/admin/Events';
 import AdminObituary from './containers/admin/Obituary';
 import AdminContact from './containers/admin/Contact';
 import AdminDonate from './containers/admin/Donate';
-
 import Login from './containers/admin/Login';
 
-import ImageManager from './containers/admin/ImageManager';
 
 class App extends Component {
 
@@ -56,7 +54,6 @@ class App extends Component {
           <Route exact path="/admin/obituaries" component={adminPage(AdminObituary)} />
           <Route exact path="/admin/contact" component={adminPage(AdminContact)} />
           <Route exact path="/admin/donate" component={adminPage(AdminDonate)} />
-          <Route exact path="/admin/imageManager" component={adminPage(ImageManager)} />
           <Route component={FourOhFour} />
         </Switch>
       </Router>
