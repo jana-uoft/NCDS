@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
-import { DatePicker, TimePicker } from 'material-ui-pickers';
+import { DatePicker } from 'material-ui-pickers';
 import Loading from '../../components/global/Loading';
 import UnsavedConfirmation from '../../components/admin/UnsavedConfirmation';
 import DeleteConfirmation from '../../components/admin/DeleteConfirmation';
