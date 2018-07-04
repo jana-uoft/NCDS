@@ -10,6 +10,7 @@ import contributions from './contributions';
 import galleries from './galleries';
 import publications from './publications';
 import news from './news';
+import messages from './messages';
 import imageManager from './imageManager';
 
 
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   publications,
   galleries,
   news,
+  messages,
   imageManager
 })
 

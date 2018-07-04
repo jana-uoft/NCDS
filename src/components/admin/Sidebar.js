@@ -24,8 +24,7 @@ const menus = [
   {label: 'Galleries', link: '/admin/galleries', icon: 'camera_alt'},
   {label: 'Events', link: '/admin/events', icon: 'event'},
   {label: 'Obituaries', link: '/admin/obituaries', icon: 'remove_red_eye'},
-  {label: 'Contact', link: '/admin/contact', icon: 'contact_mail'},
-  {label: 'Donate', link: '/admin/donate', icon: 'attach_money'}
+  {label: 'Messages', link: '/admin/messages', icon: 'contact_mail'}
 ];
 
 class Sidebar extends Component {

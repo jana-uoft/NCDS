@@ -10,7 +10,7 @@ import galleryRoutes from './routes/galleryRoutes';
 import eventRoutes from './routes/eventRoutes';
 import obituaryRoutes from './routes/obituaryRoutes';
 import newsRoutes from './routes/newsRoutes';
-import contactRoutes from './routes/contactRoutes';
+import messageRoutes from './routes/messageRoutes';
 import cloudinaryRoutes from './routes/cloudinaryRoutes';
 
 
@@ -41,7 +41,7 @@ app.use('/api/galleries', galleryRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/obituaries', obituaryRoutes);
 app.use('/api/news', newsRoutes);
-app.use('/api/contact', contactRoutes);
+app.use('/api/messages', messageRoutes);
 app.use('/api/cloudinary', cloudinaryRoutes);
 
 // Catch 404 Errors

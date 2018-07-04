@@ -24,8 +24,7 @@ import AdminNews from './containers/admin/News';
 import AdminGallery from './containers/admin/Gallery';
 import AdminEvents from './containers/admin/Events';
 import AdminObituary from './containers/admin/Obituary';
-import AdminContact from './containers/admin/Contact';
-import AdminDonate from './containers/admin/Donate';
+import AdminMessage from './containers/admin/Message';
 import Login from './containers/admin/Login';
 
 
@@ -52,8 +51,7 @@ class App extends Component {
           <Route exact path="/admin/galleries" component={adminPage(AdminGallery)} />
           <Route exact path="/admin/events" component={adminPage(AdminEvents)} />
           <Route exact path="/admin/obituaries" component={adminPage(AdminObituary)} />
-          <Route exact path="/admin/contact" component={adminPage(AdminContact)} />
-          <Route exact path="/admin/donate" component={adminPage(AdminDonate)} />
+          <Route exact path="/admin/messages" component={adminPage(AdminMessage)} />
           <Route component={FourOhFour} />
         </Switch>
       </Router>

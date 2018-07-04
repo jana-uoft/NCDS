@@ -1,8 +1,8 @@
-import { contactSubmissions, donateSubmissions, create, remove } from '../controllers/contactController';
+import { list, create, remove } from '../controllers/messageController';
 import PromiseRouter from 'express-promise-router';
 import passport from '../passport';
 import { validateParam, validateBody } from '../helpers/validations';
-import { schemas } from '../helpers/contactValidationSchemas';
+import { schemas } from '../helpers/messageValidationSchemas';
 
 
 const router = PromiseRouter();
@@ -10,17 +10,12 @@ const passportJWT = passport.authenticate('jwt', { session: false });
 
 router.route('/')
   .get(
-    contactSubmissions
+    list
   )
-
-router.route('/donate')
-  .get(
-    donateSubmissions
-)
 
 router.route('/')
   .post(
-    validateBody(schemas.contactCreateUpdateSchema),
+    validateBody(schemas.messageCreateUpdateSchema),
     passportJWT,
     create
   )

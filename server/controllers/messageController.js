@@ -1,4 +1,4 @@
-import Contact from '../models/contactModel';
+import Message from '../models/messageModel';
 const fs = require('fs');
 var nodemailer = require('nodemailer');
 
@@ -13,8 +13,8 @@ var transporter = nodemailer.createTransport({
   }
 });
 
-const sendMail = async (contact) => {
-  const { name, email, phone, subject, message, type } = contact;
+const sendMail = async (contactMessage) => {
+  const { name, email, phone, subject, message, type } = contactMessage;
 
   let html = '<h1> Message from NainativuCDS.org </h1>';
   html += '<p>' + message + '</p>';
@@ -31,30 +31,25 @@ const sendMail = async (contact) => {
   console.log(result);
 }
 
-export async function contactSubmissions(req, res, next) {
-  const contacts = await Contact.find({type: 'Contact'}, null, { sort: { _id: -1 } });
-  res.status(200).json([...contacts]);
-}
-
-export async function donateSubmissions(req, res, next) {
-  const contacts = await Contact.find({type: 'Donate'}, null, { sort: { _id: -1 } });
-  res.status(200).json([...contacts]);
+export async function list(req, res, next) {
+  const messages = await Message.find({}, null, { sort: { _id: -1 } });
+  res.status(200).json([...messages]);
 }
 
 export async function create(req, res, next) {
-  const contact = await new Contact(req.value.body).save();
+  const message = await new Message(req.value.body).save();
   // await sendMail(req.value.body);
-  res.status(201).json({ ...contact['_doc'] });
+  res.status(201).json({ ...message['_doc'] });
 }
 
 export async function remove(req, res, next) {
   const id = req.params.id;
-  Contact.findByIdAndRemove(id, (error, contact) => {
+  Message.findByIdAndRemove(id, (error, message) => {
     if (error)
       return res.status(404).json({ error: error.message });
-    else if (!contact)
-      return res.status(404).json({ error: `Contact with id ${id} was not found` });
+    else if (!message)
+      return res.status(404).json({ error: `Message with id ${id} was not found` });
     else
-      return res.status(200).json({...contact['_doc']});
+      return res.status(200).json({...message['_doc']});
   });
 }
