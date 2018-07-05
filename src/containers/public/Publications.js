@@ -5,7 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
 import LightBox from '../../components/global/LightBox';
-
+import Loading from '../../components/global/Loading';
 
 class Publications extends Component {
   constructor(props) {
@@ -32,11 +32,9 @@ class Publications extends Component {
       & img {
         width: 100%;
         height: 85%;
-        content: url(${publication.coverImage});
       }
       &:hover {
         & img {
-          opacity: 100
           content: url(${publication.images[0] ? publication.images[0] : publication.coverImage});
         }
         background: linear-gradient(to right, #33ccff -39%, #003300 44%);
@@ -52,6 +50,7 @@ class Publications extends Component {
   }
 
   render() {
+    if (this.props.loading) return <Loading />
     return (
       <div>
         <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, 250px)', gridGap: 30, margin: '20px 20px', justifyContent: 'center'}}>
@@ -70,7 +69,8 @@ class Publications extends Component {
 
 
 const mapStateToProps = state => ({
-  publications: state.publications
+  publications: state.publications,
+  loading: state.general.loading
 })
 
 const mapDispatchToProps = dispatch => ({
