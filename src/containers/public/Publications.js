@@ -54,7 +54,7 @@ class Publications extends Component {
   render() {
     return (
       <div>
-        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, 250px)', gridGap: 30, margin: '20px 20px'}}>
+        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, 250px)', gridGap: 30, margin: '20px 20px', justifyContent: 'center'}}>
           {this.props.publications.map(this.renderPublication)}
         </div>
         {this.state.open && this.state.images.length > 0 &&
