@@ -392,7 +392,7 @@ class Gallery extends Component {
               variant="contained"
               color="primary"
               style={{marginRight: 20}}
-              disabled={!this.state.editMode || (this.state.selectedGallery && !this.state.selectedGallery.hasOwnProperty('_id'))}
+              disabled={this.props.loading || !this.state.editMode || (this.state.selectedGallery && !this.state.selectedGallery.hasOwnProperty('_id'))}
               onClick={this.openManageImages}
             >
               Manage Images

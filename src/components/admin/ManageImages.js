@@ -13,6 +13,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import ViewIcon from '@material-ui/icons/RemoveRedEye';
 import { isEqual } from 'lodash';
+import LightBox from '../global/LightBox';
+
 
 const styles = {
   appBar: {
@@ -28,11 +30,11 @@ const styles = {
     transform: 'translate(-50%, -50%)',
     '-ms-transform': 'translate(-50%, -50%)',
     color: 'white',
-    fontSize: '16px',
+    fontSize: '14px',
     padding: '12px 24px',
     border: 'none',
     cursor: 'pointer',
-    borderRadius: '5px',
+    borderRadius: '3px',
     background: '#D3D3D3'
   },
   viewButton: {
@@ -42,11 +44,11 @@ const styles = {
     transform: 'translate(-50%, -50%)',
     '-ms-transform': 'translate(-50%, -50%)',
     color: 'white',
-    fontSize: '16px',
+    fontSize: '14px',
     padding: '12px 24px',
     border: 'none',
     cursor: 'pointer',
-    borderRadius: '5px',
+    borderRadius: '3px',
     background: '#D3D3D3'
   }
 };
@@ -62,7 +64,8 @@ class ManageImages extends React.Component {
     this.state = {
       selected: [],
       images: props.selected.images,
-      imageView: ""
+      photoIndex: 0,
+      open: false
     }
   }
 
@@ -107,7 +110,7 @@ class ManageImages extends React.Component {
             className={classes.viewButton}
             color="primary"
             aria-label="View"
-            onClick={()=>this.setState({imageView: img})}
+            onClick={()=>this.setState({open: true, photoIndex: idx})}
           >
             <ViewIcon />
           </IconButton>
@@ -123,6 +126,7 @@ class ManageImages extends React.Component {
         TransitionComponent={Transition}
         disableBackdropClick
         disableEscapeKeyDown
+        style={{zIndex: 50}}
       >
         {this.props.loading && <Loading />}
         <AppBar className={classes.appBar}>
@@ -165,7 +169,13 @@ class ManageImages extends React.Component {
         <br/>
         <DragSortableGrid items={imagesGrid} dropBackTransitionDuration={0.3} moveTransitionDuration={0.3} onSort={this.onSort}/>
 
-        <Dialog
+        {this.state.open && this.state.images.length > 0 &&
+        <LightBox
+          images={this.props.selected.images}
+          photoIndex={this.state.photoIndex}
+          onCloseModal={()=>this.setState({ open: false})}
+        />}
+        {/* <Dialog
           open={this.state.imageView!==""}
           onClose={()=>this.setState({imageView: ""})}
           maxWidth={false}
@@ -173,7 +183,7 @@ class ManageImages extends React.Component {
           <div style={{maxWidth: '80vw', overflowY: 'hidden'}}>
             <img src={this.state.imageView} alt="View Single" style={{width: '100%'}}/>
           </div>
-        </Dialog>
+        </Dialog> */}
       </Dialog>
     );
   }

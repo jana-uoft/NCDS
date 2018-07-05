@@ -41,8 +41,8 @@ export default function (ComposedComponent) {
       return (
         <div className={classes.root}>
           <Desktop>
-            <Header logout={this.props.logout}/>
-            <Sidebar activePage={this.props.match.path} gotoLink={(link)=>this.props.history.push(link)}/>
+            <Header logout={this.props.logout} loading={this.props.loading}/>
+            <Sidebar activePage={this.props.match.path} gotoLink={(link)=>this.props.history.push(link)} loading={this.props.loading}/>
             <main className={classes.content}>
               <div className={classes.toolbar} />
               <ComposedComponent {...this.props} />
@@ -55,7 +55,8 @@ export default function (ComposedComponent) {
   }
 
   const mapStateToProps = state => ({
-    token: state.auth.token
+    token: state.auth.token,
+    loading: state.general.loading
   })
 
   const mapDispatchToProps = dispatch => ({

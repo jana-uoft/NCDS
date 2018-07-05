@@ -26,7 +26,7 @@ class Header extends Component {
           <Typography variant="title" color="inherit" className={classes.flex} noWrap>
             Nainativu Canadian Development Society
           </Typography>
-          <Button color="inherit" onClick={this.props.logout}>Logout</Button>
+          <Button color="inherit" onClick={this.props.logout} disabled={this.props.loading}>Logout</Button>
         </Toolbar>
       </AppBar>
     )

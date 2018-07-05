@@ -45,7 +45,7 @@ class Sidebar extends Component {
             <ListItem
               key={idx}
               button
-              onClick={()=>this.props.activePage===link ? null : this.props.gotoLink(link)}
+              onClick={()=>this.props.activePage===link || this.props.loading ? null : this.props.gotoLink(link)}
               divider
               style={{backgroundColor: this.props.activePage===link ? '#1976d2' : ''}}
             >

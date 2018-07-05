@@ -350,7 +350,7 @@ class Publication extends Component {
               variant="contained"
               color="primary"
               style={{marginRight: 20}}
-              disabled={!this.state.editMode || (this.state.selectedPublication && !this.state.selectedPublication.hasOwnProperty('_id'))}
+              disabled={this.props.loading || !this.state.editMode || (this.state.selectedPublication && !this.state.selectedPublication.hasOwnProperty('_id'))}
               onClick={this.openManageImages}
             >
               Manage Images
