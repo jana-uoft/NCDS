@@ -30,7 +30,7 @@ class Galleries extends Component {
   renderGallery = (gallery, idx) => {
     if (this.state.activeFilter !== "Show All" && this.state.activeFilter!==gallery.type) return
     const Gallery = styled(Paper)`
-      background: linear-gradient(to left, #33ccff -39%, #003300 61%);
+      background: radial-gradient(circle, rgba(3,17,10,1) 0%, rgba(32,73,42,1) 50%);
       cursor: pointer;
       height: 350px;
       & img {
@@ -38,7 +38,7 @@ class Galleries extends Component {
         height: 60%;
       }
       &:hover {
-        background: linear-gradient(to right, #33ccff -39%, #003300 44%);
+        background: radial-gradient(circle, rgba(3,17,10,1) 0%, rgba(23,50,29,1) 38%);
       }
     `
     return (

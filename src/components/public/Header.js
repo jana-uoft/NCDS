@@ -44,7 +44,7 @@ const menus = [
   {label: 'Gallery', link: '/gallery', icon: 'camera_alt'},
   {label: 'Events', link: '/events', icon: 'event'},
   {label: 'Obituary', link: '/obituary', icon: 'remove_red_eye'},
-  {label: 'Contact', link: '/contact', icon: 'contact_mail'},
+  {label: 'Contact Us', link: '/contact', icon: 'contact_mail'},
   {label: 'Donate', link: '/donate', icon: 'attach_money'}
 ];
 

@@ -26,7 +26,7 @@ class Publications extends Component {
 
   renderPublication = (publication, idx) => {
     const Publication = styled(Paper)`
-      background: linear-gradient(to left, #33ccff -39%, #003300 61%);
+      background: radial-gradient(circle, rgba(3,17,10,1) 0%, rgba(32,73,42,1) 50%);
       cursor: pointer;
       height: 350px;
       & img {
@@ -37,7 +37,7 @@ class Publications extends Component {
         & img {
           content: url(${publication.images[0] ? publication.images[0] : publication.coverImage});
         }
-        background: linear-gradient(to right, #33ccff -39%, #003300 44%);
+        background: radial-gradient(circle, rgba(3,17,10,1) 0%, rgba(23,50,29,1) 38%);
       }
     `
     return (
