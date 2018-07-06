@@ -5,6 +5,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
+  Redirect
 } from 'react-router-dom'
 import publicPage from './components/public/PublicPageWrap';
 import Home from './containers/public/Home';
@@ -53,6 +54,7 @@ class App extends Component {
           <Route exact path="/admin/obituaries" component={adminPage(AdminObituary)} />
           <Route exact path="/admin/messages" component={adminPage(AdminMessage)} />
           <Route component={FourOhFour} />
+          <Redirect from='/admin' to='/admin/contributions'/>
         </Switch>
       </Router>
 

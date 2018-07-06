@@ -173,9 +173,11 @@ class Event extends Component {
     const descriptionEmpty = this.state.selectedEvent.description==="";
     const startTimeEmpty = this.state.selectedEvent.startTime==="";
     const endTimeEmpty = this.state.selectedEvent.endTime==="";
+    const locationEmpty = this.state.selectedEvent.location==="";
+    const addressEmpty = this.state.selectedEvent.address==="";
     const contactNameEmpty = this.state.selectedEvent.contactName==="";
     const contactNumberEmpty = this.state.selectedEvent.contactNumber==="";
-    return dateEmpty || titleEmpty || descriptionEmpty || startTimeEmpty || endTimeEmpty || contactNameEmpty || contactNumberEmpty
+    return dateEmpty || titleEmpty || descriptionEmpty || startTimeEmpty || endTimeEmpty || contactNameEmpty || contactNumberEmpty || locationEmpty || addressEmpty
   }
 
   addNewImage = (files) => {
@@ -288,7 +290,7 @@ class Event extends Component {
               autoOk
               showTodayButton
               todayLabel="now"
-              value={new Date(this.state.selectedEvent.startTime)}
+              value={Date.parse(this.state.selectedEvent.startTime)}
               onChange={time => this.handleDateChange('startTime', time)}
               style={{paddingRight: 20}}
               disabled={!this.state.editMode || this.props.loading}
@@ -308,7 +310,7 @@ class Event extends Component {
               autoOk
               showTodayButton
               todayLabel="now"
-              value={new Date(this.state.selectedEvent.endTime)}
+              value={Date.parse(this.state.selectedEvent.endTime)}
               onChange={time => this.handleDateChange('endTime', time)}
               style={{paddingRight: 20}}
               disabled={!this.state.editMode || this.props.loading}
@@ -330,6 +332,8 @@ class Event extends Component {
               value={this.state.selectedEvent.location}
               style={{paddingRight: 20}}
               disabled={!this.state.editMode || this.props.loading}
+              error={this.state.selectedEvent.location===""}
+              helperText={this.state.selectedEvent.location==="" ? "Required" : null}
             />
           </div>
           <div style={{
@@ -349,6 +353,8 @@ class Event extends Component {
               rowsMax="15"
               style={{paddingRight: 20}}
               disabled={!this.state.editMode || this.props.loading}
+              error={this.state.selectedEvent.address===""}
+              helperText={this.state.selectedEvent.address==="" ? "Required" : null}
             />
           </div>
           <div style={{
@@ -389,7 +395,7 @@ class Event extends Component {
                     ref={inputRef}
                     format="+1 (###) ###-####"
                     mask="_"
-                    onValueChange={(values) => this.handleTextChange('contactNumber', values.value)}
+                    onValueChange={(values) => this.handleTextChange('contactNumber', values.formattedValue)}
                     value={this.state.selectedEvent.contactNumber}
                   />
                 )

@@ -2,7 +2,7 @@ import Event from '../models/eventModel';
 
 
 export async function list(req, res, next) {
-  const events = await Event.find({}, null, { sort: { date: -1 } });
+  const events = await Event.find({}, null, { sort: { date: 1 } });
   res.status(200).json([...events]);
 }
 

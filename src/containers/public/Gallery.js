@@ -63,7 +63,7 @@ class Galleries extends Component {
     const allUniqueTypes = this.getUniqueTypes();
     return (
       <div>
-        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, 100px)', gridGap: 20, margin: '20px 20px', justifyContent: 'left'}}>
+        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, 150px)', gridGap: 10, margin: '20px 20px', justifyContent: 'center'}}>
           {allUniqueTypes.map((type, idx)=>
             <Chip
               key={idx}

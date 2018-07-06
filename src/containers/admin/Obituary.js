@@ -25,18 +25,13 @@ import { uploadImagesByTags, deleteImagesByTag } from '../../actions/imageManage
 
 const defaultCoverImage = "https://res.cloudinary.com/nainativucds/image/upload/v1530461653/website/No-image-available.jpg"
 const newObituary = {
-  "startTime": new Date(Date.now()).toISOString(),
-  "endTime": new Date(Date.now()).toISOString(),
   "name": "",
   "description": "",
   "birthDate": new Date(Date.now()).toISOString(),
   "deathDate": new Date(Date.now()).toISOString(),
-  "viewingDate": new Date(Date.now()).toISOString(),
   "coverImage": defaultCoverImage,
   "contactName": "",
   "contactNumber": "",
-  "location": "",
-  "address": ""
 }
 
 class Obituary extends Component {
@@ -170,12 +165,11 @@ class Obituary extends Component {
   }
 
   checkValidation = () => {
-    const viewingDateEmpty = this.state.selectedObituary.viewingDate==="";
     const nameEmpty = this.state.selectedObituary.name==="";
     const descriptionEmpty = this.state.selectedObituary.description==="";
     const contactNameEmpty = this.state.selectedObituary.contactName==="";
     const contactNumberEmpty = this.state.selectedObituary.contactNumber==="";
-    return viewingDateEmpty || nameEmpty || descriptionEmpty || contactNameEmpty || contactNumberEmpty
+    return nameEmpty || descriptionEmpty || contactNameEmpty || contactNumberEmpty
   }
 
   addNewImage = (files) => {
@@ -211,27 +205,6 @@ class Obituary extends Component {
           alignItems: 'center'
         }}
       >
-          <div style={{
-            display: 'grid',
-            gridGap: 20,
-            gridTemplateColumns: '1fr 3fr',
-            alignItems: 'center'
-          }}>
-            <div style={{padding: 20, justifySelf: 'center'}}>
-              <Typography variant='subheading'>Viewing Date</Typography>
-            </div>
-            <DatePicker
-              autoOk
-              showTodayButton
-              value={new Date(this.state.selectedObituary.viewingDate)}
-              onChange={viewingDate => this.handleDateChange('viewingDate', viewingDate)}
-              animateYearScrolling={true}
-              format="DD/MM/YYYY"
-              style={{paddingRight: 20}}
-              disabled={!this.state.editMode || this.props.loading}
-              required
-            />
-          </div>
           <div style={{
             display: 'grid',
             gridGap: 20,
@@ -323,42 +296,6 @@ class Obituary extends Component {
             alignItems: 'center'
           }}>
             <div style={{padding: 20, justifySelf: 'center'}}>
-              <Typography variant='subheading'>Viewing Location</Typography>
-            </div>
-            <TextField
-              id={this.state.selectedObituary._id}
-              onChange={(e)=>this.handleTextChange('location', e.target.value)}
-              value={this.state.selectedObituary.location}
-              style={{paddingRight: 20}}
-              disabled={!this.state.editMode || this.props.loading}
-            />
-          </div>
-          <div style={{
-            display: 'grid',
-            gridGap: 20,
-            gridTemplateColumns: '1fr 3fr',
-            alignItems: 'center'
-          }}>
-            <div style={{padding: 20, justifySelf: 'center'}}>
-              <Typography variant='subheading'>Viewing Address</Typography>
-            </div>
-            <TextField
-              id={this.state.selectedObituary._id}
-              onChange={(e)=>this.handleTextChange('address', e.target.value)}
-              value={this.state.selectedObituary.address}
-              multiline
-              rowsMax="15"
-              style={{paddingRight: 20}}
-              disabled={!this.state.editMode || this.props.loading}
-            />
-          </div>
-          <div style={{
-            display: 'grid',
-            gridGap: 20,
-            gridTemplateColumns: '1fr 3fr',
-            alignItems: 'center'
-          }}>
-            <div style={{padding: 20, justifySelf: 'center'}}>
               <Typography variant='subheading'>Contact Name</Typography>
             </div>
             <TextField
@@ -390,7 +327,7 @@ class Obituary extends Component {
                     ref={inputRef}
                     format="+1 (###) ###-####"
                     mask="_"
-                    onValueChange={(values) => this.handleTextChange('contactNumber', values.value)}
+                    onValueChange={(values) => this.handleTextChange('contactNumber', values.formattedValue)}
                     value={this.state.selectedObituary.contactNumber}
                   />
                 )
@@ -506,7 +443,7 @@ class Obituary extends Component {
                       variant="body2"
                       style={this.checkIfCurrentObituary(obituary) ? {color: 'white'} : {}}
                     >
-                      {obituary.viewingDate.slice(0, 10)}
+                      {obituary.birthDate.slice(0, 10)} to {obituary.deathDate.slice(0, 10)}
                     </Typography>
                     }
                     primary={
