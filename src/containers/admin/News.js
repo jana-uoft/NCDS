@@ -403,7 +403,7 @@ class News extends Component {
 
 const mapStateToProps = state => ({
   loading: state.general.loading,
-  news: state.news
+  news: state.news.news
 })
 
 const mapDispatchToProps = dispatch => ({

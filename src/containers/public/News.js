@@ -1,35 +1,122 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { getNews, getLatestRSSNews } from '../../actions/news';
+import styled from 'styled-components';
+import Paper from '@material-ui/core/Paper';
+import Chip from '@material-ui/core/Chip';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
 
-const styles = theme => ({
-  root: {
-    // padding: theme.spacing.unit,
-  },
-});
+
 
 class News extends Component {
 
+  componentDidMount() {
+    this.props.getNews()
+    // Only update RSS if lastUpdated was more than an hour ago
+    if (!this.props.lastUpdated && (new Date() - new Date(this.props.lastUpdated) > 60*60*1000)) this.props.getLatestRSSNews()
+  }
+
   render() {
-    const { classes } = this.props;
+    const PageGrid = styled.div`
+      display: grid;
+      grid-template-columns: 5fr 2fr;
+      grid-gap: 20px;
+      margin: 20px 20px;
+      @media only screen and (max-width: 768px) {
+        grid-template-columns: 1fr;
+      }
+    `
+
+    const RSS = styled.div`
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-gap: 10px;
+    `
+
+    const RSSCard = styled(Paper)`
+      background: radial-gradient(circle, rgba(3,17,10,1) 0%, rgba(32,73,42,1) 50%);
+      .title {
+        color: white;
+      }
+      cursor: pointer;
+      height: 200px;
+      text-align: center;
+      img {
+        height: 50%;
+        width: 100%;
+      }
+      &:hover {
+        background: radial-gradient(circle, rgba(3,17,10,1) 0%, rgba(23,50,29,1) 38%);
+      }
+    `
+
+    const NewsCategory = styled(Paper)`
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      grid-gap: 10px;
+      padding: 20px 20px;
+    `
+
+    const NewsChip = styled(Chip)`
+      &:hover{
+        background: linear-gradient(90deg, rgba(3,17,10,1) 0%, rgba(36,80,36,1) 100%);
+        color: white;
+      }
+    `
+
+    let newsByCategory = {};
+    this.props.news.forEach(news=>{
+      if (newsByCategory.hasOwnProperty(news.category)) newsByCategory[news.category].push(news)
+      else newsByCategory[news.category] = [news]
+    })
     return (
-      <div className={classes.root}>
-        <Button variant="contained" color="primary">News</Button>
-      </div>
+      <PageGrid>
+        <RSS>
+          {this.props.rss.map((rss, idx)=>
+            <RSSCard key={idx}>
+              <img src={rss.image} alt={rss.title}/>
+              <Typography className="title" variant="body2">{rss.title}</Typography>
+            </RSSCard>
+          )}
+        </RSS>
+        <div>
+          {Object.keys(newsByCategory).map((category, idx)=>
+            <Paper key={idx} style={{textAlign: 'center', marginBottom: 20}}>
+              <Typography variant="subheading">{category}</Typography>
+              <NewsCategory>
+                {this.props.news.map((news, idx) => {
+                  if (category!==news.category) return null
+                  return (
+                    <NewsChip
+                      key={idx}
+                      label={news.title}
+                      clickable
+                      onClick={()=>window.open(news.link, '_blank')}
+                      avatar={<Avatar src={`https://www.google.com/s2/favicons?domain=${news.link}`} />}
+                    />
+                  )
+                })}
+              </NewsCategory>
+            </Paper>
+          )}
+        </div>
+      </PageGrid>
     )
   }
 }
 
 
 const mapStateToProps = state => ({
+  news: state.news.news,
+  rss: state.news.rss,
+  lastUpdated: state.news.lastUpdated
 })
 
 const mapDispatchToProps = dispatch => ({
+  getNews: () => dispatch(getNews()),
+  getLatestRSSNews: () => dispatch(getLatestRSSNews())
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(News))
+export default connect(mapStateToProps, mapDispatchToProps)(News)
 

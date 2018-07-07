@@ -21,3 +21,14 @@ export const deleteMessage = messageID => {
     }
   }
 }
+
+export const sendMessage = message => ({
+  types: ['LOADING', 'SEND_MESSAGE_SUCCESS', 'SEND_MESSAGE_FAILED'],
+  payload: {
+    request:{
+      url: '/messages',
+      method: 'POST',
+      data: message
+    }
+  }
+})

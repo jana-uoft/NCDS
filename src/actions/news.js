@@ -9,6 +9,16 @@ export const getNews = () => ({
   }
 })
 
+export const getLatestRSSNews = () => ({
+  types: ['LOADING', 'GET_NEWS_RSS_SUCCESS', 'GET_NEWS_RSS_FAILED'],
+  payload: {
+    request:{
+      url: '/news/rss',
+      method: 'GET'
+    }
+  }
+})
+
 export const updateNews = news => {
   const id = news._id
   delete news['_id']
