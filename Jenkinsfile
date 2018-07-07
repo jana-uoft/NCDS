@@ -9,7 +9,7 @@ pipeline {
     }
     stage('Sync Files') {
       steps {
-        sh 'rsync -a ./ /var/www/nainativucds/'
+        sh 'sudo rsync -a ./ /var/www/nainativucds/'
       }
     }
   }
