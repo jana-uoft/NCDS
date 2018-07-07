@@ -8,8 +8,15 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 
 
-
 class News extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      open: false
+    }
+  }
+
 
   componentDidMount() {
     this.props.getNews()
@@ -56,11 +63,12 @@ class News extends Component {
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       grid-gap: 10px;
       padding: 20px 20px;
+      background: linear-gradient(90deg, rgba(3,17,10,1) 0%, rgba(119,190,119,1) 100%);
     `
 
     const NewsChip = styled(Chip)`
       &:hover{
-        background: linear-gradient(90deg, rgba(3,17,10,1) 0%, rgba(36,80,36,1) 100%);
+        background: linear-gradient(90deg, rgba(21,131,21,1) 0%, rgba(3,17,10,1) 100%);
         color: white;
       }
     `
@@ -74,16 +82,16 @@ class News extends Component {
       <PageGrid>
         <RSS>
           {this.props.rss.map((rss, idx)=>
-            <RSSCard key={idx}>
+            <RSSCard key={idx} onClick={()=>window.open(rss.guid, '_blank')}>
               <img src={rss.image} alt={rss.title}/>
-              <Typography className="title" variant="body2">{rss.title}</Typography>
+              <Typography className="title" variant="body2"><b>{rss.title}</b></Typography>
             </RSSCard>
           )}
         </RSS>
         <div>
           {Object.keys(newsByCategory).map((category, idx)=>
-            <Paper key={idx} style={{textAlign: 'center', marginBottom: 20}}>
-              <Typography variant="subheading">{category}</Typography>
+            <Paper key={idx} style={{textAlign: 'center', marginBottom: 20, background: 'linear-gradient(90deg, rgba(3,17,10,1) 0%, rgba(119,190,119,1) 100%)'}}>
+              <Typography variant="subheading" style={{color: 'white'}}>{category}</Typography>
               <NewsCategory>
                 {this.props.news.map((news, idx) => {
                   if (category!==news.category) return null
