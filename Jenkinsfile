@@ -4,7 +4,7 @@ pipeline {
     stage('Build') {
       agent any
       steps {
-        sh 'yarn build'
+        sh 'yarn client-build'
       }
     }
     stage('Sync Files') {
