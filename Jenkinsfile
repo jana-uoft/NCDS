@@ -1,12 +1,8 @@
 pipeline {
-  agent {
-    node {
-      label 'NainativuCDS'
-    }
-
-  }
+  agent any
   stages {
-    stage('') {
+    stage('error') {
+      agent any
       steps {
         echo 'Hello'
       }
