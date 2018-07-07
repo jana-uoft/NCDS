@@ -4,12 +4,12 @@ pipeline {
     stage('Build') {
       agent any
       steps {
-        sh 'yarn client-build'
+        sh 'cd ncds && yarn client-build'
       }
     }
     stage('Sync Files') {
       steps {
-        sh 'rsync -a ./ /var/www/nainativucds'
+        sh 'rsync -a ./ncds/ /var/www/nainativucds'
       }
     }
   }
