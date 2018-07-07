@@ -8,7 +8,7 @@ export default function (ComposedComponent) {
       return (
         <div>
           <Header activePage={this.props.match.path} gotoPage={(link)=>this.props.history.push(link)}/>
-          <ComposedComponent {...this.props} />
+          <div style={{paddingTop: 150}}><ComposedComponent {...this.props}/></div>
         </div>
       )
     }

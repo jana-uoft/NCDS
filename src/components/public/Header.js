@@ -63,7 +63,7 @@ class Header extends Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" style={{backgroundColor:"#0D2B31"}}>
+        <AppBar style={{backgroundColor:"#0D2B31", position: "fixed"}}>
           <Desktop>
             <img
               alt="logo"
