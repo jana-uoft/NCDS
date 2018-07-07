@@ -45,7 +45,7 @@ class Obituaries extends Component {
     obituariesToRender = obituariesToRender.filter(obituary=>obituary)
     return (
       <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, 400px)', gridGap: 30, margin: '20px 20px', justifyContent: 'center', gridAutoRows: 450}}>
-        {obituariesToRender.length===0 ? <Typography variant="title">There are no {this.state.activeFilter} to Display</Typography> : obituariesToRender}
+        {obituariesToRender.length===0 ? <Typography variant="subheading">There are no Obituaries to Display</Typography> : obituariesToRender}
       </div>
     )
   }

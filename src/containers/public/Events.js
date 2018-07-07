@@ -71,7 +71,7 @@ class Events extends Component {
           )}
         </div>
         <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, 350px)', gridGap: 30, margin: '20px 20px', justifyContent: 'center'}}>
-          {eventsToRender.length===0 ? <Typography variant="title">There are no {this.state.activeFilter} to Display</Typography> : eventsToRender}
+          {eventsToRender.length===0 ? <Typography variant="subheading">There are no {this.state.activeFilter} to Display</Typography> : eventsToRender}
         </div>
       </div>
     )
