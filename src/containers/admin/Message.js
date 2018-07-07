@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DeleteConfirmation from '../../components/admin/DeleteConfirmation';
 import { format } from 'date-fns'
+import Typography from '@material-ui/core/Typography';
 
 
 class Message extends Component {
@@ -64,6 +65,7 @@ class Message extends Component {
         </Paper>
         <br/>
         <div style={{display: 'grid', gridGap: 20}}>
+          {this.props.messages.length===0 && <Typography variant='title'> No messages to display </Typography>}
           {this.props.messages.map(this.renderRow)}
         </div>
         <DeleteConfirmation

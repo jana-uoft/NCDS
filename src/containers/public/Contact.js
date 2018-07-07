@@ -43,7 +43,7 @@ class Contact extends Component {
       message: this.state.message,
       type: this.state.type
     })
-    .then(()=>this.setState({successMessage: true}))
+    .then(()=>this.setState({successMessage: true, lastEdited: null}))
   }
 
   render() {
@@ -85,7 +85,7 @@ class Contact extends Component {
       <MainGrid>
         <div>
           {this.props.loading && <Loading/>}
-          <Typography variant="title" >Email us with any questions or enquiries.</Typography><br/><br/>
+          <Typography variant="title" style={{textAlign: 'center'}} >Send us an Email with any Questions or Enquiries</Typography><br/><br/>
           {this.state.successMessage && <Typography style={{textAlign: 'center'}} variant="body1"><b>Thank you for reaching out to us. We will get back to you promptly.</b></Typography>}
           <ContactForm onSubmit={this.sendMessage}>
             <TextField
