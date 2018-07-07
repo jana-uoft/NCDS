@@ -25,13 +25,14 @@ class Home extends Component {
 
     const Middle = styled.div`
       display: grid;
+      grid-gap: 10px;
       grid-template-columns: 1fr 2fr 1fr;
       grid-template-areas:  "contentLeft contentMiddle contentRight";
       grid-area: content;
       text-align: center;
       margin: 0 30px;
       #anthem {
-        height: 100%;
+        width: 100%;
       }
       .thumb {
         width: 100%;
@@ -41,9 +42,6 @@ class Home extends Component {
         grid-template-areas:  "contentMiddle"
                               "contentLeft"
                               "contentRight";
-        #anthem {
-          width: 100%;
-        }
       }
     `
 

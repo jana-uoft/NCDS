@@ -63,7 +63,7 @@ class News extends Component {
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       grid-gap: 10px;
       padding: 20px 20px;
-      background: linear-gradient(90deg, rgba(3,17,10,1) 0%, rgba(119,190,119,1) 100%);
+      background: radial-gradient(circle, rgba(3,17,10,1) 0%, rgba(32,73,42,1) 50%);
     `
 
     const NewsChip = styled(Chip)`
@@ -90,7 +90,7 @@ class News extends Component {
         </RSS>
         <div>
           {Object.keys(newsByCategory).map((category, idx)=>
-            <Paper key={idx} style={{textAlign: 'center', marginBottom: 20, background: 'linear-gradient(90deg, rgba(3,17,10,1) 0%, rgba(119,190,119,1) 100%)'}}>
+            <Paper key={idx} style={{textAlign: 'center', marginBottom: 20, background: 'radial-gradient(circle, rgba(3,17,10,1) 0%, rgba(32,73,42,1) 50%)'}}>
               <Typography variant="subheading" style={{color: 'white'}}>{category}</Typography>
               <NewsCategory>
                 {this.props.news.map((news, idx) => {
