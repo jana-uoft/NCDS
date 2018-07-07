@@ -12,6 +12,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import Icon from '@material-ui/core/Icon';
+import Typography from '@material-ui/core/Typography';
 
 const Desktop = props => <Responsive {...props} minWidth={768} />;
 const Mobile = props => <Responsive {...props} maxWidth={767} />;
@@ -63,7 +64,7 @@ class Header extends Component {
 
     return (
       <div className={classes.root}>
-        <AppBar style={{backgroundColor:"#0D2B31", position: "fixed"}}>
+        <AppBar style={{background: 'radial-gradient(circle, rgba(28,48,38,1) 29%, rgba(31,96,55,1) 100%)', position: "fixed"}}>
           <Desktop>
             <img
               alt="logo"
@@ -76,7 +77,7 @@ class Header extends Component {
               value={this.props.activePage}
               onChange={(event, value)=>this.props.gotoPage(value)}
               centered
-              style={{background: '#0D2B31', height: 50}}
+              style={{background: 'radial-gradient(circle, rgba(13,43,28,1) 57%, rgba(31,96,55,1) 100%)', height: 50}}
             >
               {menus.map(({ label, link, icon }, idx)=>
                 <Tab key={idx} label={<div><Icon style={{ fontSize: 15 }}>{icon}</Icon>&nbsp;&nbsp;{label}</div>} value={link} style={{color: '#fff'}} />
@@ -99,15 +100,15 @@ class Header extends Component {
                 onClick={this.toggleDrawer(false)}
                 onKeyDown={this.toggleDrawer(false)}
               >
-                <div className={classes.fullList}>
+                <div className={classes.fullList} style={{background: 'radial-gradient(circle, rgba(13,43,28,1) 57%, rgba(31,96,55,1) 100%)'}}>
                   <List classes={{padding: classes.padding}}>
                     {menus.map(({ label, link, icon }, idx)=>
                       <Fragment key={idx}>
                         <ListItem button onClick={()=>this.props.gotoPage(link)}>
                           <ListItemIcon>
-                            <Icon>{icon}</Icon>
+                            <Icon style={{color: 'white'}}>{icon}</Icon>
                           </ListItemIcon>
-                          <ListItemText primary={label}/>
+                          <ListItemText primary={<Typography type="body2" style={{ color: 'white' }}>{label}</Typography>}/>
                         </ListItem>
                         <Divider />
                       </Fragment>
