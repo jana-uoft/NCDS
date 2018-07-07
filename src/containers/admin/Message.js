@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DeleteConfirmation from '../../components/admin/DeleteConfirmation';
+import { format } from 'date-fns'
 
 
 class Message extends Component {
@@ -34,15 +35,15 @@ class Message extends Component {
 
   renderRow = (message, idx) => {
     return (
-      <Paper key={idx} style={{display: 'grid', gridGap: 10, gridTemplateColumns: 'repeat(8, auto)', alignItems: 'center', gridAutoRows: 50}}>
-        <div/>
+      <Paper key={idx} style={{display: 'grid', gridGap: 10, gridTemplateColumns: 'repeat(7, 150px) 1fr', alignItems: 'center', gridAutoRows: 50}}>
+        <IconButton color="secondary" aria-label="delete" onClick={()=>this.deleteMessage(message._id)}><DeleteIcon /></IconButton>
+        <div>{format(Date.parse(message.date), 'dddd, Do MMMM YYYY')}</div>
         <div>{message.type}</div>
         <div>{message.name}</div>
         <div>{message.email}</div>
         <div>{message.phone}</div>
         <div>{message.subject}</div>
         <div>{message.message}</div>
-        <IconButton color="secondary" aria-label="delete" onClick={()=>this.deleteMessage(message._id)}><DeleteIcon /></IconButton>
       </Paper>
     )
   }
@@ -51,8 +52,9 @@ class Message extends Component {
     return (
       <div>
         {this.props.loading && <Loading />}
-        <Paper style={{display: 'grid', gridGap: 10, gridTemplateColumns: 'repeat(8, auto)', alignItems: 'center'}}>
+        <Paper style={{display: 'grid', gridGap: 10, gridTemplateColumns: 'repeat(7, 150px) 1fr', alignItems: 'center'}}>
           <div/>
+          <div><b>Date</b></div>
           <div><b>Type</b></div>
           <div><b>Name</b></div>
           <div><b>Email</b></div>

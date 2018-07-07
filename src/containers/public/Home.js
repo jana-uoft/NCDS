@@ -30,6 +30,7 @@ class Home extends Component {
       grid-template-areas:  "contentLeft contentMiddle contentRight";
       grid-area: content;
       text-align: center;
+      align-items: center;
       margin: 0 30px;
       #anthem {
         width: 100%;

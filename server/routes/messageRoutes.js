@@ -16,7 +16,6 @@ router.route('/')
 router.route('/')
   .post(
     validateBody(schemas.messageCreateUpdateSchema),
-    passportJWT,
     create
   )
 

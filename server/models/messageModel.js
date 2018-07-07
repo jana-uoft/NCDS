@@ -2,6 +2,11 @@ import mongoose, { Schema } from 'mongoose';
 
 
 const contactSchema = new Schema({
+  date: {
+    type: Date,
+    required: true,
+    default: Date.now
+  },
   name: {
     type: String,
     required: true
