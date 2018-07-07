@@ -1,10 +1,15 @@
 pipeline {
   agent any
   stages {
-    stage('error') {
+    stage('Build') {
       agent any
       steps {
-        echo 'Hello'
+        sh 'yarn build'
+      }
+    }
+    stage('Sync Files') {
+      steps {
+        sh 'rsync -a ./ /var/www/nainativucds'
       }
     }
   }
