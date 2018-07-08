@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import express from 'express';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
@@ -13,7 +14,7 @@ import newsRoutes from './routes/newsRoutes';
 import messageRoutes from './routes/messageRoutes';
 import cloudinaryRoutes from './routes/cloudinaryRoutes';
 const fs = require('fs');
-const config = JSON.parse(fs.readFileSync('../.env.json', 'utf8'));
+const config = JSON.parse(fs.readFileSync('./.env.json', 'utf8'));
 
 const app = express();
 
@@ -64,7 +65,7 @@ app.use((err, req, res, next) => {
 });
 
 // Serve ReactJS at '/' url
-app.use('/', express.static(`../build`));
+app.use('/', express.static(`./client`));
 app.get('*', function (req, res) {
   res.sendFile('index.html');
 });

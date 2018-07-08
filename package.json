@@ -6,13 +6,14 @@
     "node": ">=8.9.0"
   },
   "scripts": {
-    "server-start": "cd server && nodemon --exec babel-node server.js",
+    "server-start": "nodemon --exec babel-node server/server.js",
     "client-start": "react-scripts start",
-    "client-build": "react-scripts build",
+    "start": "concurrently --kill-others-on-fail \"yarn server-start\" \"yarn client-start\"",
     "client-test": "react-scripts test --env=jsdom",
     "client-eject": "react-scripts eject",
-    "server-build": "babel server -d server/build --presets latest",
-    "start": "concurrently --kill-others-on-fail \"yarn server-start\" \"yarn client-start\""
+    "server-build": "babel server -d dist/server --presets latest",
+    "client-build": "react-scripts build && mkdir dist/client && mv build/* ./dist/client/ && rm build -r",
+    "build": "yarn server-build && yarn client-build"
   },
   "dependencies": {
     "@material-ui/core": "^1.3.1",
@@ -55,6 +56,9 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-latest": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
