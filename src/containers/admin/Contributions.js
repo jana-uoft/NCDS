@@ -113,16 +113,18 @@ class Contribution extends Component {
   }
 
   cancelNewContribution = () => {
+    const editMode = this.props.contributions.length===0
+    const selectedContribution = this.props.contributions.length===0 ? {...newContribution} : this.props.contributions[0]
     if (this.state.editMode && this.state.lastEditedField) {
       this.unsavedConfirmationSave = () => {
-        this.setState({selectedContribution: this.props.contributions[0], editMode: false, unsavedConfirmation: false, lastEditedField: null}, ()=>this.saveContribution())
+        this.setState({selectedContribution, editMode, unsavedConfirmation: false, lastEditedField: null}, ()=>this.saveContribution())
       }
       this.unsavedConfirmationDiscard = () => {
-        this.setState({selectedContribution: this.props.contributions[0], editMode: false, unsavedConfirmation: false, lastEditedField: null})
+        this.setState({selectedContribution, editMode, unsavedConfirmation: false, lastEditedField: null})
       }
       this.setState({unsavedConfirmation: true})
     } else {
-      this.setState({selectedContribution: this.props.contributions[0], editMode: false, lastEditedField: null})
+      this.setState({selectedContribution, editMode, lastEditedField: null})
     }
   }
 

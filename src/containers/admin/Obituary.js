@@ -112,16 +112,18 @@ class Obituary extends Component {
   }
 
   cancelNewObituary = () => {
+    const editMode = this.props.obituaries.length===0
+    const selectedObituary = this.props.obituaries.length===0 ? {...newObituary} : this.props.obituaries[0]
     if (this.state.editMode && this.state.lastEditedField) {
       this.unsavedConfirmationSave = () => {
-        this.setState({selectedObituary: this.props.obituaries[0], editMode: false, unsavedConfirmation: false, lastEditedField: null}, ()=>this.saveObituary())
+        this.setState({selectedObituary, editMode, unsavedConfirmation: false, lastEditedField: null}, ()=>this.saveObituary())
       }
       this.unsavedConfirmationDiscard = () => {
-        this.setState({selectedObituary: this.props.obituaries[0], editMode: false, unsavedConfirmation: false, lastEditedField: null})
+        this.setState({selectedObituary, editMode, unsavedConfirmation: false, lastEditedField: null})
       }
       this.setState({unsavedConfirmation: true})
     } else {
-      this.setState({selectedObituary: this.props.obituaries[0], editMode: false, lastEditedField: null})
+      this.setState({selectedObituary, editMode, lastEditedField: null})
     }
   }
 

@@ -113,16 +113,18 @@ class Gallery extends Component {
   }
 
   cancelNewGallery = () => {
+    const editMode = this.props.galleries.length===0
+    const selectedGallery = this.props.galleries.length===0 ? {...newGallery} : this.props.galleries[0]
     if (this.state.editMode && this.state.lastEditedField) {
       this.unsavedConfirmationSave = () => {
-        this.setState({selectedGallery: this.props.galleries[0], editMode: false, unsavedConfirmation: false, lastEditedField: null}, ()=>this.saveGallery())
+        this.setState({selectedGallery, editMode, unsavedConfirmation: false, lastEditedField: null}, ()=>this.saveGallery())
       }
       this.unsavedConfirmationDiscard = () => {
-        this.setState({selectedGallery: this.props.galleries[0], editMode: false, unsavedConfirmation: false, lastEditedField: null})
+        this.setState({selectedGallery, editMode, unsavedConfirmation: false, lastEditedField: null})
       }
       this.setState({unsavedConfirmation: true})
     } else {
-      this.setState({selectedGallery: this.props.galleries[0], editMode: false, lastEditedField: null})
+      this.setState({selectedGallery, editMode, lastEditedField: null})
     }
   }
 

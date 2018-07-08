@@ -49,7 +49,7 @@ class Publication extends Component {
     this.props.getPublications()
     .then(()=>{
       if (this.props.publications.length===0)
-        this.setState({selectedPublication: {...newPublication}, editMode: false})
+        this.setState({selectedPublication: {...newPublication}, editMode: true})
       else
         this.setState({selectedPublication: this.props.publications[0]})
     })
@@ -111,16 +111,18 @@ class Publication extends Component {
   }
 
   cancelNewPublication = () => {
+    const editMode = this.props.publications.length===0
+    const selectedPublication = this.props.publications.length===0 ? {...newPublication} : this.props.publications[0]
     if (this.state.editMode && this.state.lastEditedField) {
       this.unsavedConfirmationSave = () => {
-        this.setState({selectedPublication: this.props.publications[0], editMode: false, unsavedConfirmation: false, lastEditedField: null}, ()=>this.savePublication())
+        this.setState({selectedPublication, editMode, unsavedConfirmation: false, lastEditedField: null}, ()=>this.savePublication())
       }
       this.unsavedConfirmationDiscard = () => {
-        this.setState({selectedPublication: this.props.publications[0], editMode: false, unsavedConfirmation: false, lastEditedField: null})
+        this.setState({selectedPublication, editMode, unsavedConfirmation: false, lastEditedField: null})
       }
       this.setState({unsavedConfirmation: true})
     } else {
-      this.setState({selectedPublication: this.props.publications[0], editMode: false, lastEditedField: null})
+      this.setState({selectedPublication, editMode, lastEditedField: null})
     }
   }
 

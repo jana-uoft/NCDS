@@ -51,7 +51,7 @@ class News extends Component {
     this.props.getNews()
     .then(()=>{
       if (this.props.news.length===0)
-        this.setState({selectedNews: {...newNews}, editMode: false})
+        this.setState({selectedNews: {...newNews}, editMode: true})
       else
         this.setState({selectedNews: this.props.news[0]})
     })
@@ -113,16 +113,18 @@ class News extends Component {
   }
 
   cancelNewNews = () => {
+    const editMode = this.props.news.length===0
+    const selectedNews = this.props.news.length===0 ? {...newNews} : this.props.news[0]
     if (this.state.editMode && this.state.lastEditedField) {
       this.unsavedConfirmationSave = () => {
-        this.setState({selectedNews: this.props.news[0], editMode: false, unsavedConfirmation: false, lastEditedField: null}, ()=>this.saveNews())
+        this.setState({selectedNews, editMode, unsavedConfirmation: false, lastEditedField: null}, ()=>this.saveNews())
       }
       this.unsavedConfirmationDiscard = () => {
-        this.setState({selectedNews: this.props.news[0], editMode: false, unsavedConfirmation: false, lastEditedField: null})
+        this.setState({selectedNews, editMode, unsavedConfirmation: false, lastEditedField: null})
       }
       this.setState({unsavedConfirmation: true})
     } else {
-      this.setState({selectedNews: this.props.news[0], editMode: false, lastEditedField: null})
+      this.setState({selectedNews, editMode, lastEditedField: null})
     }
   }
 

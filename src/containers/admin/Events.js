@@ -115,16 +115,18 @@ class Event extends Component {
   }
 
   cancelNewEvent = () => {
+    const editMode = this.props.events.length===0
+    const selectedEvent = this.props.events.length===0 ? {...newEvent} : this.props.events[0]
     if (this.state.editMode && this.state.lastEditedField) {
       this.unsavedConfirmationSave = () => {
-        this.setState({selectedEvent: this.props.events[0], editMode: false, unsavedConfirmation: false, lastEditedField: null}, ()=>this.saveEvent())
+        this.setState({selectedEvent, editMode, unsavedConfirmation: false, lastEditedField: null}, ()=>this.saveEvent())
       }
       this.unsavedConfirmationDiscard = () => {
-        this.setState({selectedEvent: this.props.events[0], editMode: false, unsavedConfirmation: false, lastEditedField: null})
+        this.setState({selectedEvent, editMode, unsavedConfirmation: false, lastEditedField: null})
       }
       this.setState({unsavedConfirmation: true})
     } else {
-      this.setState({selectedEvent: this.props.events[0], editMode: false, lastEditedField: null})
+      this.setState({selectedEvent, editMode, lastEditedField: null})
     }
   }
 
