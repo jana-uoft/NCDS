@@ -13,12 +13,10 @@ import newsRoutes from './routes/newsRoutes';
 import messageRoutes from './routes/messageRoutes';
 import cloudinaryRoutes from './routes/cloudinaryRoutes';
 
-
-
 const app = express();
 
 // MongoDB
-mongoose.connect('mongodb://localhost/ncds');
+mongoose.connect(process.env.MONGO_DB);
 mongoose.Promise = global.Promise;
 
 // Enable CORS
