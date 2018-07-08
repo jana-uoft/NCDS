@@ -53,8 +53,8 @@ class App extends Component {
           <Route exact path="/admin/events" component={adminPage(AdminEvents)} />
           <Route exact path="/admin/obituaries" component={adminPage(AdminObituary)} />
           <Route exact path="/admin/messages" component={adminPage(AdminMessage)} />
-          <Route component={FourOhFour} />
           <Redirect from='/admin' to='/admin/contributions'/>
+          <Route component={FourOhFour} />
         </Switch>
       </Router>
 

@@ -9,8 +9,11 @@ export const middlewareConfig = {
   interceptors: {
     request: [
       function ({getState, dispatch, getSourceAction}, req) {
-        if (getState().auth.token)
+        if (getState().auth.token) {
           req.headers['Authorization'] = getState().auth.token
+          req.headers['CHECKING_IF_CAN_GET_TOKEN'] = 'YES CAN GET TOKEN'
+        }
+        req.headers['CHECKING_IF_CAN_ADD_HEDER'] = 'YES CAN ADD NEW HEADER'
         return req
       }
     ]
