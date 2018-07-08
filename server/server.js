@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import express from 'express';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
@@ -46,6 +45,14 @@ app.use('/api/news', newsRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/cloudinary', cloudinaryRoutes);
 
+
+// Serve ReactJS at '/' url
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../build')));
+app.get('*', function (req, res) {
+  res.sendFile('index.html');
+});
+
 // Catch 404 Errors
 app.use((req, res, next) => {
   const err = new Error('Not found');
@@ -64,11 +71,6 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Serve ReactJS at '/' url
-app.use('/', express.static(`./client`));
-app.get('*', function (req, res) {
-  res.sendFile('index.html');
-});
 
 
 // Start the server

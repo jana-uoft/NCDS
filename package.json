@@ -11,8 +11,8 @@
     "start": "concurrently --kill-others-on-fail \"yarn server-start\" \"yarn client-start\"",
     "client-test": "react-scripts test --env=jsdom",
     "client-eject": "react-scripts eject",
-    "server-build": "babel server -d dist/server --presets latest",
-    "client-build": "react-scripts build && mkdir dist/client && mv build/* ./dist/client/ && rm build -r",
+    "server-build": "babel server --out-dir dist",
+    "client-build": "react-scripts build",
     "build": "yarn server-build && yarn client-build"
   },
   "dependencies": {
@@ -56,12 +56,9 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-latest": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1",
     "concurrently": "^3.5.0",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.12.0",
@@ -69,9 +66,11 @@
   },
   "babel": {
     "presets": [
-      "latest",
-      "stage-2",
       "env"
+    ],
+    "plugins": [
+      "transform-object-rest-spread",
+      "transform-runtime"
     ]
   }
 }
