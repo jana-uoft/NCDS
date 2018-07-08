@@ -66,14 +66,17 @@ class Galleries extends Component {
         <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, 150px)', gridGap: 10, margin: '20px 20px', justifyContent: 'center'}}>
           {allUniqueTypes.map((type, idx)=>
             <Chip
-              key={idx}
-              label={type}
-              clickable
-              onClick={()=>this.setState({activeFilter: type})}
-              style={this.state.activeFilter===type ? {background: 'linear-gradient(to bottom left, #33ccff -12%, #006600 33%)', color: 'white'} : {}}
+            key={idx}
+            label={type}
+            clickable
+            onClick={()=>this.setState({activeFilter: type})}
+            style={this.state.activeFilter===type ? {background: 'linear-gradient(to bottom left, #33ccff -12%, #006600 33%)', color: 'white'} : {}}
             />
           )}
         </div>
+        {this.props.galleries && this.props.galleries.length===0 &&
+          <Typography variant='title' style={{textAlign: 'center'}}>There are no Galleries to display</Typography>
+        }
         <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, 350px)', gridGap: 30, margin: '20px 20px', justifyContent: 'center'}}>
           {this.props.galleries.map(this.renderGallery)}
         </div>

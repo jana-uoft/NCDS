@@ -53,6 +53,9 @@ class Publications extends Component {
     if (this.props.loading) return <Loading />
     return (
       <div>
+        {this.props.publications && this.props.publications.length===0 &&
+          <Typography variant='title' style={{textAlign: 'center'}}><br/>There are no Publications to display</Typography>
+        }
         <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, 250px)', gridGap: 30, margin: '20px 20px', justifyContent: 'center'}}>
           {this.props.publications.map(this.renderPublication)}
         </div>

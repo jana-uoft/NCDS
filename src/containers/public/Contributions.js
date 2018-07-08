@@ -52,6 +52,9 @@ class Contributions extends Component {
     if (this.props.loading) return <Loading />
     return (
       <div>
+        {this.props.contributions && this.props.contributions.length===0 &&
+          <Typography variant='title' style={{textAlign: 'center'}}><br/>There are no Contributions to display</Typography>
+        }
         <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, 350px)', gridGap: 30, margin: '20px 20px', justifyContent: 'center'}}>
           {this.props.contributions.map(this.renderContribution)}
         </div>
