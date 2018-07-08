@@ -11,6 +11,7 @@
     "client-build": "react-scripts build",
     "client-test": "react-scripts test --env=jsdom",
     "client-eject": "react-scripts eject",
+    "server-build": "babel server -d server/build --presets latest",
     "start": "concurrently --kill-others-on-fail \"yarn server-start\" \"yarn client-start\""
   },
   "dependencies": {
@@ -68,6 +69,5 @@
       "stage-2",
       "env"
     ]
-  },
-  "proxy": "http://localhost:5000/"
+  }
 }

@@ -3,7 +3,7 @@ import User from '../models/userModel';
 import fs from 'fs';
 
 
-const config = JSON.parse(fs.readFileSync('.env.json', 'utf8'));
+const config = JSON.parse(fs.readFileSync('./.env.json', 'utf8'));
 const getToken = user => {
   return JWT.sign({
     iss: 'NodeAPI',
