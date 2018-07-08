@@ -1,15 +1,13 @@
 import Message from '../models/messageModel';
-const fs = require('fs');
 var nodemailer = require('nodemailer');
 
-const config = JSON.parse(fs.readFileSync('./.env.json', 'utf8'));
+
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   port: 465,
-  // secure: true,
   auth: {
-    user: config.admin_email_user,
-    pass: config.admin_email_pass
+    user: process.env.admin_email_user,
+    pass: process.env.admin_email_pass
   }
 });
 

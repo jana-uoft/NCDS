@@ -1,12 +1,10 @@
 const cloudinary = require('cloudinary').v2;
-const fs = require('fs');
 
-const config = JSON.parse(fs.readFileSync('./.env.json', 'utf8'));
 
 cloudinary.config({
-  cloud_name: config.cloudinary_name,
-  api_key: config.cloudinary_api_key,
-  api_secret: config.cloudinary_api_secret,
+  cloud_name: process.env.cloudinary_name,
+  api_key: process.env.cloudinary_api_key,
+  api_secret: process.env.cloudinary_api_secret,
 });
 
 

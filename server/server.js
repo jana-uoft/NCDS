@@ -12,8 +12,7 @@ import obituaryRoutes from './routes/obituaryRoutes';
 import newsRoutes from './routes/newsRoutes';
 import messageRoutes from './routes/messageRoutes';
 import cloudinaryRoutes from './routes/cloudinaryRoutes';
-const fs = require('fs');
-const config = JSON.parse(fs.readFileSync('./.env.json', 'utf8'));
+
 
 const app = express();
 
@@ -71,10 +70,8 @@ app.use((err, req, res, next) => {
   });
 });
 
-
-
 // Start the server
-const port = config.PORT;
+const port = process.env.NODE_ENV === 'production' ? 5000 : 5001;
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
