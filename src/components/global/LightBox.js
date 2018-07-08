@@ -5,14 +5,13 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import 'react-image-lightbox/style.css';
 
-
 export default class componentName extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
       photoIndex: props.photoIndex,
-      slieShow: false
+      slideShow: false
     }
   }
 
@@ -46,6 +45,7 @@ export default class componentName extends Component {
           <PauseIcon style={{height: 35, width: 35}}/>
         </IconButton>
       )
+
     return (
       <Lightbox
         mainSrc={this.props.images[this.state.photoIndex]}
@@ -59,7 +59,7 @@ export default class componentName extends Component {
           photoIndex: (this.state.photoIndex + 1) % this.props.images.length,
         })}
         toolbarButtons={[slideShowIcon]}
-        style={{zIndex: 51}}
+        style={{position: 'fixed', zIndex: 505}}
       />
     )
   }

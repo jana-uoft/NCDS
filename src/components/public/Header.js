@@ -64,7 +64,7 @@ class Header extends Component {
 
     return (
       <div className={classes.root}>
-        <AppBar style={{background: 'radial-gradient(circle, rgba(28,48,38,1) 29%, rgba(31,96,55,1) 100%)', position: "fixed"}}>
+        <AppBar style={{background: 'radial-gradient(circle, rgba(28,48,38,1) 29%, rgba(31,96,55,1) 100%)', position: "fixed", zIndex: 500}}>
           <Desktop>
             <img
               alt="logo"
