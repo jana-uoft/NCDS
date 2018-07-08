@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === 'development') {
 } else {
   storeEnhancers = compose(
     applyMiddleware(
-      axiosMiddleware(client),
+      axiosMiddleware(client, middlewareConfig),
     ),
   )
 }

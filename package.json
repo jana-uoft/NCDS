@@ -66,8 +66,7 @@
   },
   "babel": {
     "presets": [
-      "env",
-      "react-app"
+      "env"
     ],
     "plugins": [
       "transform-object-rest-spread",
