@@ -1,16 +1,14 @@
 import JWT from 'jsonwebtoken';
 import User from '../models/userModel';
-import fs from 'fs';
 
 
-const config = JSON.parse(fs.readFileSync('./.env.json', 'utf8'));
 const getToken = user => {
   return JWT.sign({
     iss: 'NodeAPI',
     sub: user.id,
     iat: new Date().getTime(),
     exp: new Date().setDate(new Date().getDate() + 1)
-  }, config.JWT_SECRET);
+  }, process.env.JWT_SECRET);
 }
 
 export async function regsiter(req, res, next) {

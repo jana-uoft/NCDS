@@ -2,14 +2,12 @@ import passport from 'passport';
 import JwtStrategy, { ExtractJwt } from 'passport-jwt';
 import LocalStrategy from 'passport-local';
 import User from './models/userModel';
-import fs from 'fs';
 
 
 // JWT Strategy
-let config = JSON.parse(fs.readFileSync('.env.json', 'utf8'));
 passport.use(new JwtStrategy.Strategy({
   jwtFromRequest: ExtractJwt.fromHeader('authorization'),
-  secretOrKey: config.JWT_SECRET
+  secretOrKey: process.env.JWT_SECRET
 }, async (payload, done) => {
   try {
     const user = await User.findById(payload.sub);

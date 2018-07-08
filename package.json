@@ -6,7 +6,7 @@
     "node": ">=8.9.0"
   },
   "scripts": {
-    "server-start": "nodemon --exec babel-node server/server.js",
+    "server-start": "env $(cat .env) nodemon --exec babel-node server/server.js",
     "client-start": "react-scripts start",
     "start": "concurrently --kill-others-on-fail \"yarn server-start\" \"yarn client-start\"",
     "client-test": "react-scripts test --env=jsdom",
