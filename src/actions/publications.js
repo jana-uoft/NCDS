@@ -21,7 +21,8 @@ export const updatePublication = publication => {
         method: 'PUT',
         data: publication
       }
-    }
+    },
+    success: 'Publication updated successfully',
   }
 }
 
@@ -34,7 +35,8 @@ export const createPublication = publication => {
         method: 'POST',
         data: publication
       }
-    }
+    },
+    success: 'Publication created successfully',
   }
 }
 
@@ -46,6 +48,7 @@ export const deletePublication = publicationID => {
         url: `/publications/${publicationID}`,
         method: 'DELETE'
       }
-    }
+    },
+    success: 'Publication deleted successfully',
   }
 }

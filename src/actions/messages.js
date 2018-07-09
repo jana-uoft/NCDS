@@ -18,7 +18,8 @@ export const deleteMessage = messageID => {
         url: `/messages/${messageID}`,
         method: 'DELETE'
       }
-    }
+    },
+    success: 'Message deleted successfully',
   }
 }
 
@@ -29,6 +30,7 @@ export const sendMessage = message => ({
       url: '/messages',
       method: 'POST',
       data: message
-    }
+    },
+    success: 'Email sent successfully',
   }
 })

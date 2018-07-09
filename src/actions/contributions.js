@@ -21,7 +21,8 @@ export const updateContribution = contribution => {
         method: 'PUT',
         data: contribution
       }
-    }
+    },
+    success: 'Contribution updated successfully',
   }
 }
 
@@ -34,7 +35,8 @@ export const createContribution = contribution => {
         method: 'POST',
         data: contribution
       }
-    }
+    },
+    success: 'Contribution created successfully',
   }
 }
 
@@ -46,6 +48,7 @@ export const deleteContribution = contributionID => {
         url: `/contributions/${contributionID}`,
         method: 'DELETE'
       }
-    }
+    },
+    success: 'Contribution deleted successfully',
   }
 }

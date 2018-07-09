@@ -21,7 +21,8 @@ export const updateObituary = obituary => {
         method: 'PUT',
         data: obituary
       }
-    }
+    },
+    success: 'Obituary updated successfully',
   }
 }
 
@@ -34,7 +35,8 @@ export const createObituary = obituary => {
         method: 'POST',
         data: obituary
       }
-    }
+    },
+    success: 'Obituary created successfully',
   }
 }
 
@@ -46,6 +48,7 @@ export const deleteObituary = obituaryID => {
         url: `/obituaries/${obituaryID}`,
         method: 'DELETE'
       }
-    }
+    },
+    success: 'Obituary deleted successfully',
   }
 }

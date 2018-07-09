@@ -21,7 +21,8 @@ export const updateGallery = gallery => {
         method: 'PUT',
         data: gallery
       }
-    }
+    },
+    success: 'Gallery updated successfully',
   }
 }
 
@@ -34,7 +35,8 @@ export const createGallery = gallery => {
         method: 'POST',
         data: gallery
       }
-    }
+    },
+    success: 'Gallery created successfully',
   }
 }
 
@@ -46,6 +48,7 @@ export const deleteGallery = galleryID => {
         url: `/galleries/${galleryID}`,
         method: 'DELETE'
       }
-    }
+    },
+    success: 'Gallery deleted successfully',
   }
 }

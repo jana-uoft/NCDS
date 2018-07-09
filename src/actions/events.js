@@ -21,7 +21,8 @@ export const updateEvent = event => {
         method: 'PUT',
         data: event
       }
-    }
+    },
+    success: 'Event updated successfully',
   }
 }
 
@@ -34,7 +35,8 @@ export const createEvent = event => {
         method: 'POST',
         data: event
       }
-    }
+    },
+    success: 'Event created successfully',
   }
 }
 
@@ -46,6 +48,7 @@ export const deleteEvent = eventID => {
         url: `/events/${eventID}`,
         method: 'DELETE'
       }
-    }
+    },
+    success: 'Event deleted successfully',
   }
 }

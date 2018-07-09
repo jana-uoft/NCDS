@@ -31,7 +31,8 @@ export const updateNews = news => {
         method: 'PUT',
         data: news
       }
-    }
+    },
+    success: 'News updated successfully',
   }
 }
 
@@ -44,7 +45,8 @@ export const createNews = news => {
         method: 'POST',
         data: news
       }
-    }
+    },
+    success: 'News created successfully',
   }
 }
 
@@ -56,6 +58,7 @@ export const deleteNews = newsID => {
         url: `/news/${newsID}`,
         method: 'DELETE'
       }
-    }
+    },
+    success: 'News deleted successfully',
   }
 }

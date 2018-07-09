@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../../components/public/Header';
 import Footer from '../../components/public/Footer';
+import Notification from '../global/Notification';
 
 
 export default function (ComposedComponent) {
@@ -11,6 +12,7 @@ export default function (ComposedComponent) {
           <Header activePage={this.props.match.path} gotoPage={(link)=>this.props.history.push(link)}/>
           <div style={{paddingTop: 150, minHeight: '100vh'}}><ComposedComponent {...this.props}/></div>
           <Footer/>
+          <Notification />
         </div>
       )
     }

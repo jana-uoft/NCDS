@@ -14,7 +14,7 @@ import messages from './messages';
 import imageManager from './imageManager';
 
 
-const generalFilter = createBlacklistFilter('general', ['loading']);
+const generalFilter = createBlacklistFilter('general', ['loading', 'notification']);
 const authFilter = createBlacklistFilter('auth', ['loginError']);
 const persistConfig = {
   key: 'root',

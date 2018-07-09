@@ -16,7 +16,8 @@ export const uploadImagesByTags = (images) => ({
       url: '/cloudinary',
       method: 'POST',
       data: { images }
-    }
+    },
+    success: 'Image(s) uploaded successfully',
   }
 })
 
@@ -27,7 +28,8 @@ export const deleteImagesByTag = tag => ({
       url: '/cloudinary/tag',
       method: 'DELETE',
       data: { tag }
-    }
+    },
+    success: 'Image(s) deleted successfully',
   }
 })
 
@@ -38,6 +40,7 @@ export const deleteImagesByURLs = urls => ({
       url: '/cloudinary/urls',
       method: 'DELETE',
       data: urls
-    }
+    },
+    success: 'Image(s) deleted successfully',
   }
 })
