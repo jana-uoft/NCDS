@@ -21,12 +21,11 @@ const sendMail = async (contactMessage) => {
   if (phone) html += '<br/><p> Contact No: ' + phone + '</p>';
   var mailOptions = {
     from: email,
-    to: 'admin@nainativucds.org',
+    to: process.env.admin_email_user,
     subject: `RE: ${type} -> ${subject}`,
     html
   };
   const result = await transporter.sendMail(mailOptions)
-  console.log(result);
 }
 
 export async function list(req, res, next) {
@@ -36,7 +35,7 @@ export async function list(req, res, next) {
 
 export async function create(req, res, next) {
   const message = await new Message(req.value.body).save();
-  // await sendMail(req.value.body);
+  await sendMail(req.value.body);
   res.status(201).json({ ...message['_doc'] });
 }
 
