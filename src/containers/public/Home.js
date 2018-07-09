@@ -68,7 +68,7 @@ class Home extends Component {
             <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1531102186/homepage/003.jpg" alt="003" />
             <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1531102926/homepage/008.jpg" alt="004" />
           </div>
-          <div style={{gridArea: 'contentMiddle'}}><img id="anthem" src="https://res.cloudinary.com/nainativucds/image/upload/v1531102043/homepage/anthem.jpg" alt="anthem" /></div>
+          <div style={{gridArea: 'contentMiddle'}}><img id="anthem" src="https://res.cloudinary.com/nainativucds/image/upload/v1531104094/homepage/anthem.png" alt="anthem" /></div>
           <div style={{gridArea: 'contentRight'}}>
             <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1531102186/homepage/005.jpg" alt="005" />
             <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1531102186/homepage/006.jpg" alt="006" />
