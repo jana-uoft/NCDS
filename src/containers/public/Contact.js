@@ -86,7 +86,7 @@ class Contact extends Component {
         <div>
           {this.props.loading && <Loading/>}
           <Typography variant="title" style={{textAlign: 'center'}} >Send us an Email with any Questions or Enquiries</Typography><br/><br/>
-          {this.state.successMessage && <Typography style={{textAlign: 'center'}} variant="body1"><b>Thank you for reaching out to us. We will get back to you promptly.</b></Typography>}
+          {this.state.successMessage && <Typography style={{textAlign: 'center'}} variant="subheading"><b>Thank you for reaching out to us. We will get back to you promptly.</b><br/></Typography>}
           <ContactForm onSubmit={this.sendMessage}>
             <TextField
               id="name"
