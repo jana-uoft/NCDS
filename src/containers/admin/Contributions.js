@@ -541,7 +541,7 @@ const mapDispatchToProps = dispatch => ({
   getContributions: () => dispatch(getContributions()),
   createContribution: contribution => dispatch(createContribution(contribution)),
   updateContribution: contribution => dispatch(updateContribution(contribution)),
-  deleteContribution: contributionID => dispatch(deleteContribution(contributionID)),
+  deleteContribution: contributionID => dispatch(deleteContribution(contributionID)).then(()=>dispatch(deleteImagesByTag(contributionID))),
   uploadImagesByTags: images => dispatch(uploadImagesByTags(images)),
   deleteImagesByTag: contributionID => dispatch(deleteImagesByTag(contributionID)),
   deleteImagesByURLs : urls => dispatch(deleteImagesByURLs(urls))

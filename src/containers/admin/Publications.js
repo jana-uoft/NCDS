@@ -504,7 +504,7 @@ const mapDispatchToProps = dispatch => ({
   getPublications: () => dispatch(getPublications()),
   createPublication: publication => dispatch(createPublication(publication)),
   updatePublication: publication => dispatch(updatePublication(publication)),
-  deletePublication: publicationID => dispatch(deletePublication(publicationID)),
+  deletePublication: publicationID => dispatch(deletePublication(publicationID)).then(()=>dispatch(deleteImagesByTag(publicationID))),
   uploadImagesByTags: images => dispatch(uploadImagesByTags(images)),
   deleteImagesByTag: publicationID => dispatch(deleteImagesByTag(publicationID)),
   deleteImagesByURLs : urls => dispatch(deleteImagesByURLs(urls))

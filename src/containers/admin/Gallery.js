@@ -545,7 +545,7 @@ const mapDispatchToProps = dispatch => ({
   getGalleries: () => dispatch(getGalleries()),
   createGallery: gallery => dispatch(createGallery(gallery)),
   updateGallery: gallery => dispatch(updateGallery(gallery)),
-  deleteGallery: galleryID => dispatch(deleteGallery(galleryID)),
+  deleteGallery: galleryID => dispatch(deleteGallery(galleryID)).then(()=>dispatch(deleteImagesByTag(galleryID))),
   uploadImagesByTags: images => dispatch(uploadImagesByTags(images)),
   deleteImagesByTag: galleryID => dispatch(deleteImagesByTag(galleryID)),
   deleteImagesByURLs : urls => dispatch(deleteImagesByURLs(urls))

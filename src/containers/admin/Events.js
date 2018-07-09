@@ -577,7 +577,7 @@ const mapDispatchToProps = dispatch => ({
   getEvents: () => dispatch(getEvents()),
   createEvent: event => dispatch(createEvent(event)),
   updateEvent: event => dispatch(updateEvent(event)),
-  deleteEvent: eventID => dispatch(deleteEvent(eventID)),
+  deleteEvent: eventID => dispatch(deleteEvent(eventID)).then(()=>dispatch(deleteImagesByTag(eventID))),
   uploadImagesByTags: images => dispatch(uploadImagesByTags(images)),
   deleteImagesByTag: eventID => dispatch(deleteImagesByTag(eventID))
 })

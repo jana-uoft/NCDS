@@ -509,7 +509,7 @@ const mapDispatchToProps = dispatch => ({
   getObituaries: () => dispatch(getObituaries()),
   createObituary: obituary => dispatch(createObituary(obituary)),
   updateObituary: obituary => dispatch(updateObituary(obituary)),
-  deleteObituary: obituaryID => dispatch(deleteObituary(obituaryID)),
+  deleteObituary: obituaryID => dispatch(deleteObituary(obituaryID)).then(()=>dispatch(deleteImagesByTag(obituaryID))),
   uploadImagesByTags: images => dispatch(uploadImagesByTags(images)),
   deleteImagesByTag: obituaryID => dispatch(deleteImagesByTag(obituaryID))
 })
