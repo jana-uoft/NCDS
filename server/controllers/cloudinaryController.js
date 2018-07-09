@@ -37,7 +37,7 @@ export async function create(req, res, next) {
   const { images } = req.body;
   let uploadedImages = [];
   for (let {file, tags} of images){
-    uploadedImages.push(await cloudinary.uploader.upload(file, {tags: tags}))
+    uploadedImages.push(await cloudinary.uploader.upload(file, {tags: tags, folder: `${tags[1]}/${tags[0]}`}))
   }
   return res.status(200).json(uploadedImages);
 }

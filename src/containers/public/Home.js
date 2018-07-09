@@ -57,29 +57,29 @@ class Home extends Component {
     return (
       <Main>
         <Left>
-          <Advertisement><img src="https://nainativucds.org/images/ad001.png" alt="add01" height="100%"/></Advertisement>
+          <Advertisement><img src="https://res.cloudinary.com/nainativucds/image/upload/v1531102528/homepage/ad001.png" alt="add01" height="100%"/></Advertisement>
           <br/>
-          <Advertisement><img src="https://nainativucds.org/images/ad02.png" alt="add02" height="100%"/></Advertisement>
+          <Advertisement><img src="https://res.cloudinary.com/nainativucds/image/upload/v1531102044/homepage/ad002.png" alt="add02" height="100%"/></Advertisement>
         </Left>
         <Middle>
           <div style={{gridArea: 'contentLeft'}}>
-            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1526689318/gallery/007/nainativu-nagapoosani-amman-temple-Sri-Lanka.jpg" alt="anthem" />
-            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1526689318/gallery/007/5996999517_70365ea3e6_b.jpg" alt="anthem" />
-            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/h_450,w_600/v1526615527/gallery/007/FB_IMG_1526562702293.jpg" alt="anthem" />
-            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1526615296/gallery/007/IMG-20180517-WA0038.jpg" alt="anthem" />
+            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1531102186/homepage/001.jpg" alt="001" />
+            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1531102186/homepage/002.jpg" alt="002" />
+            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1531102186/homepage/003.jpg" alt="003" />
+            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1531102926/homepage/008.jpg" alt="004" />
           </div>
-          <div style={{gridArea: 'contentMiddle'}}><img id="anthem" src="https://nainativucds.org/images/home_page_pic.PNG" alt="anthem" /></div>
+          <div style={{gridArea: 'contentMiddle'}}><img id="anthem" src="https://res.cloudinary.com/nainativucds/image/upload/v1531102043/homepage/anthem.jpg" alt="anthem" /></div>
           <div style={{gridArea: 'contentRight'}}>
-            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/h_450,w_600/v1526615536/gallery/007/IMG-20180412-WA0015_1.jpg" alt="anthem" />
-            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/h_450,w_600/v1526615527/gallery/007/FB_IMG_1526563170721.jpg" alt="anthem" />
-            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1526615531/gallery/007/FB_IMG_1526569387120.jpg" alt="anthem" />
-            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1526615529/gallery/007/FB_IMG_1526563977114.jpg" alt="anthem" />
+            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1531102186/homepage/005.jpg" alt="005" />
+            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1531102186/homepage/006.jpg" alt="006" />
+            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1531102186/homepage/007.jpg" alt="007" />
+            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1531102821/homepage/004.jpg" alt="008" />
           </div>
         </Middle>
         <Right>
-          <Advertisement><img src="https://nainativucds.org/images/ad03.png" alt="add03" height="100%"/></Advertisement>
+          <Advertisement><img src="https://res.cloudinary.com/nainativucds/image/upload/v1531102043/homepage/ad003.png" alt="add03" height="100%"/></Advertisement>
           <br/>
-          <Advertisement><img src="https://nainativucds.org/images/ad04.jpg" alt="add04" height="100%"/></Advertisement>
+          <Advertisement><img src="https://res.cloudinary.com/nainativucds/image/upload/v1531102043/homepage/ad004.jpg" alt="add04" height="100%"/></Advertisement>
         </Right>
       </Main>
     )
