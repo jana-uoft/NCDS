@@ -39,14 +39,14 @@ const styles = theme => ({
 });
 
 const menus = [
-  {label: 'Contributions', link: '/contributions', icon: 'people'},
-  {label: 'Publications', link: '/publications', icon: 'book'},
-  {label: 'News', link: '/news', icon: 'library_books'},
-  {label: 'Gallery', link: '/gallery', icon: 'camera_alt'},
-  {label: 'Events', link: '/events', icon: 'event'},
-  {label: 'Obituary', link: '/obituary', icon: 'remove_red_eye'},
-  {label: 'Contact Us', link: '/contact', icon: 'contact_mail'},
-  {label: 'Donate', link: '/donate', icon: 'attach_money'}
+  {label: 'அபிவிருத்திகள்', link: '/contributions', icon: 'people'},
+  {label: 'வெளியீடுகள்', link: '/publications', icon: 'book'},
+  {label: 'செய்திகள்', link: '/news', icon: 'library_books'},
+  {label: 'புகைப்படங்கள்', link: '/gallery', icon: 'camera_alt'},
+  {label: 'நிகழ்வுகள்', link: '/events', icon: 'event'},
+  {label: 'துயர்வுகள்', link: '/obituary', icon: 'remove_red_eye'},
+  {label: 'தொடர்புகள்', link: '/contact', icon: 'contact_mail'},
+  {label: 'நிதி', link: '/donate', icon: 'attach_money'}
 ];
 
 
@@ -80,7 +80,7 @@ class Header extends Component {
               style={{background: 'radial-gradient(circle, rgba(13,43,28,1) 57%, rgba(31,96,55,1) 100%)', height: 50}}
             >
               {menus.map(({ label, link, icon }, idx)=>
-                <Tab key={idx} label={<div><Icon style={{ fontSize: 15 }}>{icon}</Icon>&nbsp;&nbsp;{label}</div>} value={link} style={{color: '#fff'}} />
+                <Tab key={idx} label={<div><Icon style={{ fontSize: 15 }}>{icon}</Icon>&nbsp;&nbsp;<b style={{fontSize: 18}}>{label}</b></div>} value={link} style={{color: '#fff'}} />
               )}
             </Tabs>
           </Desktop>
