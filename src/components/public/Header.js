@@ -80,7 +80,7 @@ class Header extends Component {
               style={{background: 'radial-gradient(circle, rgba(13,43,28,1) 57%, rgba(31,96,55,1) 100%)', height: 50}}
             >
               {menus.map(({ label, link, icon }, idx)=>
-                <Tab key={idx} label={<div><Icon style={{ fontSize: 15 }}>{icon}</Icon>&nbsp;&nbsp;<b style={{fontSize: 18}}>{label}</b></div>} value={link} style={{color: '#fff'}} />
+                <Tab key={idx} label={<div><Icon style={{ fontSize: 15 }}>{icon}</Icon>&nbsp;&nbsp;<b style={{fontSize: 16}}>{label}</b></div>} value={link} style={{color: '#fff'}} />
               )}
             </Tabs>
           </Desktop>
