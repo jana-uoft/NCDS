@@ -190,9 +190,9 @@ class Obituary extends Component {
 
   deleteImage = () => {
     this.deleteConfirmationProceed = () => {
-      this.setState({deleteConfirmation: false, selectedObituary: {...this.state.selectedObituary, coverImage: defaultCoverImage}}, ()=>{
+      this.setState({deleteConfirmation: false}, ()=>{
         this.props.deleteImagesByTag(this.state.selectedObituary._id)
-        this.props.updateObituary({...this.state.selectedObituary})
+        this.props.updateObituary({...this.state.selectedObituary, coverImage: defaultCoverImage})
       })
     }
     this.setState({deleteConfirmation: true})

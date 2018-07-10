@@ -198,9 +198,9 @@ class Event extends Component {
 
   deleteImage = () => {
     this.deleteConfirmationProceed = () => {
-      this.setState({deleteConfirmation: false, selectedEvent: {...this.state.selectedEvent, coverImage: defaultCoverImage}}, ()=>{
+      this.setState({deleteConfirmation: false}, ()=>{
         this.props.deleteImagesByTag(this.state.selectedEvent._id)
-        this.props.updateEvent({...this.state.selectedEvent})
+        this.props.updateEvent({...this.state.selectedEvent, coverImage: defaultCoverImage})
       })
     }
     this.setState({deleteConfirmation: true})

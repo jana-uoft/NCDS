@@ -198,11 +198,11 @@ class Contribution extends Component {
     }
   }
 
-  deleteImagesByTag = () => {
+  deleteImageByURL = () => {
     this.deleteConfirmationProceed = () => {
-      this.setState({deleteConfirmation: false, selectedContribution: {...this.state.selectedContribution, coverImage: defaultCoverImage}}, ()=>{
-        this.props.deleteImagesByTag(this.state.selectedContribution._id)
-        this.props.updateContribution({...this.state.selectedContribution})
+      this.setState({deleteConfirmation: false}, ()=>{
+        this.props.deleteImagesByURLs([this.state.selectedContribution.coverImage])
+        this.props.updateContribution({...this.state.selectedContribution, coverImage: defaultCoverImage})
       })
     }
     this.setState({deleteConfirmation: true})
@@ -370,7 +370,7 @@ class Contribution extends Component {
                 style={{marginRight: 20}}
                 color="secondary"
                 disabled={this.props.loading || !this.state.editMode || this.state.selectedContribution.coverImage===defaultCoverImage}
-                onClick={this.deleteImagesByTag}
+                onClick={this.deleteImageByURL}
               >
                 Delete Image
               </Button>

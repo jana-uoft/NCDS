@@ -199,11 +199,11 @@ class Gallery extends Component {
     }
   }
 
-  deleteImagesByTag = () => {
+  deleteImageByURL = () => {
     this.deleteConfirmationProceed = () => {
-      this.setState({deleteConfirmation: false, selectedGallery: {...this.state.selectedGallery, coverImage: defaultCoverImage}}, ()=>{
-        this.props.deleteImagesByTag(this.state.selectedGallery._id)
-        this.props.updateGallery({...this.state.selectedGallery})
+      this.setState({deleteConfirmation: false}, ()=>{
+        this.props.deleteImagesByURLs([this.state.selectedGallery.coverImage])
+        this.props.updateGallery({...this.state.selectedGallery, coverImage: defaultCoverImage})
       })
     }
     this.setState({deleteConfirmation: true})
@@ -374,7 +374,7 @@ class Gallery extends Component {
                 style={{marginRight: 20}}
                 color="secondary"
                 disabled={this.props.loading || !this.state.editMode || this.state.selectedGallery.coverImage===defaultCoverImage}
-                onClick={this.deleteImagesByTag}
+                onClick={this.deleteImageByURL}
               >
                 Delete Image
               </Button>

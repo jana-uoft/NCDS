@@ -197,11 +197,11 @@ class Publication extends Component {
     }
   }
 
-  deleteImagesByTag = () => {
+  deleteImageByURL = () => {
     this.deleteConfirmationProceed = () => {
-      this.setState({deleteConfirmation: false, selectedPublication: {...this.state.selectedPublication, coverImage: defaultCoverImage}}, ()=>{
-        this.props.deleteImagesByTag(this.state.selectedPublication._id)
-        this.props.updatePublication({...this.state.selectedPublication})
+      this.setState({deleteConfirmation: false}, ()=>{
+        this.props.deleteImagesByURLs([this.state.selectedPublication.coverImage])
+        this.props.updatePublication({...this.state.selectedPublication, coverImage: defaultCoverImage})
       })
     }
     this.setState({deleteConfirmation: true})
@@ -332,7 +332,7 @@ class Publication extends Component {
                 style={{marginRight: 20}}
                 color="secondary"
                 disabled={this.props.loading || !this.state.editMode || this.state.selectedPublication.coverImage===defaultCoverImage}
-                onClick={this.deleteImagesByTag}
+                onClick={this.deleteImageByURL}
               >
                 Delete Image
               </Button>

@@ -43,7 +43,12 @@ export async function create(req, res, next) {
 }
 
 export async function removeByURLs(req, res, next) {
-  const public_ids = req.body.map(url=>url.split('/').pop().split('.')[0])
+  const public_ids = req.body.map(url=>{
+    let urlArray = url.split('/')
+    let fileName = urlArray.pop().split('.')[0]
+    let folderName = urlArray.pop()
+    return `publication/${folderName}/${fileName}`
+  })
   const resources = await cloudinary.api.delete_resources(public_ids);
   return res.status(200).json(resources);
 }
