@@ -1,8 +1,8 @@
 import { list, retrieve, create, update, remove } from '../controllers/eventController';
 import PromiseRouter from 'express-promise-router';
 import passport from '../passport';
-import { validateParam, validateBody } from '../helpers/validations';
-import { schemas } from '../helpers/eventValidationSchemas';
+import { validateParam, validateBody } from '../validations';
+import { schemas } from '../validations/eventValidationSchemas';
 
 
 const router = PromiseRouter();

@@ -7,7 +7,8 @@ const gallerySchema = new Schema({
     required: true
   },
   description: {
-    type: String
+    type: String,
+    default: ''
   },
   type: {
     type: String,

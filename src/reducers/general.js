@@ -25,7 +25,7 @@ const general = (state = initialState, action) => {
         notificationType: 'success'
       }
     case (action.type.match(/_FAILED$/) || {}).input:
-      console.log(action.error.response.data);
+      console.log(action.error.response);
       return {
         ...state,
         loading: false,

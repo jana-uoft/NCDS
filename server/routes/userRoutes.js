@@ -1,8 +1,8 @@
 import { regsiter, login, remove } from '../controllers/userController';
 import PromiseRouter from 'express-promise-router';
 import passport from '../passport';
-import { validateParam, validateBody } from '../helpers/validations';
-import { schemas } from '../helpers/userValidationSchemas';
+import { validateParam, validateBody } from '../validations';
+import { schemas } from '../validations/userValidationSchemas';
 
 
 const router = PromiseRouter();

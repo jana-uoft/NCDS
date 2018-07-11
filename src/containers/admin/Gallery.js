@@ -169,9 +169,8 @@ class Gallery extends Component {
   checkValidation = () => {
     const dateEmpty = this.state.selectedGallery.date==="";
     const titleEmpty = this.state.selectedGallery.title==="";
-    const descriptionEmpty = this.state.selectedGallery.description==="";
     const typeEmpty = this.state.selectedGallery.type==="";
-    return dateEmpty || titleEmpty || descriptionEmpty || typeEmpty;
+    return dateEmpty || titleEmpty || typeEmpty;
   }
 
   addNewImages = (files, imageManager=false) => {
@@ -321,8 +320,6 @@ class Gallery extends Component {
               style={{paddingRight: 20}}
               disabled={!this.state.editMode || this.props.loading}
               required
-              error={this.state.selectedGallery.description===""}
-              helperText={this.state.selectedGallery.description==="" ? "Required" : null}
             />
           </div>
           <div style={{

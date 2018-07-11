@@ -12,7 +12,8 @@ const contributionSchema = new Schema({
     default: Date.now
   },
   description: {
-    type: String
+    type: String,
+    default: ""
   },
   location: {
     type: String

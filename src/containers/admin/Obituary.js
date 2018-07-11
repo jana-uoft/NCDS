@@ -168,10 +168,7 @@ class Obituary extends Component {
 
   checkValidation = () => {
     const nameEmpty = this.state.selectedObituary.name==="";
-    const descriptionEmpty = this.state.selectedObituary.description==="";
-    const contactNameEmpty = this.state.selectedObituary.contactName==="";
-    const contactNumberEmpty = this.state.selectedObituary.contactNumber==="";
-    return nameEmpty || descriptionEmpty || contactNameEmpty || contactNumberEmpty
+    return nameEmpty
   }
 
   addNewImage = (files) => {
@@ -287,8 +284,6 @@ class Obituary extends Component {
               style={{paddingRight: 20}}
               disabled={!this.state.editMode || this.props.loading}
               required
-              error={this.state.selectedObituary.description===""}
-              helperText={this.state.selectedObituary.description==="" ? "Required" : null}
             />
           </div>
           <div style={{
@@ -307,8 +302,6 @@ class Obituary extends Component {
               style={{paddingRight: 20}}
               disabled={!this.state.editMode || this.props.loading}
               required
-              error={this.state.selectedObituary.contactName===""}
-              helperText={this.state.selectedObituary.contactName==="" ? "Required" : null}
             />
           </div>
           <div style={{
@@ -337,8 +330,6 @@ class Obituary extends Component {
               autoFocus={this.state.lastEditedField==='contactNumber'}
               disabled={!this.state.editMode || this.props.loading}
               style={{paddingRight: 20}}
-              error={this.state.selectedObituary.contactNumber===""}
-              helperText={this.state.selectedObituary.contactNumber==="" ? "Required" : null}
             />
           </div>
           <br/>

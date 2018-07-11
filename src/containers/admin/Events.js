@@ -172,14 +172,11 @@ class Event extends Component {
   checkValidation = () => {
     const dateEmpty = this.state.selectedEvent.date==="";
     const titleEmpty = this.state.selectedEvent.title==="";
-    const descriptionEmpty = this.state.selectedEvent.description==="";
     const startTimeEmpty = this.state.selectedEvent.startTime==="";
     const endTimeEmpty = this.state.selectedEvent.endTime==="";
     const locationEmpty = this.state.selectedEvent.location==="";
     const addressEmpty = this.state.selectedEvent.address==="";
-    const contactNameEmpty = this.state.selectedEvent.contactName==="";
-    const contactNumberEmpty = this.state.selectedEvent.contactNumber==="";
-    return dateEmpty || titleEmpty || descriptionEmpty || startTimeEmpty || endTimeEmpty || contactNameEmpty || contactNumberEmpty || locationEmpty || addressEmpty
+    return dateEmpty || titleEmpty || startTimeEmpty || endTimeEmpty || locationEmpty || addressEmpty
   }
 
   addNewImage = (files) => {
@@ -275,8 +272,6 @@ class Event extends Component {
               style={{paddingRight: 20}}
               disabled={!this.state.editMode || this.props.loading}
               required
-              error={this.state.selectedEvent.description===""}
-              helperText={this.state.selectedEvent.description==="" ? "Required" : null}
             />
           </div>
           <div style={{
@@ -375,8 +370,6 @@ class Event extends Component {
               style={{paddingRight: 20}}
               disabled={!this.state.editMode || this.props.loading}
               required
-              error={this.state.selectedEvent.contactName===""}
-              helperText={this.state.selectedEvent.contactName==="" ? "Required" : null}
             />
           </div>
           <div style={{
@@ -405,8 +398,6 @@ class Event extends Component {
               autoFocus={this.state.lastEditedField==='contactNumber'}
               disabled={!this.state.editMode || this.props.loading}
               style={{paddingRight: 20}}
-              error={this.state.selectedEvent.contactNumber===""}
-              helperText={this.state.selectedEvent.contactNumber==="" ? "Required" : null}
             />
           </div>
           <br/>

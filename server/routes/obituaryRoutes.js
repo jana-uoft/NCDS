@@ -1,8 +1,8 @@
 import { list, retrieve, create, update, remove } from '../controllers/obituaryController';
 import PromiseRouter from 'express-promise-router';
 import passport from '../passport';
-import { validateParam, validateBody } from '../helpers/validations';
-import { schemas } from '../helpers/obituaryValidationSchemas';
+import { validateParam, validateBody } from '../validations';
+import { schemas } from '../validations/obituaryValidationSchemas';
 
 
 const router = PromiseRouter();

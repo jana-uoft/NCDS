@@ -168,8 +168,7 @@ class Publication extends Component {
   checkValidation = () => {
     const dateEmpty = this.state.selectedPublication.date==="";
     const titleEmpty = this.state.selectedPublication.title==="";
-    const descriptionEmpty = this.state.selectedPublication.description==="";
-    return dateEmpty || titleEmpty || descriptionEmpty
+    return dateEmpty || titleEmpty
   }
 
   addNewImages = (files, imageManager=false) => {
@@ -296,8 +295,6 @@ class Publication extends Component {
               style={{paddingRight: 20}}
               disabled={!this.state.editMode || this.props.loading}
               required
-              error={this.state.selectedPublication.description===""}
-              helperText={this.state.selectedPublication.description==="" ? "Required" : null}
             />
           </div>
           <br/>

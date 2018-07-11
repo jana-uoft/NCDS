@@ -1,8 +1,8 @@
 import { list, create, remove } from '../controllers/messageController';
 import PromiseRouter from 'express-promise-router';
 import passport from '../passport';
-import { validateParam, validateBody } from '../helpers/validations';
-import { schemas } from '../helpers/messageValidationSchemas';
+import { validateParam, validateBody } from '../validations';
+import { schemas } from '../validations/messageValidationSchemas';
 
 
 const router = PromiseRouter();

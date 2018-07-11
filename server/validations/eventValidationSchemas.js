@@ -7,14 +7,14 @@ export const schemas = {
   }),
   eventCreateUpdateSchema: Joi.object().keys({
     title: Joi.string().required(),
-    description: Joi.string().required(),
+    description: Joi.string().allow(''),
     date: Joi.date().iso().required(),
     startTime: Joi.date().iso().required(),
     endTime: Joi.date().iso().required(),
     location: Joi.string().allow(''),
     address: Joi.string().allow(''),
     coverImage: Joi.string().uri().allow(''),
-    contactName: Joi.string().required(),
-    contactNumber: Joi.string().required(),
+    contactName: Joi.string().allow(''),
+    contactNumber: Joi.string().allow(''),
   }),
 };

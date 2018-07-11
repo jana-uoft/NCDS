@@ -169,8 +169,7 @@ class Contribution extends Component {
   checkValidation = () => {
     const dateEmpty = this.state.selectedContribution.date==="";
     const titleEmpty = this.state.selectedContribution.title==="";
-    const descriptionEmpty = this.state.selectedContribution.description==="";
-    return dateEmpty || titleEmpty || descriptionEmpty
+    return dateEmpty || titleEmpty
   }
 
   addNewImages = (files, imageManager=false) => {
@@ -298,8 +297,6 @@ class Contribution extends Component {
               style={{paddingRight: 20}}
               disabled={!this.state.editMode || this.props.loading}
               required
-              error={this.state.selectedContribution.description===""}
-              helperText={this.state.selectedContribution.description==="" ? "Required" : null}
             />
           </div>
           <div style={{
