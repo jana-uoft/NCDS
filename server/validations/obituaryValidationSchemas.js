@@ -11,7 +11,7 @@ export const schemas = {
     birthDate: Joi.date().iso().required(),
     deathDate: Joi.date().iso().required(),
     coverImage: Joi.string().uri().allow(''),
-    contactName: Joi.string().required(),
-    contactNumber: Joi.string().required()
+    contactName: Joi.string().allow(''),
+    contactNumber: Joi.string().allow('')
   }),
 };
