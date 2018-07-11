@@ -20,8 +20,7 @@ class News extends Component {
 
   componentDidMount() {
     this.props.getNews()
-    // Only update RSS if lastUpdated was more than an hour ago
-    if (!this.props.lastUpdated && (new Date() - new Date(this.props.lastUpdated) > 60*60*1000)) this.props.getLatestRSSNews()
+    this.props.getLatestRSSNews()
   }
 
   render() {
@@ -47,10 +46,9 @@ class News extends Component {
         color: white;
       }
       cursor: pointer;
-      height: 200px;
       text-align: center;
       img {
-        height: 50%;
+        max-height: 150px;
         width: 100%;
       }
       &:hover {

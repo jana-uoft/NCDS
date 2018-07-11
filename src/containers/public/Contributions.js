@@ -28,22 +28,27 @@ class Contributions extends Component {
   renderContribution = (contribution, idx) => {
     const Contribution = styled(Paper)`
       background: radial-gradient(circle, rgba(3,17,10,1) 0%, rgba(32,73,42,1) 50%);
-      cursor: pointer;
-      height: 350px;
       & img {
         width: 100%;
-        height: 60%;
+        max-height: 200px;
+        cursor: pointer;
       }
       &:hover {
         background: radial-gradient(circle, rgba(3,17,10,1) 0%, rgba(23,50,29,1) 38%);
       }
+      & > * {
+        color: white !important;
+        text-align: center;
+      }
     `
     return (
-      <Contribution key={idx} elevation={24} onClick={()=>this.viewContributionImages(contribution.images)}>
-        <Typography noWrap variant='title' style={{textAlign: 'center', color: 'white'}}>{contribution.title}</Typography>
-        <img src={contribution.coverImage} alt={contribution.title}/>
-        <Typography variant='subheading' style={{textAlign: 'center', color: 'white'}}>{contribution.date.slice(0,10)}</Typography>
-        <Typography style={{textAlign: 'justify', color: 'white', margin: '0 10px'}}>{contribution.description}</Typography>
+      <Contribution key={idx} elevation={24}>
+        <Typography noWrap variant='title'>{contribution.title}</Typography>
+        <img src={contribution.coverImage} alt={contribution.title} onClick={()=>this.viewContributionImages(contribution.images)}/>
+        <Typography variant='subheading'>{contribution.date.slice(0,10)}</Typography>
+        <Typography>{contribution.location}</Typography>
+        <Typography>{contribution.address}</Typography>
+        <Typography>{contribution.description}</Typography>
       </Contribution>
     )
   }

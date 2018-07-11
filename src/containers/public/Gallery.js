@@ -32,21 +32,25 @@ class Galleries extends Component {
     const Gallery = styled(Paper)`
       background: radial-gradient(circle, rgba(3,17,10,1) 0%, rgba(32,73,42,1) 50%);
       cursor: pointer;
-      height: 350px;
       & img {
         width: 100%;
-        height: 60%;
+        max-height: 200px;
       }
       &:hover {
         background: radial-gradient(circle, rgba(3,17,10,1) 0%, rgba(23,50,29,1) 38%);
       }
+      & > * {
+        color: white !important;
+        text-align: center;
+      }
     `
     return (
-      <Gallery key={idx} elevation={24} onClick={()=>this.viewGalleryImages(gallery.images)}>
-        <Typography noWrap variant='title' style={{textAlign: 'center', color: 'white'}}>{gallery.title}</Typography>
-        <img src={gallery.coverImage} alt={gallery.title}/>
-        <Typography variant='subheading' style={{textAlign: 'center', color: 'white'}}>{gallery.date.slice(0,10)}</Typography>
-        <Typography style={{textAlign: 'justify', color: 'white', margin: '0 10px'}}>{gallery.description}</Typography>
+      <Gallery key={idx} elevation={24}>
+        <Typography noWrap variant='title'>{gallery.title}</Typography>
+        <img src={gallery.coverImage} alt={gallery.title} onClick={()=>this.viewGalleryImages(gallery.images)}/>
+        <Typography variant='subheading'>{gallery.date.slice(0,10)}</Typography>
+        <Typography>{gallery.location}</Typography>
+        <Typography>{gallery.description}</Typography>
       </Gallery>
     )
   }

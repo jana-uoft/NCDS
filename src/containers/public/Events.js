@@ -29,26 +29,28 @@ class Events extends Component {
     }
     const Event = styled(Paper)`
       background: radial-gradient(circle, rgba(3,17,10,1) 0%, rgba(32,73,42,1) 50%);
-      height: 350;
       & img {
         width: 100%;
+        max-height: 200px;
       }
       &:hover {
         background: radial-gradient(circle, rgba(3,17,10,1) 0%, rgba(23,50,29,1) 38%);
       }
+      & > * {
+        color: white !important;
+        text-align: center;
+      }
     `
     return (
       <Event key={idx} elevation={24}>
-        <Typography variant="title" style={{textAlign: 'center', color: 'white'}}>{format(Date.parse(event.date), 'dddd, Do MMMM YYYY')}</Typography>
+        <Typography variant="title">{format(Date.parse(event.date), 'dddd, Do MMMM YYYY')}</Typography>
         <img src={event.coverImage} alt={event.title}/>
-        <div>
-          <Typography variant="title" style={{textAlign: 'center', color: 'white'}}>{event.title}</Typography>
-          <Typography style={{textAlign: 'center', color: 'white'}}>{format(Date.parse(event.startTime), 'hh:mm A')} to {format(Date.parse(event.endTime), 'hh:mm A')}</Typography>
-          <Typography style={{textAlign: 'center', color: 'white'}}>{event.location}</Typography>
-          <Typography style={{textAlign: 'center', color: 'white'}}>{event.address}</Typography>
-          <Typography style={{textAlign: 'center', color: 'white'}}>Contact {event.contactName} @ {event.contactNumber}</Typography>
-          <Typography style={{textAlign: 'center', color: 'white', marginTop: 10}}>{event.description}</Typography>
-        </div>
+        <Typography variant="title">{event.title}</Typography>
+        <Typography>{format(Date.parse(event.startTime), 'hh:mm A')} to {format(Date.parse(event.endTime), 'hh:mm A')}</Typography>
+        <Typography>{event.location}</Typography>
+        <Typography>{event.address}</Typography>
+        <Typography>Contact {event.contactName} @ {event.contactNumber}</Typography>
+        <Typography>{event.description}</Typography>
       </Event>
     )
   }

@@ -17,24 +17,27 @@ class Obituaries extends Component {
     const Obituary = styled(Paper)`
       background: radial-gradient(circle, rgba(3,17,10,1) 0%, rgba(55,55,55,1) 38%);
       & img {
+        width: 100%;
         max-height: 250px;
       }
       text-align: center;
       &:hover {
         background: radial-gradient(circle, rgba(3,17,10,1) 0%, rgba(19,20,19,1) 54%);
       }
+      & > * {
+        color: white !important;
+        text-align: center;
+      }
     `
     return (
       <Obituary key={idx} elevation={24}>
-        <Typography variant="title" style={{textAlign: 'center', color: 'white'}}>{obituary.name}</Typography>
+        <Typography variant="title">{obituary.name}</Typography>
         <img src={obituary.coverImage} alt={obituary.name}/>
-        <div>
-          <Typography variant="title" style={{textAlign: 'center', color: 'white'}}>
-            {format(Date.parse(obituary.birthDate), 'DD-MM-YYYY')}&nbsp;&nbsp;to&nbsp;&nbsp;{format(Date.parse(obituary.deathDate), 'DD-MM-YYYY')}
-          </Typography>
-          <Typography style={{textAlign: 'center', color: 'white'}}>Contact {obituary.contactName} @ {obituary.contactNumber}</Typography>
-          <Typography style={{textAlign: 'center', color: 'white', marginTop: 10}}>{obituary.description}</Typography>
-        </div>
+        <Typography variant="title">
+          {format(Date.parse(obituary.birthDate), 'DD-MM-YYYY')}&nbsp;&nbsp;to&nbsp;&nbsp;{format(Date.parse(obituary.deathDate), 'DD-MM-YYYY')}
+        </Typography>
+        <Typography>Contact {obituary.contactName} @ {obituary.contactNumber}</Typography>
+        <Typography>{obituary.description}</Typography>
       </Obituary>
     )
   }
@@ -44,7 +47,7 @@ class Obituaries extends Component {
     let obituariesToRender = this.props.obituaries.map(this.renderObituary)
     obituariesToRender = obituariesToRender.filter(obituary=>obituary)
     return (
-      <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, 400px)', gridGap: 30, margin: '20px 20px', justifyContent: 'center', gridAutoRows: 450}}>
+      <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, 400px)', gridGap: 30, margin: '20px 20px', justifyContent: 'center'}}>
         {obituariesToRender}
         {obituariesToRender.length===0 &&
           <Typography variant='title' style={{textAlign: 'center'}}>There are no Obituaries to display</Typography>

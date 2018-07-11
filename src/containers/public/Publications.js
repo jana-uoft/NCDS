@@ -28,10 +28,9 @@ class Publications extends Component {
     const Publication = styled(Paper)`
       background: radial-gradient(circle, rgba(3,17,10,1) 0%, rgba(32,73,42,1) 50%);
       cursor: pointer;
-      height: 350px;
       & img {
         width: 100%;
-        height: 85%;
+        max-height: 350px;
       }
       &:hover {
         & img {
@@ -39,12 +38,17 @@ class Publications extends Component {
         }
         background: radial-gradient(circle, rgba(3,17,10,1) 0%, rgba(23,50,29,1) 38%);
       }
+      & > * {
+        color: white !important;
+        text-align: center;
+      }
     `
     return (
-      <Publication key={idx} elevation={24} onClick={()=>this.viewPublicationImages(publication.images)}>
-        <Typography noWrap variant='title' style={{textAlign: 'center', color: 'white'}}>{publication.title}</Typography>
-        <img src={publication.coverImage} alt={publication.title}/>
-        <Typography variant='subheading' style={{textAlign: 'center', color: 'white'}}>{publication.date.slice(0,10)}</Typography>
+      <Publication key={idx} elevation={24}>
+        <Typography noWrap variant='title'>{publication.title}</Typography>
+        <img src={publication.coverImage} alt={publication.title} onClick={()=>this.viewPublicationImages(publication.images)}/>
+        <Typography variant='subheading'>{publication.date.slice(0,10)}</Typography>
+        <Typography>{publication.description}</Typography>
       </Publication>
     )
   }
