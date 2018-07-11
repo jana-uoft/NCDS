@@ -47,7 +47,8 @@ export async function removeByURLs(req, res, next) {
     let urlArray = url.split('/')
     let fileName = urlArray.pop().split('.')[0]
     let folderName = urlArray.pop()
-    return `publication/${folderName}/${fileName}`
+    let folderType = urlArray.pop()
+    return `${folderType}/${folderName}/${fileName}`
   })
   const resources = await cloudinary.api.delete_resources(public_ids);
   return res.status(200).json(resources);
