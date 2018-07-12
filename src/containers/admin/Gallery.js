@@ -253,7 +253,6 @@ class Gallery extends Component {
               showTodayButton
               value={new Date(this.state.selectedGallery.date)}
               onChange={date => this.handleDateChange('date', date)}
-              animateYearScrolling={true}
               format="DD/MM/YYYY"
               style={{paddingRight: 20}}
               disabled={!this.state.editMode || this.props.loading}

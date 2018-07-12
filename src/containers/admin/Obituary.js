@@ -238,7 +238,6 @@ class Obituary extends Component {
               showTodayButton
               value={new Date(this.state.selectedObituary.birthDate)}
               onChange={birthDate => this.handleDateChange('birthDate', birthDate)}
-              animateYearScrolling={true}
               format="DD/MM/YYYY"
               style={{paddingRight: 20}}
               disabled={!this.state.editMode || this.props.loading}
@@ -259,7 +258,6 @@ class Obituary extends Component {
               showTodayButton
               value={new Date(this.state.selectedObituary.deathDate)}
               onChange={deathDate => this.handleDateChange('deathDate', deathDate)}
-              animateYearScrolling={true}
               format="DD/MM/YYYY"
               style={{paddingRight: 20}}
               disabled={!this.state.editMode || this.props.loading}

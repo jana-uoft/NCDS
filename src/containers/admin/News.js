@@ -348,7 +348,7 @@ class News extends Component {
                       variant="body2"
                       style={this.checkIfCurrentNews(news) ? {color: 'white'} : {}}
                     >
-                      {news.category.slice(0, 10)}
+                      {news.category}
                     </Typography>
                     }
                     primary={
