@@ -36,7 +36,7 @@ class Obituaries extends Component {
         <Typography variant="title">
           {format(Date.parse(obituary.birthDate), 'DD-MM-YYYY')}&nbsp;&nbsp;to&nbsp;&nbsp;{format(Date.parse(obituary.deathDate), 'DD-MM-YYYY')}
         </Typography>
-        <Typography>Contact {obituary.contactName} @ {obituary.contactNumber}</Typography>
+        <Typography>{obituary.contactName}&nbsp;&nbsp;{obituary.contactNumber}</Typography>
         <Typography>{obituary.description}</Typography>
       </Obituary>
     )
