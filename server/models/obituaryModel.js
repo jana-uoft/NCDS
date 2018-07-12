@@ -8,7 +8,7 @@ const obituarySchema = new Schema({
   },
   description: {
     type: String,
-    required: true
+    default: ''
   },
   birthDate: {
     type: Date,
