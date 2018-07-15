@@ -7,13 +7,13 @@ def isDeploymentBranch(){
 }
 
 def getSuffix() {
-  return CURRENT_BRANCH==DEVELOPMENT_BRANCH ? '-dev' : '';
+  return CURRENT_BRANCH==DEVELOPMENT_BRANCH ? 'dev.' : '';
 }
 
 pipeline {
   // construct global env variables
   environment {
-    SITE_NAME = 'ncds' // Name will be used for archive file (with suffix '-dev' if DEVELOPMENT_BRANCH)
+    SITE_NAME = 'nainativucds.org' // Name will be used for archive file (with suffix 'dev.' if DEVELOPMENT_BRANCH)
     PRODUCTION_BRANCH = 'master' // Source branch used for production
     DEVELOPMENT_BRANCH = 'new' // Source branch used for development
     SLACK_CHANNEL = '#builds' // Slack channel to send build notifications
@@ -100,12 +100,12 @@ pipeline {
             sh 'mv node_modules/ ARCHIVE/ 2>commandResult'
             sh 'mv dist/* ARCHIVE/server/ 2>commandResult'
             sh 'mv build/* ARCHIVE/client/ 2>commandResult'
-            withCredentials([file(credentialsId: "${SITE_NAME}${getSuffix()}", variable: 'env')]) {
+            withCredentials([file(credentialsId: "${getSuffix()}${SITE_NAME}", variable: 'env')]) {
               sh "cp \$env ARCHIVE/.env 2>commandResult"
             }
-            // sh "cd ARCHIVE && tar zcf ${SITE_NAME}${getSuffix()}.tar.gz * --transform \"s,^,${SITE_NAME}${getSuffix()}/,S\" --exclude=${SITE_NAME}${getSuffix()}.tar.gz --overwrite --warning=none && cd .. 2>commandResult"
+            // sh "cd ARCHIVE && tar zcf ${getSuffix()}${SITE_NAME}.tar.gz * --transform \"s,^,${getSuffix()}${SITE_NAME}/,S\" --exclude=${getSuffix()}${SITE_NAME}.tar.gz --overwrite --warning=none && cd .. 2>commandResult"
             // Upload archive to server
-            // sh "scp ARCHIVE/${SITE_NAME}${getSuffix()}.tar.gz root@jana19.org:/root/ 2>commandResult"
+            // sh "scp ARCHIVE/${getSuffix()}${SITE_NAME}.tar.gz root@jana19.org:/root/ 2>commandResult"
           } catch (e) { if (!errorOccured) {errorOccured = "Failed while uploading archive.\n\n${readFile('commandResult').trim()}\n\n${e.message}"} }
         }
       }
