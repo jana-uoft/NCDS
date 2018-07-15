@@ -117,7 +117,7 @@ pipeline {
         script {
           try {
             // Deploy app
-            // sh "rsync -azP ARCHIVE/ root@jana19.org:/var/www/dev.nainativucds.org/"
+            sh "rsync -azP ARCHIVE/ root@jana19.org:/root/testing/"
           } catch (e) { if (!errorOccured) {errorOccured = "Failed while deploying.\n\n${readFile('commandResult').trim()}\n\n${e.message}"} }
         }
       }
