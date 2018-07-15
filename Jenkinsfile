@@ -101,7 +101,7 @@ pipeline {
             sh 'mv dist/* ARCHIVE/server/ 2>commandResult'
             sh 'mv build/* ARCHIVE/client/ 2>commandResult'
             withCredentials([file(credentialsId: "${SITE_NAME}${getSuffix()}", variable: 'env')]) {
-              sh "cp \$env /ARCHIVE/.env 2>commandResult"
+              sh "cp $env ARCHIVE/.env 2>commandResult"
             }
             // sh "cd ARCHIVE && tar zcf ${SITE_NAME}${getSuffix()}.tar.gz * --transform \"s,^,${SITE_NAME}${getSuffix()}/,S\" --exclude=${SITE_NAME}${getSuffix()}.tar.gz --overwrite --warning=none && cd .. 2>commandResult"
             // Upload archive to server
