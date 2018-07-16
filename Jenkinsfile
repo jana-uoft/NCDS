@@ -119,12 +119,11 @@ pipeline {
         script {
           try {
             // Deploy app
-            def site = "${getPrefix()}${SITE_NAME}"
-            sh "rsync -azP ARCHIVE/ root@jana19.org:/var/www/\$site/"
-            sh "ssh root@jana19.org pm2 stop \$site"
-            sh "ssh root@jana19.org env $(cat /var/www/\$site/.env) pm2 start /var/www/\$site/server/server.js --name \$site"
-            sh "ssh root@jana19.org env $(cat /var/www/\$site/.env) pm2 reload \$site --update-env"
-            sh "ssh root@jana19.org pm2 restart \$site"
+            sh "rsync -azP ARCHIVE/ root@jana19.org:/var/www/${SITE}/"
+            sh "ssh root@jana19.org pm2 stop ${SITE}"
+            sh "ssh root@jana19.org env $(cat /var/www/${SITE}/.env) pm2 start /var/www/${SITE}/server/server.js --name ${SITE}"
+            sh "ssh root@jana19.org env $(cat /var/www/${SITE}/.env) pm2 reload ${SITE} --update-env"
+            sh "ssh root@jana19.org pm2 restart ${SITE}"
           } catch (e) { if (!errorOccured) {errorOccured = "Failed while deploying.\n\n${readFile('commandResult').trim()}\n\n${e.message}"} }
         }
       }
