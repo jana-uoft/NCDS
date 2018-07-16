@@ -17,7 +17,6 @@ pipeline {
     PRODUCTION_BRANCH = 'master' // Source branch used for production
     DEVELOPMENT_BRANCH = 'new' // Source branch used for development
     SLACK_CHANNEL = '#builds' // Slack channel to send build notifications
-    SITE = "${getPrefix()}${SITE_NAME}"
     CURRENT_BRANCH = env.GIT_BRANCH.getAt((env.GIT_BRANCH.indexOf('/')+1..-1)) // (eg) origin/master: get string after '/'
     COMMIT_MESSAGE = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim() // Auto generated
     COMMIT_AUTHOR = sh(returnStdout: true, script: 'git --no-pager show -s --format=%an').trim() // Auto generated
@@ -119,6 +118,7 @@ pipeline {
         script {
           try {
             // Deploy app
+            def SITE = "${getPrefix()}${SITE_NAME}"
             sh "rsync -azP ARCHIVE/ root@jana19.org:/var/www/$SITE/"
             sh "ssh root@jana19.org pm2 stop $SITE"
             sh "ssh root@jana19.org env \$(cat /var/www/$SITE/.env) pm2 start /var/www/$SITE/server/server.js --name $SITE"
