@@ -120,11 +120,10 @@ pipeline {
             def SITE = "${getPrefix()}${SITE_NAME}"
             sh "rsync -azP ARCHIVE/ root@jana19.org:/var/www/$SITE/"
             try {
-              sh "ssh root@jana19.org \"env `cat /var/www/$SITE/.env`\""
               sh "ssh root@jana19.org \"pm2 stop $SITE\""
-              sh "ssh root@jana19.org \"pm2 reload $SITE --update-env\""
+              sh "ssh root@jana19.org \"env \$(cat ARCHIVE/.env) pm2 reload $SITE --update-env\""
             } catch (e) {
-              sh "ssh root@jana19.org \"pm2 start server/server.js --name $SITE\""
+              sh "ssh root@jana19.org \"env \$(cat ARCHIVE/.env) pm2 start /var/www/$SITE/server/server.js --name $SITE\""
             }
           } catch (e) { if (!errorOccured) {errorOccured = "Failed while deploying.\n\n${readFile('commandResult').trim()}\n\n${e.message}"} }
         }
