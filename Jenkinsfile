@@ -117,7 +117,13 @@ pipeline {
         script {
           try {
             // Deploy app
-            sh "rsync -azP ARCHIVE/ root@jana19.org:/root/testing/"
+            sh "rsync -azP ARCHIVE/ root@jana19.org:/var/www/${getPrefix()}${SITE_NAME}/"
+            sh "ssh root@jana19.org << EOF
+              cd /var/www/${getPrefix()}${SITE_NAME};
+              pm2 stop ${getPrefix()}${SITE_NAME}
+              env $(cat .env) pm2 start server/server.js --name ${getPrefix()}${SITE_NAME}
+              pm2 restart ${getPrefix()}${SITE_NAME}
+            EOF"
           } catch (e) { if (!errorOccured) {errorOccured = "Failed while deploying.\n\n${readFile('commandResult').trim()}\n\n${e.message}"} }
         }
       }
