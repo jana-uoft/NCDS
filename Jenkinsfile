@@ -120,11 +120,7 @@ pipeline {
             // Deploy app
             def SITE = "${getPrefix()}${SITE_NAME}"
             sh "rsync -azP ARCHIVE/ root@jana19.org:/var/www/$SITE/"
-            sh "cat pm2 stop $SITE\n
-            env \$(cat .env) pm2 start /var/www/$SITE/server/server.js --name $SITE\n
-            env \$(cat .env) pm2 reload $SITE --update-env\n
-            pm2 restart $SITE\n
-            pm2 status $SITE | ssh root@jana19.org"
+            sh "cat pm2 stop $SITE\nenv \$(cat .env) pm2 start /var/www/$SITE/server/server.js --name $SITE\nenv \$(cat .env) pm2 reload $SITE --update-env\npm2 restart $SITE\npm2 status $SITE | ssh root@jana19.org"
             // try {
             //   sh "ssh root@jana19.org \"pm2 stop $SITE\""
             //   sh "ssh root@jana19.org 'env \$(cat .env) pm2 reload $SITE --update-env'"
