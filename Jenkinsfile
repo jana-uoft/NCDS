@@ -17,6 +17,7 @@ pipeline {
     PRODUCTION_BRANCH = 'master' // Source branch used for production
     DEVELOPMENT_BRANCH = 'new' // Source branch used for development
     SLACK_CHANNEL = '#builds' // Slack channel to send build notifications
+    SITE = "${getPrefix()}${SITE_NAME}"
     CURRENT_BRANCH = env.GIT_BRANCH.getAt((env.GIT_BRANCH.indexOf('/')+1..-1)) // (eg) origin/master: get string after '/'
     COMMIT_MESSAGE = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim() // Auto generated
     COMMIT_AUTHOR = sh(returnStdout: true, script: 'git --no-pager show -s --format=%an').trim() // Auto generated
@@ -26,6 +27,7 @@ pipeline {
     stage('Start') {
       steps {
         notifySlack() // Send 'Build Started' notification
+        sh 'printenv'
       }
     }
     stage ('Install Packages') {
@@ -117,13 +119,12 @@ pipeline {
         script {
           try {
             // Deploy app
-            sh "rsync -azP ARCHIVE/ root@jana19.org:/var/www/${getPrefix()}${SITE_NAME}/"
-            sh "ssh root@jana19.org << EOF
-              cd /var/www/${getPrefix()}${SITE_NAME}
-              pm2 stop ${getPrefix()}${SITE_NAME}
-              env $(cat .env) pm2 start server/server.js --name ${getPrefix()}${SITE_NAME}
-              pm2 restart ${getPrefix()}${SITE_NAME}
-            EOF"
+            def site = "${getPrefix()}${SITE_NAME}"
+            sh "rsync -azP ARCHIVE/ root@jana19.org:/var/www/$site/"
+            sh "ssh root@jana19.org pm2 stop $site"
+            sh "ssh root@jana19.org env $(cat /var/www/$site/.env) pm2 start /var/www/$site/server/server.js --name $site"
+            sh "ssh root@jana19.org env $(cat /var/www/$site/.env) pm2 reload $site --update-env"
+            sh "ssh root@jana19.org pm2 restart $site"
           } catch (e) { if (!errorOccured) {errorOccured = "Failed while deploying.\n\n${readFile('commandResult').trim()}\n\n${e.message}"} }
         }
       }
