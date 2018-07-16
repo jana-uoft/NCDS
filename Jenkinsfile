@@ -122,6 +122,7 @@ pipeline {
             try {
               sh "ssh root@jana19.org \"pm2 stop $SITE\""
               sh "ssh root@jana19.org \"env \$(cat ARCHIVE/.env) pm2 reload $SITE --update-env\""
+              sh "ssh root@jana19.org \"pm2 restart $SITE\""
             } catch (e) {
               sh "ssh root@jana19.org \"env \$(cat ARCHIVE/.env) pm2 start /var/www/$SITE/server/server.js --name $SITE\""
             }
