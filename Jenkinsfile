@@ -26,7 +26,6 @@ pipeline {
     stage('Start') {
       steps {
         notifySlack() // Send 'Build Started' notification
-        sh 'printenv'
       }
     }
     stage ('Install Packages') {
