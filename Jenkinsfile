@@ -101,7 +101,7 @@ pipeline {
             sh 'mv dist/* ARCHIVE/server/ 2>commandResult'
             sh 'mv build/* ARCHIVE/client/ 2>commandResult'
             withCredentials([file(credentialsId: "${getPrefix()}${SITE_NAME}", variable: 'env')]) {
-              sh "cat \$env > ARCHIVE/.env 2>commandResult"
+              sh "cp \$env ARCHIVE/.env 2>commandResult"
             }
             // sh "cd ARCHIVE && tar zcf ${getPrefix()}${SITE_NAME}.tar.gz * --transform \"s,^,${getPrefix()}${SITE_NAME}/,S\" --exclude=${getPrefix()}${SITE_NAME}.tar.gz --overwrite --warning=none && cd .. 2>commandResult"
             // Upload archive to server
@@ -120,7 +120,7 @@ pipeline {
             def SITE = "${getPrefix()}${SITE_NAME}"
             sh "rsync -azP ARCHIVE/ root@jana19.org:/var/www/$SITE/"
             try {
-              sh "ssh root@jana19.org \"env \$(cat /var/www/$SITE/.env)\""
+              sh "ssh root@jana19.org \"env $(cat /var/www/$SITE/.env)\""
               sh "ssh root@jana19.org \"pm2 stop $SITE\""
               sh "ssh root@jana19.org \"pm2 reload $SITE --update-env\""
             } catch (e) {
