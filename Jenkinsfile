@@ -80,6 +80,9 @@ pipeline {
           try {
             // Build
             nodejs(nodeJSInstallationName: '10.6.0') {
+              withCredentials([file(credentialsId: "${getPrefix()}${SITE_NAME}", variable: 'env')]) {
+                sh "cp \$env .env 2>commandResult"
+              }
               sh 'yarn client-build 2>commandResult'
               sh 'yarn server-build 2>commandResult'
             }
@@ -100,9 +103,7 @@ pipeline {
             sh 'mv node_modules/ ARCHIVE/ 2>commandResult'
             sh 'mv dist/* ARCHIVE/server/ 2>commandResult'
             sh 'mv build/* ARCHIVE/client/ 2>commandResult'
-            withCredentials([file(credentialsId: "${getPrefix()}${SITE_NAME}", variable: 'env')]) {
-              sh "cp \$env ARCHIVE/.env 2>commandResult"
-            }
+            sh 'mv .env ARCHIVE/ 2>commandResult'
             // sh "cd ARCHIVE && tar zcf ${getPrefix()}${SITE_NAME}.tar.gz * --transform \"s,^,${getPrefix()}${SITE_NAME}/,S\" --exclude=${getPrefix()}${SITE_NAME}.tar.gz --overwrite --warning=none && cd .. 2>commandResult"
             // Upload archive to server
             // sh "scp ARCHIVE/${getPrefix()}${SITE_NAME}.tar.gz root@jana19.org:/root/ 2>commandResult"
@@ -121,10 +122,10 @@ pipeline {
             sh "rsync -azP ARCHIVE/ root@jana19.org:/var/www/$SITE/"
             try {
               sh "ssh root@jana19.org \"pm2 stop $SITE\""
-              sh "ssh root@jana19.org \"env \$(cat ARCHIVE/.env) pm2 reload $SITE --update-env\""
+              sh "ssh root@jana19.org \"env \$(cat /var/www/$SITE/.env) pm2 reload $SITE --update-env\""
               sh "ssh root@jana19.org \"pm2 restart $SITE\""
             } catch (e) {
-              sh "ssh root@jana19.org \"env \$(cat ARCHIVE/.env) pm2 start /var/www/$SITE/server/server.js --name $SITE\""
+              sh "ssh root@jana19.org \"env \$(cat /var/www/$SITE/.env) pm2 start /var/www/$SITE/server/server.js --name $SITE\""
             }
           } catch (e) { if (!errorOccured) {errorOccured = "Failed while deploying.\n\n${readFile('commandResult').trim()}\n\n${e.message}"} }
         }
