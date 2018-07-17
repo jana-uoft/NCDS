@@ -138,6 +138,9 @@ pipeline {
     always {
       cleanWs() // Recursively clean workspace
       notifySlack(errorOccured) // Send final 'Success/Failed' message based on errorOccured.
+      script {
+        if (errorOccured) currentBuild.result = 'FAILURE'
+      }
     }
   }
 }
