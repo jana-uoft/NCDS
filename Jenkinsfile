@@ -123,11 +123,11 @@ pipeline {
             // sh "cat \"pm2 stop $SITE\nenv \$(cat .env) pm2 start /var/www/$SITE/server/server.js --name $SITE\nenv \$(cat .env) pm2 reload $SITE --update-env\npm2 restart $SITE\npm2 status $SITE\" | ssh root@jana19.org"
             try {
               sh "ssh root@jana19.org \"pm2 stop $SITE\""
-              sh "ssh root@jana19.org 'env \$(cat .env) pm2 reload $SITE --update-env'"
+              sh "ssh root@jana19.org 'env \$(cat /var/www/$SITE/.env) pm2 reload $SITE --update-env'"
               sh "ssh root@jana19.org \"pm2 restart $SITE\""
               sh "ssh root@jana19.org \"pm2 status $SITE\""
             } catch (e) {
-              sh "ssh root@jana19.org '\"'env \$(cat .env) pm2 start /var/www/$SITE/server/server.js --name $SITE'\"'"
+              sh "ssh root@jana19.org '\"'env \$(cat /var/www/$SITE/.env) pm2 start /var/www/$SITE/server/server.js --name $SITE'\"'"
             }
           } catch (e) { if (!errorOccured) {errorOccured = "Failed while deploying.\n\n${readFile('commandResult').trim()}\n\n${e.message}"} }
         }
