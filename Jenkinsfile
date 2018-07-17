@@ -103,7 +103,7 @@ pipeline {
             sh 'mv node_modules/ ARCHIVE/ 2>commandResult'
             sh 'mv dist/* ARCHIVE/server/ 2>commandResult'
             sh 'mv build/* ARCHIVE/client/ 2>commandResult'
-            sh 'cp .env ARCHIVE/ 2>commandResult'
+            sh 'mv .env ARCHIVE/ 2>commandResult'
             // sh "cd ARCHIVE && tar zcf ${getPrefix()}${SITE_NAME}.tar.gz * --transform \"s,^,${getPrefix()}${SITE_NAME}/,S\" --exclude=${getPrefix()}${SITE_NAME}.tar.gz --overwrite --warning=none && cd .. 2>commandResult"
             // Upload archive to server
             // sh "scp ARCHIVE/${getPrefix()}${SITE_NAME}.tar.gz root@jana19.org:/root/ 2>commandResult"
@@ -122,12 +122,12 @@ pipeline {
             sh "rsync -azP ARCHIVE/ root@jana19.org:/var/www/$SITE/"
             // sh "cat \"pm2 stop $SITE\nenv \$(cat .env) pm2 start /var/www/$SITE/server/server.js --name $SITE\nenv \$(cat .env) pm2 reload $SITE --update-env\npm2 restart $SITE\npm2 status $SITE\" | ssh root@jana19.org"
             try {
-              sh "ssh root@jana19.org \"pm2 stop $SITE\""
+              sh "ssh root@jana19.org 'pm2 stop $SITE'"
               sh "ssh root@jana19.org 'env \$(cat /var/www/$SITE/.env) pm2 reload $SITE --update-env'"
-              sh "ssh root@jana19.org \"pm2 restart $SITE\""
-              sh "ssh root@jana19.org \"pm2 status $SITE\""
+              sh "ssh root@jana19.org 'pm2 restart $SITE'"
+              sh "ssh root@jana19.org 'pm2 status $SITE'"
             } catch (e) {
-              sh "ssh root@jana19.org '\"'env \$(cat /var/www/$SITE/.env) pm2 start /var/www/$SITE/server/server.js --name $SITE'\"'"
+              sh "ssh root@jana19.org 'env \$(cat /var/www/$SITE/.env) pm2 start /var/www/$SITE/server/server.js --name $SITE'"
             }
           } catch (e) { if (!errorOccured) {errorOccured = "Failed while deploying.\n\n${readFile('commandResult').trim()}\n\n${e.message}"} }
         }
