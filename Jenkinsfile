@@ -103,7 +103,7 @@ pipeline {
             sh 'mv node_modules/ ARCHIVE/ 2>commandResult'
             sh 'mv dist/* ARCHIVE/server/ 2>commandResult'
             sh 'mv build/* ARCHIVE/client/ 2>commandResult'
-            sh 'mv .env ARCHIVE/ 2>commandResult'
+            sh 'cp .env ARCHIVE/ 2>commandResult'
             // sh "cd ARCHIVE && tar zcf ${getPrefix()}${SITE_NAME}.tar.gz * --transform \"s,^,${getPrefix()}${SITE_NAME}/,S\" --exclude=${getPrefix()}${SITE_NAME}.tar.gz --overwrite --warning=none && cd .. 2>commandResult"
             // Upload archive to server
             // sh "scp ARCHIVE/${getPrefix()}${SITE_NAME}.tar.gz root@jana19.org:/root/ 2>commandResult"
