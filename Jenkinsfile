@@ -83,8 +83,7 @@ pipeline {
               withCredentials([file(credentialsId: "${getPrefix()}${SITE_NAME}", variable: 'env')]) {
                 sh "cp \$env .env 2>commandResult"
               }
-              sh 'yarn client-build 2>commandResult'
-              sh 'yarn server-build 2>commandResult'
+              sh 'yarn build 2>commandResult'
             }
           } catch (e) { if (!errorOccured) {errorOccured = "Failed while building.\n\n${readFile('commandResult').trim()}\n\n${e.message}"} }
         }
@@ -120,7 +119,6 @@ pipeline {
             // Deploy app
             def SITE = "${getPrefix()}${SITE_NAME}"
             sh "rsync -azP ARCHIVE/ root@jana19.org:/var/www/$SITE/"
-            // sh "cat \"pm2 stop $SITE\nenv \$(cat .env) pm2 start /var/www/$SITE/server/server.js --name $SITE\nenv \$(cat .env) pm2 reload $SITE --update-env\npm2 restart $SITE\npm2 status $SITE\" | ssh root@jana19.org"
             try {
               sh "ssh root@jana19.org 'pm2 stop $SITE'"
               sh "ssh root@jana19.org 'env \$(cat /var/www/$SITE/.env) pm2 reload $SITE --update-env'"
