@@ -1,13 +1,15 @@
 #!groovy
 
-def errorOccured = false // Used to check buildStatus during any stage
+def errorMessage = "" // Used to check buildStatus during any stage
 
 def isDeploymentBranch(){
-  return CURRENT_BRANCH==PRODUCTION_BRANCH || CURRENT_BRANCH==DEVELOPMENT_BRANCH;
+  def currentBranch = env.GIT_BRANCH.getAt((env.GIT_BRANCH.indexOf('/')+1..-1))
+  return currentBranch==PRODUCTION_BRANCH || currentBranch==DEVELOPMENT_BRANCH;
 }
 
 def getPrefix() {
-  return CURRENT_BRANCH==DEVELOPMENT_BRANCH ? 'dev.' : '';
+  def currentBranch = env.GIT_BRANCH.getAt((env.GIT_BRANCH.indexOf('/')+1..-1))
+  return currentBranch==DEVELOPMENT_BRANCH ? 'dev.' : '';
 }
 
 pipeline {
@@ -17,15 +19,12 @@ pipeline {
     PRODUCTION_BRANCH = 'master' // Source branch used for production
     DEVELOPMENT_BRANCH = 'new' // Source branch used for development
     SLACK_CHANNEL = '#builds' // Slack channel to send build notifications
-    CURRENT_BRANCH = env.GIT_BRANCH.getAt((env.GIT_BRANCH.indexOf('/')+1..-1)) // (eg) origin/master: get string after '/'
-    COMMIT_MESSAGE = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim() // Auto generated
-    COMMIT_AUTHOR = sh(returnStdout: true, script: 'git --no-pager show -s --format=%an').trim() // Auto generated
   }
   agent any
   stages {
     stage('Start') {
       steps {
-        notifySlack() // Send 'Build Started' notification
+        notifySlack channel: SLACK_CHANNEL // Send 'Build Started' notification
       }
     }
     stage ('Install Packages') {
@@ -36,62 +35,39 @@ pipeline {
             nodejs(nodeJSInstallationName: '10.6.0') {
               sh 'yarn 2>commandResult'
             }
-          } catch (e) { if (!errorOccured) { errorOccured = "Failed while installing node packages.\n\n${readFile('commandResult').trim()}\n\n${e.message}"} }
-        }
-      }
-    }
-    stage ('Test') {
-      // Skip stage if an error has occured in previous stages
-      when { expression { return !errorOccured; } }
-      steps {
-        // Test
-        script {
-          try {
-            nodejs(nodeJSInstallationName: '10.6.0') {
-              // sh 'yarn test 2>commandResult'
+          } catch (e) {
+            if (!errorMessage) {
+              errorMessage = "Failed while installing node packages.\n\n${readFile('commandResult').trim()}\n\n${e.message}"
             }
-          } catch (e) { if (!errorOccured) {errorOccured = "Failed while testing.\n\n${readFile('commandResult').trim()}\n\n${e.message}"} }
-        }
-      }
-      post {
-        always {
-          // Publish junit test results
-          junit testResults: 'junit.xml', allowEmptyResults: true
-          // Publish clover.xml and html(if generated) test coverge report
-          // step([
-          //   $class: 'CloverPublisher',
-          //   cloverReportDir: 'coverage',
-          //   cloverReportFileName: 'clover.xml',
-          //   failingTarget: [methodCoverage: 75, conditionalCoverage: 75, statementCoverage: 75]
-          // ])
-          // script {
-          //   if (!errorOccured && currentBuild.resultIsWorseOrEqualTo('UNSTABLE')) {
-          //     errorOccured = "Insufficent Test Coverage."
-          //   }
-          // }
+            currentBuild.currentResult = 'FAILURE'
+          }
         }
       }
     }
     stage ('Build') {
       // Skip stage if an error has occured in previous stages or if not isDeploymentBranch
-      when { expression { return !errorOccured && isDeploymentBranch(); } }
+      when { expression { return !errorMessage && isDeploymentBranch(); } }
       steps {
         script {
           try {
-            // Build
             nodejs(nodeJSInstallationName: '10.6.0') {
               withCredentials([file(credentialsId: "${getPrefix()}${SITE_NAME}", variable: 'env')]) {
                 sh "cp \$env .env 2>commandResult"
               }
               sh 'yarn build 2>commandResult'
             }
-          } catch (e) { if (!errorOccured) {errorOccured = "Failed while building.\n\n${readFile('commandResult').trim()}\n\n${e.message}"} }
+          } catch (e) {
+            if (!errorMessage) {
+              errorMessage = "Failed while building.\n\n${readFile('commandResult').trim()}\n\n${e.message}"
+            }
+            currentBuild.currentResult = 'FAILURE'
+          }
         }
       }
     }
     stage ('Upload Archive') {
       // Skip stage if an error has occured in previous stages or if not isDeploymentBranch
-      when { expression { return !errorOccured && isDeploymentBranch(); } }
+      when { expression { return !errorMessage && isDeploymentBranch(); } }
       steps {
         script {
           try {
@@ -103,16 +79,18 @@ pipeline {
             sh 'mv dist/* ARCHIVE/server/ 2>commandResult'
             sh 'mv build/* ARCHIVE/client/ 2>commandResult'
             sh 'mv .env ARCHIVE/ 2>commandResult'
-            // sh "cd ARCHIVE && tar zcf ${getPrefix()}${SITE_NAME}.tar.gz * --transform \"s,^,${getPrefix()}${SITE_NAME}/,S\" --exclude=${getPrefix()}${SITE_NAME}.tar.gz --overwrite --warning=none && cd .. 2>commandResult"
-            // Upload archive to server
-            // sh "scp ARCHIVE/${getPrefix()}${SITE_NAME}.tar.gz root@jana19.org:/root/ 2>commandResult"
-          } catch (e) { if (!errorOccured) {errorOccured = "Failed while uploading archive.\n\n${readFile('commandResult').trim()}\n\n${e.message}"} }
+          } catch (e) {
+            if (!errorMessage) {
+              errorMessage = "Failed while uploading archive.\n\n${readFile('commandResult').trim()}\n\n${e.message}"
+            }
+            currentBuild.currentResult = 'FAILURE'
+          }
         }
       }
     }
     stage ('Deploy') {
       // Skip stage if an error has occured in previous stages or if not isDeploymentBranch
-      when { expression { return !errorOccured && isDeploymentBranch(); } }
+      when { expression { return !errorMessage && isDeploymentBranch(); } }
       steps {
         script {
           try {
@@ -126,18 +104,20 @@ pipeline {
             } catch (e) {
               sh "ssh root@jana19.org 'env \$(cat /var/www/$SITE/.env) pm2 start /var/www/$SITE/server/server.js --name $SITE'"
             }
-          } catch (e) { if (!errorOccured) {errorOccured = "Failed while deploying.\n\n${readFile('commandResult').trim()}\n\n${e.message}"} }
+          } catch (e) {
+            if (!errorMessage) {
+              errorMessage = "Failed while deploying.\n\n${readFile('commandResult').trim()}\n\n${e.message}"
+            }
+            currentBuild.currentResult = 'FAILURE'
+          }
         }
       }
     }
   }
   post {
     always {
+      notifySlack status: currentBuild.currentResult, message: errorMessage, channel: SLACK_CHANNEL
       cleanWs() // Recursively clean workspace
-      notifySlack(errorOccured) // Send final 'Success/Failed' message based on errorOccured.
-      script {
-        if (errorOccured) currentBuild.result = 'FAILURE'
-      }
     }
   }
 }
