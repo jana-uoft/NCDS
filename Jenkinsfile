@@ -24,7 +24,7 @@ pipeline {
   stages {
     stage('Start') {
       steps {
-        notifySlack channel: SLACK_CHANNEL // Send 'Build Started' notification
+        notifySlack status: 'STARTED', channel: SLACK_CHANNEL // Send 'Build Started' notification
       }
     }
     stage ('Install Packages') {
@@ -116,7 +116,7 @@ pipeline {
   }
   post {
     always {
-      notifySlack status: currentBuild.currentResult, message: errorMessage, channel: SLACK_CHANNEL
+      notifySlack message: errorMessage, channel: SLACK_CHANNEL
       cleanWs() // Recursively clean workspace
     }
   }
