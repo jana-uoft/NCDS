@@ -29,7 +29,7 @@ class Footer extends Component {
 
     return (
       <Footer>
-        <img src="https://nainativucds.org/images/footer_logo.jpg" alt="Footer"/>
+        <img src="https://res.cloudinary.com/nainativucds/image/upload/v1533406713/website/footer_logo.jpg" alt="Footer"/>
         <div style={{background: '#333333', textAlign: 'center'}}>
           <Typography style={{color: 'white'}} variant="subheading">Copyrights © 2018 All Rights Reserved by NainativuCDS.org</Typography>
           <Typography style={{color: 'white'}} variant="subheading"><a style={{color: 'inherit', textDecoration: 'none'}} href="https://jana19.org/" rel="noopener noreferrer" target="_blank">Website Developed by <b>Jana</b></a></Typography>

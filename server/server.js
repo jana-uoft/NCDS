@@ -70,7 +70,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start the server
-const port = process.env.NODE_ENV === 'production' ? 5000 : 5001;
+const port = process.env.API_PORT;
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
