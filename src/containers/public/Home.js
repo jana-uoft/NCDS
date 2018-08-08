@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import LightBox from '../../components/global/LightBox';
 
 class Home extends Component {
+  state = {
+    event_popup: true
+  };
 
   render() {
 
@@ -56,6 +60,12 @@ class Home extends Component {
     `
     return (
       <Main>
+        {this.state.event_popup && 
+          <LightBox images={['https://res.cloudinary.com/nainativucds/image/upload/v1533686633/website/event_popup.jpg']}
+            photoIndex={0}
+            onCloseModal={()=>this.setState({ event_popup: false})}
+          />}
+        }
         <Left>
           <Advertisement><img src="https://res.cloudinary.com/nainativucds/image/upload/v1531102528/homepage/ad001.png" alt="add01" height="100%"/></Advertisement>
           <br/>
