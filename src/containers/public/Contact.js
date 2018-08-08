@@ -170,12 +170,12 @@ class Contact extends Component {
           <ContactCard elevation={24}>
             <PhoneIcon style={{ fontSize: 65, color: 'white' }}/>
             <Typography style={{color: 'white'}} variant="title">Speak To Us</Typography><br/>
-            <Typography style={{color: 'white'}} variant="subheading">+1 (123) 456 7890</Typography>
+            <Typography style={{color: 'white'}} variant="subheading">+1 (647) 896 9448</Typography>
           </ContactCard>
           <ContactCard elevation={24}>
             <GroupIcon style={{ fontSize: 65, color: 'white' }}/>
             <Typography style={{color: 'white'}} variant="title">Social Media</Typography><br/>
-            <Typography style={{color: 'white'}} variant="subheading">link to facebook page</Typography>
+            <Typography style={{color: 'white'}} variant="subheading">Coming Soon</Typography>
           </ContactCard>
         </ContactDetails>
       </MainGrid>
