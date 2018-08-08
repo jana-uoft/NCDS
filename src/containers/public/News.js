@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
+import Loading from '../../components/global/Loading';
 
 
 class News extends Component {
@@ -78,6 +79,7 @@ class News extends Component {
     })
     return (
       <PageGrid>
+        {this.props.loading && <Loading />}
         <RSS>
           {this.props.rss.map((rss, idx)=>
             <RSSCard key={idx} onClick={()=>window.open(rss.guid, '_blank')}>
@@ -116,7 +118,8 @@ class News extends Component {
 const mapStateToProps = state => ({
   news: state.news.news,
   rss: state.news.rss,
-  lastUpdated: state.news.lastUpdated
+  lastUpdated: state.news.lastUpdated,
+  loading: state.general.loading
 })
 
 const mapDispatchToProps = dispatch => ({
