@@ -1,0 +1,10 @@
+version: '3'
+services:
+  ncds:
+    image: node:8-alpine
+    working_dir: /app
+    container_name: ncds
+    command: sh -c "yarn && yarn start"
+    volumes:
+      - .:/app
+    network_mode: "host"
