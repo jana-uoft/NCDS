@@ -15,6 +15,10 @@ import cloudinaryRoutes from './routes/cloudinaryRoutes';
 
 const app = express();
 
+// Setup Pre-render
+app.use(require('prerender-node').set('prerenderToken', 'twCYwlT755aUvNOOISHq'));
+
+
 // MongoDB
 mongoose.connect(process.env.MONGO_DB);
 mongoose.Promise = global.Promise;
