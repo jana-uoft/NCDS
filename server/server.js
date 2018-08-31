@@ -50,9 +50,9 @@ app.use('/api/cloudinary', cloudinaryRoutes);
 
 // Serve ReactJS at '/' url
 const path = require('path');
-app.use(express.static(path.join(__dirname, '../client')));
-app.get('/', function (req, res) {
-  res.sendFile('index.html');
+app.use(express.static(path.join(__dirname, 'client')));
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'client', 'index.html'));
 });
 
 // Catch 404 Errors
