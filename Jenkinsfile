@@ -74,10 +74,10 @@ pipeline {
             // Create archive
             sh 'mkdir -p ./ARCHIVE 2>commandResult'
             sh 'mkdir -p ./ARCHIVE/server 2>commandResult'
-            sh 'mkdir -p ./ARCHIVE/client 2>commandResult'
+            sh 'mkdir -p ./ARCHIVE/server/client 2>commandResult'
             sh 'mv node_modules/ ARCHIVE/ 2>commandResult'
             sh 'mv dist/* ARCHIVE/server/ 2>commandResult'
-            sh 'mv build/* ARCHIVE/client/ 2>commandResult'
+            sh 'mv build/* ARCHIVE/server/client/ 2>commandResult'
             sh 'mv .env ARCHIVE/ 2>commandResult'
           } catch (e) {
             if (!errorMessage) {
