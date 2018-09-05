@@ -17,7 +17,7 @@ pipeline {
   environment {
     SITE_NAME = 'nainativucds.org' // Name will be used for archive file (with prefix 'dev.' if DEVELOPMENT_BRANCH)
     PRODUCTION_BRANCH = 'master' // Source branch used for production
-    DEVELOPMENT_BRANCH = 'new' // Source branch used for development
+    DEVELOPMENT_BRANCH = 'dev' // Source branch used for development
     SLACK_CHANNEL = '#builds' // Slack channel to send build notifications
   }
   agent any
