@@ -330,6 +330,26 @@ class Obituary extends Component {
               style={{paddingRight: 20}}
             />
           </div>
+          <div style={{
+            display: 'grid',
+            gridGap: 20,
+            gridTemplateColumns: '1fr 3fr',
+            alignItems: 'center'
+          }}>
+            <div style={{padding: 20, justifySelf: 'center'}}>
+              <Typography variant='subheading'>Expiry Date</Typography>
+            </div>
+            <DatePicker
+              autoOk
+              showTodayButton
+              value={new Date(this.state.selectedObituary.expiryDate)}
+              onChange={expiryDate => this.handleDateChange('expiryDate', expiryDate)}
+              format="DD/MM/YYYY"
+              style={{paddingRight: 20}}
+              disabled={!this.state.editMode || this.props.loading}
+              required
+            />
+          </div>
           <br/>
           <div style={{
             display: 'grid',

@@ -14,6 +14,8 @@ class Obituaries extends Component {
   }
 
   renderObituary = (obituary, idx) => {
+    if (new Date(obituary.expiryDate).getDate() < new Date().getDate()) return null
+
     const Obituary = styled(Paper)`
       background: radial-gradient(circle, rgba(3,17,10,1) 0%, rgba(55,55,55,1) 38%);
       & img {

@@ -20,6 +20,11 @@ const obituarySchema = new Schema({
     required: true,
     default: Date.now
   },
+  expiryDate: {
+    type: Date,
+    required: true,
+    default: Date.now
+  },
   coverImage: {
     type: String,
     default: "https://res.cloudinary.com/nainativucds/image/upload/v1530461653/website/No-image-available.jpg"

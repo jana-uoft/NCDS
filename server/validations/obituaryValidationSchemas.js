@@ -10,6 +10,7 @@ export const schemas = {
     description: Joi.string().allow(''),
     birthDate: Joi.date().iso().required(),
     deathDate: Joi.date().iso().required(),
+    expiryDate: Joi.date().iso().required(),
     coverImage: Joi.string().uri().allow(''),
     contactName: Joi.string().allow(''),
     contactNumber: Joi.string().allow('')
