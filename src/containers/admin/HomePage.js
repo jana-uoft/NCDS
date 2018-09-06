@@ -26,7 +26,7 @@ class Message extends Component {
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        filesToUpload.push({file: reader.result, tags: ['advertisement', 'homepage']});
+        filesToUpload.push({file: reader.result, tags: ['vilambaram', 'homepage']});
         if (files.length===filesToUpload.length){
           this.props.uploadImagesByTags(filesToUpload)
           .then(data=>{
