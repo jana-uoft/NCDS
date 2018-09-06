@@ -18,6 +18,7 @@ const styles = theme => ({
 });
 
 const menus = [
+  {label: 'Homepage', link: '/admin/homepage', icon: 'home'},
   {label: 'Contributions', link: '/admin/contributions', icon: 'people'},
   {label: 'Publications', link: '/admin/publications', icon: 'book'},
   {label: 'News', link: '/admin/news', icon: 'library_books'},

@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getHome } from '../../actions/homePage';
 import styled from 'styled-components';
+
 
 class Home extends Component {
 
-  render() {
+  componentDidMount() {
+    this.props.getHome()
+  }
 
+  render() {
+ 
     const Main = styled.div`
       display: grid;
       grid-gap: 10px;
@@ -57,29 +64,29 @@ class Home extends Component {
     return (
       <Main>
         <Left>
-          <Advertisement><img src="https://res.cloudinary.com/nainativucds/image/upload/v1531102528/homepage/ad001.png" alt="add01" height="100%"/></Advertisement>
+          <Advertisement><img src={this.props.advertisements[0]} alt="add01" height="100%"/></Advertisement>
           <br/>
-          <Advertisement><img src="https://res.cloudinary.com/nainativucds/image/upload/v1531102044/homepage/ad002.png" alt="add02" height="100%"/></Advertisement>
+          <Advertisement><img src={this.props.advertisements[1]} alt="add02" height="100%"/></Advertisement>
         </Left>
         <Middle>
           <div style={{gridArea: 'contentLeft'}}>
-            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1531102186/homepage/001.jpg" alt="001" />
-            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1531102186/homepage/002.jpg" alt="002" />
-            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1531102186/homepage/003.jpg" alt="003" />
-            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1531102926/homepage/008.jpg" alt="004" />
+            <img className="thumb" src={this.props.images[0]} alt="001" />
+            <img className="thumb" src={this.props.images[2]} alt="002" />
+            <img className="thumb" src={this.props.images[4]} alt="003" />
+            <img className="thumb" src={this.props.images[6]} alt="004" />
           </div>
           <div style={{gridArea: 'contentMiddle'}}><img id="anthem" src="https://res.cloudinary.com/nainativucds/image/upload/v1531104094/homepage/anthem.png" alt="anthem" /></div>
           <div style={{gridArea: 'contentRight'}}>
-            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1531102186/homepage/005.jpg" alt="005" />
-            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1531102186/homepage/006.jpg" alt="006" />
-            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1531102186/homepage/007.jpg" alt="007" />
-            <img className="thumb" src="https://res.cloudinary.com/nainativucds/image/upload/v1531102821/homepage/004.jpg" alt="008" />
+            <img className="thumb" src={this.props.images[1]} alt="005" />
+            <img className="thumb" src={this.props.images[3]} alt="006" />
+            <img className="thumb" src={this.props.images[5]} alt="007" />
+            <img className="thumb" src={this.props.images[7]} alt="008" />
           </div>
         </Middle>
         <Right>
-          <Advertisement><img src="https://res.cloudinary.com/nainativucds/image/upload/v1531102043/homepage/ad003.png" alt="add03" height="100%"/></Advertisement>
+          <Advertisement><img src={this.props.advertisements[2]} alt="add03" height="100%"/></Advertisement>
           <br/>
-          <Advertisement><img src="https://res.cloudinary.com/nainativucds/image/upload/v1531102043/homepage/ad004.jpg" alt="add04" height="100%"/></Advertisement>
+          <Advertisement><img src={this.props.advertisements[3]} alt="add04" height="100%"/></Advertisement>
         </Right>
       </Main>
     )
@@ -87,5 +94,17 @@ class Home extends Component {
 }
 
 
-export default Home
 
+
+
+const mapStateToProps = state => ({
+  advertisements: state.homepage.advertisements,
+  images: state.homepage.images,
+  loading: state.general.loading
+})
+
+const mapDispatchToProps = dispatch => ({
+  getHome: () => dispatch(getHome())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

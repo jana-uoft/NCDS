@@ -11,6 +11,7 @@ import galleries from './galleries';
 import publications from './publications';
 import news from './news';
 import messages from './messages';
+import homepage from './homePage';
 import imageManager from './imageManager';
 
 
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
   galleries,
   news,
   messages,
+  homepage,
   imageManager
 })
 

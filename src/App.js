@@ -19,6 +19,7 @@ import Contact from './containers/public/Contact';
 import Donate from './containers/public/Donate';
 import FourOhFour from './components/public/FourOhFour';
 import adminPage from './components/admin/AdminPageWrap';
+import AdminHomePage from './containers/admin/HomePage';
 import AdminContributions from './containers/admin/Contributions';
 import AdminPublications from './containers/admin/Publications';
 import AdminNews from './containers/admin/News';
@@ -46,6 +47,7 @@ class App extends Component {
           <Route exact path="/contact" component={publicPage(Contact)} />
           <Route exact path="/donate" component={publicPage(Donate)} />
           <Route exact path="/admin/login" component={Login} />
+          <Route exact path="/admin/homepage" component={adminPage(AdminHomePage)} />
           <Route exact path="/admin/contributions" component={adminPage(AdminContributions)} />
           <Route exact path="/admin/publications" component={adminPage(AdminPublications)} />
           <Route exact path="/admin/news" component={adminPage(AdminNews)} />
@@ -53,7 +55,7 @@ class App extends Component {
           <Route exact path="/admin/events" component={adminPage(AdminEvents)} />
           <Route exact path="/admin/obituaries" component={adminPage(AdminObituary)} />
           <Route exact path="/admin/messages" component={adminPage(AdminMessage)} />
-          <Redirect from='/admin' to='/admin/contributions'/>
+          <Redirect from='/admin' to='/admin/homepage'/>
           <Route component={FourOhFour} />
         </Switch>
       </Router>
