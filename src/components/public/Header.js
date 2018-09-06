@@ -129,7 +129,7 @@ class Header extends Component {
 
 
 const mapStateToProps = state => ({
-  visitors: state.homepage.visitors,
+  visitors: state.homepage.visitors || 1,
 })
 
 
