@@ -3,7 +3,9 @@ import General from '../models/generalModel';
 
 export async function list(req, res, next) {
   const home = await General.findOne({name: "home"});  
-  res.status(200).json(home.values);
+  const visitors = await General.findOne({name: 'visitors'});
+  await visitors.update({values: {count: visitors.values.count+1}});
+  res.status(200).json({...home.values, visitors: visitors.values.count+1});
 }
 
 export async function update(req, res, next) {

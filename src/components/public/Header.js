@@ -13,6 +13,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import Icon from '@material-ui/core/Icon';
 import Typography from '@material-ui/core/Typography';
+import { connect } from 'react-redux'
+
 
 const Desktop = props => <Responsive {...props} minWidth={768} />;
 const Mobile = props => <Responsive {...props} maxWidth={767} />;
@@ -82,6 +84,7 @@ class Header extends Component {
               {menus.map(({ label, link, icon }, idx)=>
                 <Tab key={idx} label={<div><Icon style={{ fontSize: 15 }}>{icon}</Icon>&nbsp;&nbsp;<b style={{fontSize: 16}}>{label}</b></div>} value={link} style={{color: '#fff'}} />
               )}
+              <Tab key='visitors' label={<div><Icon style={{ fontSize: 15 }}>people</Icon>&nbsp;&nbsp;<b style={{fontSize: 16}}>{this.props.visitors.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} visits</b></div>} style={{color: '#fff'}} />
             </Tabs>
           </Desktop>
           <Mobile>
@@ -125,5 +128,13 @@ class Header extends Component {
 }
 
 
-export default withStyles(styles)(Header)
+const mapStateToProps = state => ({
+  visitors: state.homepage.visitors,
+})
+
+
+export default connect(
+  mapStateToProps
+)(withStyles(styles)(Header))
+
 
