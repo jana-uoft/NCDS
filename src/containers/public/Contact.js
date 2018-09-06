@@ -175,7 +175,7 @@ class Contact extends Component {
           <ContactCard elevation={24}>
             <GroupIcon style={{ fontSize: 65, color: 'white' }}/>
             <Typography style={{color: 'white'}} variant="title">Social Media</Typography><br/>
-            <Typography style={{color: 'white'}} variant="subheading">Coming Soon</Typography>
+            <Typography style={{color: 'white'}} variant="subheading"><a style={{textDecoration: 'none', color: 'white'}} target='_blank' rel="noopener noreferrer" href="https://www.facebook.com/nainativu.candaiandeso">Facebook</a></Typography>
           </ContactCard>
         </ContactDetails>
       </MainGrid>
