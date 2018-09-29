@@ -4,12 +4,12 @@ def errorMessage = "" // Used to check buildStatus during any stage
 
 def isDeploymentBranch(){
   def currentBranch = env.GIT_BRANCH.getAt((env.GIT_BRANCH.indexOf('/')+1..-1))
-  return currentBranch==PRODUCTION_BRANCH || currentBranch==DEVELOPMENT_BRANCH;
+  return currentBranch==env.PRODUCTION_BRANCH || currentBranch==env.DEVELOPMENT_BRANCH;
 }
 
 def getPrefix() {
   def currentBranch = env.GIT_BRANCH.getAt((env.GIT_BRANCH.indexOf('/')+1..-1))
-  return currentBranch==DEVELOPMENT_BRANCH ? 'dev.' : '';
+  return currentBranch==env.DEVELOPMENT_BRANCH ? 'dev.' : '';
 }
 
 pipeline {
@@ -26,7 +26,7 @@ pipeline {
   stages {
     stage('Start') {
       steps {
-        notifySlack status: 'STARTED', channel: SLACK_CHANNEL // Send 'Build Started' notification
+        notifySlack status: 'STARTED', channel: env.SLACK_CHANNEL // Send 'Build Started' notification
       }
     }
     stage ('Install Packages') {
@@ -50,7 +50,7 @@ pipeline {
       steps {
         script {
           try {
-            withCredentials([file(credentialsId: "${getPrefix()}${SITE_NAME}", variable: 'env')]) {
+            withCredentials([file(credentialsId: "${getPrefix()}${env.SITE_NAME}", variable: 'env')]) {
               sh "cp \$env .env 2>commandResult"
             }
             sh 'yarn build 2>commandResult'
@@ -93,7 +93,7 @@ pipeline {
         script {
           try {
             // Deploy app
-            def SITE = "${getPrefix()}${SITE_NAME}"
+            def SITE = "${getPrefix()}${env.SITE_NAME}"
             sh "rsync -azP ARCHIVE/ root@jana19.org:/var/www/$SITE/"
             try {
               sh "ssh root@jana19.org 'pm2 stop $SITE'"
@@ -114,7 +114,7 @@ pipeline {
   }
   post {
     always {
-      notifySlack message: errorMessage, channel: SLACK_CHANNEL
+      notifySlack message: errorMessage, channel: env.SLACK_CHANNEL
       cleanWs() // Recursively clean workspace
     }
   }
