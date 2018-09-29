@@ -20,7 +20,9 @@ pipeline {
     DEVELOPMENT_BRANCH = 'dev' // Source branch used for development
     SLACK_CHANNEL = '#builds' // Slack channel to send build notifications
   }
-  agent any
+  agent {
+    docker { image 'node:8-alpine' }
+  }
   stages {
     stage('Start') {
       steps {
@@ -32,9 +34,7 @@ pipeline {
         script {
           try {
             // Install required node packages
-            nodejs(nodeJSInstallationName: '10.6.0') {
-              sh 'yarn 2>commandResult'
-            }
+            sh 'yarn 2>commandResult'
           } catch (e) {
             if (!errorMessage) {
               errorMessage = "Failed while installing node packages.\n\n${readFile('commandResult').trim()}\n\n${e.message}"
@@ -50,12 +50,10 @@ pipeline {
       steps {
         script {
           try {
-            nodejs(nodeJSInstallationName: '10.6.0') {
-              withCredentials([file(credentialsId: "${getPrefix()}${SITE_NAME}", variable: 'env')]) {
-                sh "cp \$env .env 2>commandResult"
-              }
-              sh 'yarn build 2>commandResult'
+            withCredentials([file(credentialsId: "${getPrefix()}${SITE_NAME}", variable: 'env')]) {
+              sh "cp \$env .env 2>commandResult"
             }
+            sh 'yarn build 2>commandResult'
           } catch (e) {
             if (!errorMessage) {
               errorMessage = "Failed while building.\n\n${readFile('commandResult').trim()}\n\n${e.message}"
