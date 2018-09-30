@@ -94,14 +94,14 @@ pipeline {
           try {
             // Deploy app
             def SITE = "${getPrefix()}${env.SITE_NAME}"
-            sh "rsync -azP ARCHIVE/ root@jana19.org:/var/www/$SITE/"
-            try {
-              sh "ssh root@jana19.org 'pm2 stop $SITE'"
-              sh "ssh root@jana19.org 'env \$(cat /var/www/$SITE/.env) pm2 reload $SITE --update-env'"
-              sh "ssh root@jana19.org 'pm2 restart $SITE'"
-            } catch (e) {
-              sh "ssh root@jana19.org 'env \$(cat /var/www/$SITE/.env) pm2 start /var/www/$SITE/server/server.js --name $SITE'"
-            }
+            // sh "rsync -azP ARCHIVE/ root@jana19.org:/var/www/$SITE/"
+            // try {
+            //   sh "ssh root@jana19.org 'pm2 stop $SITE'"
+            //   sh "ssh root@jana19.org 'env \$(cat /var/www/$SITE/.env) pm2 reload $SITE --update-env'"
+            //   sh "ssh root@jana19.org 'pm2 restart $SITE'"
+            // } catch (e) {
+            //   sh "ssh root@jana19.org 'env \$(cat /var/www/$SITE/.env) pm2 start /var/www/$SITE/server/server.js --name $SITE'"
+            // }
           } catch (e) {
             if (!errorMessage) {
               errorMessage = "Failed while deploying.\n\n${readFile('commandResult').trim()}\n\n${e.message}"
