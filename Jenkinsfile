@@ -26,7 +26,7 @@ pipeline {
   stages {
     stage('Start') {
       steps {
-        notifySlack status: 'STARTED', channel: env.SLACK_CHANNEL // Send 'Build Started' notification
+        // notifySlack status: 'STARTED', channel: env.SLACK_CHANNEL // Send 'Build Started' notification
       }
     }
     stage ('Install Packages') {
