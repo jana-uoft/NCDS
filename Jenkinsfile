@@ -26,6 +26,7 @@ pipeline {
   stages {
     stage('Start') {
       steps {
+        echo "someting"
         // notifySlack status: 'STARTED', channel: env.SLACK_CHANNEL // Send 'Build Started' notification
       }
     }
