@@ -20,13 +20,12 @@ pipeline {
     DEVELOPMENT_BRANCH = 'dev' // Source branch used for development
     SLACK_CHANNEL = '#builds' // Slack channel to send build notifications
   }
-  agent {
-    docker { image 'node:8-alpine' }
-  }
+  agent ant
   stages {
     stage('Start') {
       steps {
         echo "someting"
+        sh 'docker ps -al'
         // notifySlack status: 'STARTED', channel: env.SLACK_CHANNEL // Send 'Build Started' notification
       }
     }
