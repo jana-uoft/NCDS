@@ -20,7 +20,7 @@ pipeline {
     DEVELOPMENT_BRANCH = 'dev' // Source branch used for development
     SLACK_CHANNEL = '#builds' // Slack channel to send build notifications
   }
-  agent ant
+  agent any
   stages {
     stage('Start') {
       steps {
