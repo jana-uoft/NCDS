@@ -43,8 +43,8 @@ node {
             sh "cp \$env .env 2>commandResult"
           }
           variables = [ "name": "WOOHOO_TESTING" ]
-          template = libraryResource('pm2.config.js.groovy')
-          output = helpers.renderTemplate(template, variables)
+          // template = libraryResource('pm2.config.js.groovy')
+          output = helpers.renderTemplate('pm2.config.js.groovy', variables)
           echo "$output"
 
           // sh "docker build -t ${getPrefix()}${env.SITE_NAME} --no-cache ."
