@@ -3,7 +3,7 @@ module.exports = {
     name: "${name}",
     script: "./dist/server.js",
     env: {
-      NODE_ENV: "${node_env}",
+      NODE_ENV: "${NODE_ENV}",
       cloudinary_name: "${cloudinary_name}",
       cloudinary_api_key: "${cloudinary_api_key}",
       cloudinary_api_secret: "${cloudinary_api_secret}",
