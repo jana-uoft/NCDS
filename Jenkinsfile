@@ -49,7 +49,7 @@ pipeline {
               sh "cp \$env .env 2>commandResult"
             }
             sh 'cat pm2.config.js'
-            sh "env $(cat .env) name=${getPrefix()}${env.SITE_NAME} envsubst < pm2.config.js > pm2.config.js"
+            sh "env \$(cat .env) name=${getPrefix()}${env.SITE_NAME} envsubst < pm2.config.js > pm2.config.js"
             sh 'cat pm2.config.js'
           } catch (e) {
             if (!errorMessage) {
