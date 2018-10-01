@@ -5,12 +5,12 @@ import groovy.text.StreamingTemplateEngine
 def errorMessage = "" // Used to check buildStatus during any stage
 
 def isDeploymentBranch(){
-  def currentBranch = env.BRANCH_NAME.getAt((env.BRANCH_NAME.indexOf('/')+1..-1))
+  def currentBranch = "$gitlabSourceBranch".getAt(("$gitlabSourceBranch".indexOf('/')+1..-1))
   return currentBranch==env.PRODUCTION_BRANCH || currentBranch==env.DEVELOPMENT_BRANCH;
 }
 
 def getPrefix() {
-  def currentBranch = env.BRANCH_NAME.getAt((env.BRANCH_NAME.indexOf('/')+1..-1))
+  def currentBranch = "$gitlabSourceBranch".getAt(("$gitlabSourceBranch".indexOf('/')+1..-1))
   return currentBranch==env.DEVELOPMENT_BRANCH ? 'dev.' : '';
 }
 
@@ -28,7 +28,7 @@ node {
 
       stage('Environment') {
         sh 'git --version'
-        echo "Branch: ${env.BRANCH_NAME}"
+        echo "Branch: $gitlabSourceBranch"
         sh 'docker -v'
         sh 'printenv'
       }
