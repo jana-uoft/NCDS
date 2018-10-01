@@ -1,58 +1,68 @@
 #!groovy
 
+@Library('notifySlack') _
+
 def errorMessage = "" // Used to check buildStatus during any stage
 
 def isDeploymentBranch(){
-  def currentBranch = env.BRANCH_NAME.getAt((env.BRANCH_NAME.indexOf('/')+1..-1))
+  def currentBranch = env.GIT_BRANCH.getAt((env.GIT_BRANCH.indexOf('/')+1..-1))
   return currentBranch==env.PRODUCTION_BRANCH || currentBranch==env.DEVELOPMENT_BRANCH;
 }
 
 def getPrefix() {
-  def currentBranch = env.BRANCH_NAME.getAt((env.BRANCH_NAME.indexOf('/')+1..-1))
+  def currentBranch = env.GIT_BRANCH.getAt((env.GIT_BRANCH.indexOf('/')+1..-1))
   return currentBranch==env.DEVELOPMENT_BRANCH ? 'dev.' : '';
 }
 
-node {
-  try {
-    withEnv([
-      'SITE_NAME=nainativucds.org',
-      'PRODUCTION_BRANCH=master',
-      'DEVELOPMENT_BRANCH=dev',
-      'SLACK_CHANNEL=#builds'
-    ]) {
-      stage('Checkout') {
-        checkout scm
-      }
-
-      stage('Environment') {
+pipeline {
+  // construct global env variables
+  environment {
+    SITE_NAME = 'nainativucds.org' // Name will be used for archive file (with prefix 'dev.' if DEVELOPMENT_BRANCH)
+    PRODUCTION_BRANCH = 'master' // Source branch used for production
+    DEVELOPMENT_BRANCH = 'dev' // Source branch used for development
+    SLACK_CHANNEL = '#builds' // Slack channel to send build notifications
+  }
+  agent any
+  stages {
+    stage ('Environment') {
+      steps {
         sh 'git --version'
         echo "Branch: ${env.BRANCH_NAME}"
         sh 'docker -v'
         sh 'printenv'
       }
+    }
 
-      stage('Test'){
-        echo 'No tests yet.'
-      }
+    stage('Test'){
+      echo 'No tests yet.'
+    }
 
-      stage('Deploy'){
-        if(isDeploymentBranch()){
-          withCredentials([file(credentialsId: "${getPrefix()}${env.SITE_NAME}", variable: 'env')]) {
-            sh "cp \$env .env 2>commandResult"
+    stage ('Deploy') {
+      // Skip stage if an error has occured in previous stages or if not isDeploymentBranch
+      when { expression { return !errorMessage && isDeploymentBranch(); } }
+      steps {
+        script {
+          try {
+            withCredentials([file(credentialsId: "${getPrefix()}${env.SITE_NAME}", variable: 'env')]) {
+              sh "cp \$env .env 2>commandResult"
+            }
+            sh 'cat pm2.config.js'
+            sh 'env $(cat .env) envsubst < pm2.config.js > pm2.config.js'
+            sh 'cat pm2.config.js'
+          } catch (e) {
+            if (!errorMessage) {
+              errorMessage = "Failed while building.\n\n${readFile('commandResult').trim()}\n\n${e.message}"
+            }
+            currentBuild.currentResult = 'FAILURE'
           }
-          sh 'ls -al'
-
-          echo "$output"
-
-          // sh "docker build -t ${getPrefix()}${env.SITE_NAME} --no-cache ."
-          // sh 'docker tag react-app localhost:5000/react-app'
-          // sh 'docker push localhost:5000/react-app'
-          // sh 'docker rmi -f react-app localhost:5000/react-app'
         }
       }
     }
   }
-  catch (Exception ex) {
-    throw ex
+  post {
+    always {
+      notifySlack message: errorMessage, channel: env.SLACK_CHANNEL
+      cleanWs() // Recursively clean workspace
+    }
   }
 }
