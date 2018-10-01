@@ -44,7 +44,7 @@ node {
           }
           variables = [ "name": "WOOHOO_TESTING" ]
           // template = libraryResource('pm2.config.js.groovy')
-          def template = new File('pm2.config.js.groovy').text
+          def template = new File('./pm2.config.js.groovy').text
           output = helpers.renderTemplate(template, variables)
 
           echo "$output"
