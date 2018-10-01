@@ -18,6 +18,7 @@ RUN mkdir -p ./dist/client/ && mv build/* ./dist/client/
 RUN mv node_modules/ dist/
 
 # Remove unwanted files & directories
-RUN rm -rf src server public
+RUN rm -rf src server public && \
+    env $(cat .env) envsubst < pm2.config.js > pm2.config.js
 
 CMD [ "pm2-runtime", "start", "pm2.config.js" ]

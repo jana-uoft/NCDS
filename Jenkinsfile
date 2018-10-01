@@ -46,12 +46,10 @@ pipeline {
         script {
           try {
             withCredentials([file(credentialsId: "${getPrefix()}${env.SITE_NAME}", variable: 'env')]) {
-              sh "cp \$env .env 2>commandResult"
+              sh "cp \$env .env"
             }
-            sh 'cat pm2.config.js'
-            sh "export \$(cat .env) name=${getPrefix()}${env.SITE_NAME}"
-            sh "envsubst < pm2.config.js > pm2.config.js"
-            sh 'cat pm2.config.js'
+            sh "echo name=${getPrefix()}${env.SITE_NAME} >> .env"
+            sh 'cat .env'
           } catch (e) {
             if (!errorMessage) {
               errorMessage = "Failed while building.\n\n${readFile('commandResult').trim()}\n\n${e.message}"
