@@ -56,6 +56,6 @@ node {
     }
   }
   catch (Exception ex) {
-    echo "TODO"
+    throw ex
   }
 }
