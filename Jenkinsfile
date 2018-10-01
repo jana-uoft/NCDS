@@ -42,6 +42,7 @@ node {
           withCredentials([file(credentialsId: "${getPrefix()}${env.SITE_NAME}", variable: 'env')]) {
             sh "cp \$env .env 2>commandResult"
           }
+          sh 'ls -al'
           variables = [ "name": "WOOHOO_TESTING" ]
           // template = libraryResource('pm2.config.js.groovy')
           def template = new File('./pm2.config.js.groovy').text
