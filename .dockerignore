@@ -1,0 +1,10 @@
+.git
+Dockerfile
+.gitignore
+README.md
+.env*
+assets
+Jenkinsfile
+LICENSE
+yarn.lock
+docker-compose.yml
