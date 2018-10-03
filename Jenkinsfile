@@ -63,9 +63,13 @@ pipeline {
       }
     }
 
-    stage('Deploy'){
+    stage('Deploy') {
+      // Skip stage if an error has occured in previous stages or if not isDeploymentBranch
+      when { expression { return !errorMessage && isDeploymentBranch(); } }
       steps {
-        echo 'TO DO'
+        sh "docker image tag ${getPrefix()}${env.SITE_NAME} registry.jana19.org/${getPrefix()}${env.SITE_NAME}"
+        sh "docker push registry.jana19.org/${getPrefix()}${env.SITE_NAME}"
+        sh "docker rmi ${getPrefix()}${env.SITE_NAME}"
       }
     }
   }
