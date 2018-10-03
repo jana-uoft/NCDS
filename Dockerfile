@@ -1,4 +1,4 @@
-FROM keymetrics/pm2:latest-alpine
+FROM node:8-alpine as builder
 
 WORKDIR /usr/src/app
 
@@ -13,13 +13,12 @@ COPY . .
 RUN yarn build
 
 # Move necessary files into dist
-RUN mkdir -p ./dist/client/ && mv build/* ./dist/client/
-RUN mv node_modules/ dist/
+RUN mkdir -p ./dist/client/ && \
+    mv build/* ./dist/client/ && \
+    mv pm2.config.js ./dist/ && \
+    node_modules/ dist/
 
-# Remove unwanted files & directories
-RUN rm -rf src server public
-
-# Generate secrets
-RUN env $(cat .env) envsubst < pm2.config.js > pm2.config.js
-
+# Prepare build for production
+FROM keymetrics/pm2:latest-alpine
+COPY --from=builder /usr/src/app/dist .
 CMD [ "pm2-runtime", "start", "pm2.config.js" ]

@@ -39,7 +39,7 @@ pipeline {
       }
     }
 
-    stage ('Deploy') {
+    stage ('Build') {
       // Skip stage if an error has occured in previous stages or if not isDeploymentBranch
       when { expression { return !errorMessage && isDeploymentBranch(); } }
       steps {
@@ -49,6 +49,7 @@ pipeline {
               sh "cp \$env .env"
             }
             sh "echo name=${getPrefix()}${env.SITE_NAME} >> .env"
+            sh 'env $(cat .env) envsubst < pm2.config.js > pm2.config.js'
             sh "docker build -t ${getPrefix()}${env.SITE_NAME} --no-cache --rm ."
           } catch (e) {
             if (!errorMessage) {
@@ -57,6 +58,12 @@ pipeline {
             currentBuild.currentResult = 'FAILURE'
           }
         }
+      }
+    }
+
+    stage('Deploy'){
+      steps {
+        echo 'TO DO'
       }
     }
   }
