@@ -49,7 +49,8 @@ pipeline {
               sh "cp \$env .env"
             }
             sh "echo name=${getPrefix()}${env.SITE_NAME} >> .env"
-            sh 'env $(cat .env) envsubst < pm2.config.js > pm2.config.js'
+            sh 'env $(cat .env) envsubst < pm2.config.js > pm2.config.js.replaced'
+            sh 'rm pm2.config.js && mv pm2.config.js.replaced pm2.config.js'
             sh 'cat pm2.config.js'
             sh "docker build -t ${getPrefix()}${env.SITE_NAME} --no-cache --rm ."
           } catch (e) {
@@ -72,6 +73,9 @@ pipeline {
     always {
       notifySlack message: errorMessage, channel: env.SLACK_CHANNEL
       cleanWs() // Recursively clean workspace
+      sh 'docker container prune -f'
+      sh 'docker image prune -f'
+      sh 'docker volume prune -f'
     }
   }
 }
