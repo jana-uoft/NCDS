@@ -70,6 +70,7 @@ pipeline {
         sh "docker image tag ${getPrefix()}${env.SITE_NAME} registry.jana19.org/${getPrefix()}${env.SITE_NAME}"
         sh "docker push registry.jana19.org/${getPrefix()}${env.SITE_NAME}"
         sh "docker rmi ${getPrefix()}${env.SITE_NAME}"
+        sh "docker rmi registry.jana19.org/${getPrefix()}${env.SITE_NAME}"
       }
     }
   }
