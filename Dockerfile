@@ -15,7 +15,7 @@ RUN yarn build
 # Move necessary files into dist
 RUN mkdir -p ./dist/client/ && \
     mv build/* ./dist/client/ && \
-    mv pm2.config.js ./dist/ &&
+    mv pm2.config.js ./dist/
 
 # Prepare build for production
 FROM keymetrics/pm2:latest-alpine
