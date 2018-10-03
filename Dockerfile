@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 
 # Install app dependencies
 COPY package.json .
-RUN yarn --production
+RUN yarn
 
 # Bundle app files
 COPY . .

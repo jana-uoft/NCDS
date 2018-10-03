@@ -49,7 +49,7 @@ pipeline {
               sh "cp \$env .env"
             }
             sh "echo name=${getPrefix()}${env.SITE_NAME} >> .env"
-            sh "docker build -t ${getPrefix()}${env.SITE_NAME} --no-cache ."
+            sh "docker build -t ${getPrefix()}${env.SITE_NAME} --no-cache --rm ."
           } catch (e) {
             if (!errorMessage) {
               errorMessage = "Failed while building.\n\n${readFile('commandResult').trim()}\n\n${e.message}"
