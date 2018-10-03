@@ -50,6 +50,7 @@ pipeline {
             }
             sh "echo name=${getPrefix()}${env.SITE_NAME} >> .env"
             sh 'env $(cat .env) envsubst < pm2.config.js > pm2.config.js'
+            sh 'cat pm2.config.js'
             sh "docker build -t ${getPrefix()}${env.SITE_NAME} --no-cache --rm ."
           } catch (e) {
             if (!errorMessage) {
