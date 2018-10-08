@@ -45,13 +45,13 @@ pipeline {
       steps {
         script {
           try {
-            withCredentials([file(credentialsId: "${getPrefix()}${env.SITE_NAME}", variable: 'env')]) {
-              sh "cp \$env .env"
-            }
-            sh "echo name=${getPrefix()}${env.SITE_NAME} >> .env"
-            sh 'env $(cat .env) envsubst < pm2.config.js > pm2.config.js.replaced'
-            sh 'rm pm2.config.js && mv pm2.config.js.replaced pm2.config.js'
-            sh 'cat pm2.config.js'
+            // withCredentials([file(credentialsId: "${getPrefix()}${env.SITE_NAME}", variable: 'env')]) {
+            //   sh "cp \$env .env"
+            // }
+            // sh "echo name=${getPrefix()}${env.SITE_NAME} >> .env"
+            // sh 'env $(cat .env) envsubst < pm2.config.js > pm2.config.js.replaced'
+            // sh 'rm pm2.config.js && mv pm2.config.js.replaced pm2.config.js'
+            // sh 'cat pm2.config.js'
             sh "docker build -t ${getPrefix()}${env.SITE_NAME} --no-cache --rm ."
           } catch (e) {
             if (!errorMessage) {

@@ -1,7 +1,7 @@
 module.exports = {
   apps : [{
     name: "${name}",
-    script: "./dist/server.js",
+    script: "server.js",
     env: {
       NODE_ENV: "${NODE_ENV}",
       cloudinary_name: "${cloudinary_name}",
