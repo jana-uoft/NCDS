@@ -9,9 +9,9 @@ def isDeploymentBranch(){
   return currentBranch==env.PRODUCTION_BRANCH || currentBranch==env.DEVELOPMENT_BRANCH;
 }
 
-def getSuffix() {
+def getBuildTag() {
   def currentBranch = env.GIT_BRANCH.getAt((env.GIT_BRANCH.indexOf('/')+1..-1))
-  return currentBranch==env.DEVELOPMENT_BRANCH ? '-dev' : '';
+  return currentBranch==env.DEVELOPMENT_BRANCH ? ':development' : ':production';
 }
 
 pipeline {
@@ -27,7 +27,7 @@ pipeline {
     stage ('Environment') {
       steps {
         sh 'git --version'
-        echo "Branch: ${env.BRANCH_NAME}"
+        echo "Branch: ${env.GIT_BRANCH}"
         sh 'docker -v'
         sh 'printenv'
       }
@@ -45,14 +45,7 @@ pipeline {
       steps {
         script {
           try {
-            // withCredentials([file(credentialsId: "${env.SITE_NAME}${getSuffix()}", variable: 'env')]) {
-            //   sh "cp \$env .env"
-            // }
-            // sh "echo name=${env.SITE_NAME}${getSuffix()} >> .env"
-            // sh 'env $(cat .env) envsubst < pm2.config.js > pm2.config.js.replaced'
-            // sh 'rm pm2.config.js && mv pm2.config.js.replaced pm2.config.js'
-            // sh 'cat pm2.config.js'
-            sh "docker build -t ${env.SITE_NAME}${getSuffix()} --no-cache --rm ."
+            sh "docker build -t ${env.SITE_NAME}${getBuildTag()} --no-cache --rm ."
           } catch (e) {
             if (!errorMessage) {
               errorMessage = "Failed while building.\n\n${readFile('commandResult').trim()}\n\n${e.message}"
@@ -67,10 +60,10 @@ pipeline {
       // Skip stage if an error has occured in previous stages or if not isDeploymentBranch
       when { expression { return !errorMessage && isDeploymentBranch(); } }
       steps {
-        sh "docker image tag ${env.SITE_NAME}${getSuffix()} registry.jana19.org/${env.SITE_NAME}${getSuffix()}"
-        sh "docker push registry.jana19.org/${env.SITE_NAME}${getSuffix()}"
-        sh "docker rmi ${env.SITE_NAME}${getSuffix()}"
-        sh "docker rmi registry.jana19.org/${env.SITE_NAME}${getSuffix()}"
+        sh "docker image tag ${env.SITE_NAME}${getBuildTag()} registry.jana19.org/${env.SITE_NAME}${getBuildTag()}"
+        sh "docker push registry.jana19.org/${env.SITE_NAME}${getBuildTag()}"
+        sh "docker rmi ${env.SITE_NAME}${getBuildTag()}"
+        sh "docker rmi registry.jana19.org/${env.SITE_NAME}${getBuildTag()}"
       }
     }
   }
