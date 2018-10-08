@@ -9,15 +9,15 @@ def isDeploymentBranch(){
   return currentBranch==env.PRODUCTION_BRANCH || currentBranch==env.DEVELOPMENT_BRANCH;
 }
 
-def getPrefix() {
+def getSuffix() {
   def currentBranch = env.GIT_BRANCH.getAt((env.GIT_BRANCH.indexOf('/')+1..-1))
-  return currentBranch==env.DEVELOPMENT_BRANCH ? 'dev.' : '';
+  return currentBranch==env.DEVELOPMENT_BRANCH ? '-dev' : '';
 }
 
 pipeline {
   // construct global env variables
   environment {
-    SITE_NAME = 'nainativucds.org' // Name will be used for archive file (with prefix 'dev.' if DEVELOPMENT_BRANCH)
+    SITE_NAME = 'ncds' // Name will be used for archive file (with prefix 'dev.' if DEVELOPMENT_BRANCH)
     PRODUCTION_BRANCH = 'master' // Source branch used for production
     DEVELOPMENT_BRANCH = 'dev' // Source branch used for development
     SLACK_CHANNEL = '#builds' // Slack channel to send build notifications
@@ -45,14 +45,14 @@ pipeline {
       steps {
         script {
           try {
-            // withCredentials([file(credentialsId: "${getPrefix()}${env.SITE_NAME}", variable: 'env')]) {
+            // withCredentials([file(credentialsId: "${env.SITE_NAME}${getSuffix()}", variable: 'env')]) {
             //   sh "cp \$env .env"
             // }
-            // sh "echo name=${getPrefix()}${env.SITE_NAME} >> .env"
+            // sh "echo name=${env.SITE_NAME}${getSuffix()} >> .env"
             // sh 'env $(cat .env) envsubst < pm2.config.js > pm2.config.js.replaced'
             // sh 'rm pm2.config.js && mv pm2.config.js.replaced pm2.config.js'
             // sh 'cat pm2.config.js'
-            sh "docker build -t ${getPrefix()}${env.SITE_NAME} --no-cache --rm ."
+            sh "docker build -t ${env.SITE_NAME}${getSuffix()} --no-cache --rm ."
           } catch (e) {
             if (!errorMessage) {
               errorMessage = "Failed while building.\n\n${readFile('commandResult').trim()}\n\n${e.message}"
@@ -67,10 +67,10 @@ pipeline {
       // Skip stage if an error has occured in previous stages or if not isDeploymentBranch
       when { expression { return !errorMessage && isDeploymentBranch(); } }
       steps {
-        sh "docker image tag ${getPrefix()}${env.SITE_NAME} registry.jana19.org/${getPrefix()}${env.SITE_NAME}"
-        sh "docker push registry.jana19.org/${getPrefix()}${env.SITE_NAME}"
-        sh "docker rmi ${getPrefix()}${env.SITE_NAME}"
-        sh "docker rmi registry.jana19.org/${getPrefix()}${env.SITE_NAME}"
+        sh "docker image tag ${env.SITE_NAME}${getSuffix()} registry.jana19.org/${env.SITE_NAME}${getSuffix()}"
+        sh "docker push registry.jana19.org/${env.SITE_NAME}${getSuffix()}"
+        sh "docker rmi ${env.SITE_NAME}${getSuffix()}"
+        sh "docker rmi registry.jana19.org/${env.SITE_NAME}${getSuffix()}"
       }
     }
   }
