@@ -72,8 +72,9 @@ pipeline {
       notifySlack message: errorMessage, channel: env.SLACK_CHANNEL
       cleanWs() // Recursively clean workspace
       sh 'docker container prune -f'
-      sh 'docker image prune -f'
+      sh 'docker image prune -af'
       sh 'docker volume prune -f'
+      sh 'docker network prune -f'
     }
   }
 }

@@ -13,18 +13,19 @@ COPY . .
 RUN yarn build
 
 # Move necessary files into dist
-RUN mkdir -p ./dist/client/ && \
-    mv build/* ./dist/client/ && \
-    mv pm2.config.js ./dist/
+RUN mkdir -p ./dist/client/ && mv build/* ./dist/client/
 
 # Prepare build for production
-FROM keymetrics/pm2:latest-alpine
+FROM node:8-alpine
 
-WORKDIR /home/node
+WORKDIR /usr/src/app
 
 COPY --from=builder /usr/src/app/dist .
 # Install production app dependencies
 COPY package.json .
 RUN yarn --production
 
-CMD [ "pm2-runtime", "start", "pm2.config.js" ]
+# At the end, set the user to use when running this image
+USER node
+
+CMD [ "node", "server.js" ]
