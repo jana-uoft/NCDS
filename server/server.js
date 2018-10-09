@@ -23,8 +23,8 @@ app.use(require('prerender-node').set('prerenderToken', 'twCYwlT755aUvNOOISHq'))
 // MongoDB
 const options = {
   useNewUrlParser: true,
-  user: process.env.MONGO_USER,
-  password: process.env.MONGO_PASSWORD
+  user: `${process.env.MONGO_USER}`,
+  password: `${process.env.MONGO_PASSWORD}`
 };
 mongoose.connect(process.env.MONGO_DB, options);
 mongoose.Promise = global.Promise;
