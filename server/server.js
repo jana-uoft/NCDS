@@ -21,7 +21,12 @@ app.use(require('prerender-node').set('prerenderToken', 'twCYwlT755aUvNOOISHq'))
 
 
 // MongoDB
-mongoose.connect(process.env.MONGO_DB);
+const options = {
+  useNewUrlParser: true,
+  user: process.env.MONGO_USER,
+  password: process.env.MONGO_PASSWORD
+};
+mongoose.connect(process.env.MONGO_DB, options);
 mongoose.Promise = global.Promise;
 
 // Enable CORS
