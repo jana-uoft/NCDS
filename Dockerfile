@@ -25,7 +25,4 @@ COPY --from=builder /usr/src/app/dist .
 COPY package.json .
 RUN yarn --production
 
-# At the end, set the user to use when running this image
-USER node
-
 CMD [ "node", "server.js" ]
