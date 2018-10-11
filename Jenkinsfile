@@ -1,5 +1,7 @@
 #!groovy
 
+@Library('notifySlack') _
+
 def errorMessage = "" // Used to check buildStatus during any stage
 
 def isDeploymentBranch(){
@@ -20,7 +22,7 @@ pipeline {
     DEVELOPMENT_BRANCH = 'dev' // Source branch used for development
     SLACK_CHANNEL = '#builds' // Slack channel to send build notifications
   }
-  agent any
+  agent docker { image 'node:8-alpine' }
   stages {
     // stage('Start') {
     //   steps {
