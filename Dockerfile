@@ -16,11 +16,13 @@ RUN yarn build
 RUN mkdir -p ./dist/client/ && mv build/* ./dist/client/
 
 # Prepare build for production
-FROM keymetrics/pm2:8-alpine
+FROM node:8-alpine
+
+WORKDIR /usr/src/app
 
 COPY --from=builder /usr/src/app/dist .
 # Install production app dependencies
 COPY package.json .
 RUN yarn --production
 
-CMD [ "pm2-runtime", "start", "server.js" ]
+CMD [ "node", "server.js" ]

@@ -45,7 +45,7 @@ pipeline {
       steps {
         script {
           try {
-            sh "docker build -t ${env.SITE_NAME}${getBuildTag()} --no-cache --rm ."
+            sh "docker build -t ${env.SITE_NAME}${getBuildTag()} --no-cache ."
           } catch (e) {
             if (!errorMessage) {
               errorMessage = "Failed while building.\n\n${readFile('commandResult').trim()}\n\n${e.message}"
