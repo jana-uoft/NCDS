@@ -22,11 +22,11 @@ pipeline {
   }
   agent any
   stages {
-    stage('Start') {
-      steps {
-        // notifySlack status: 'STARTED', channel: env.SLACK_CHANNEL // Send 'Build Started' notification
-      }
-    }
+    // stage('Start') {
+    //   steps {
+    //     // notifySlack status: 'STARTED', channel: env.SLACK_CHANNEL // Send 'Build Started' notification
+    //   }
+    // }
     stage ('Install Packages') {
       steps {
         script {
