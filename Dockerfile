@@ -23,6 +23,6 @@ WORKDIR /usr/src/app
 COPY --from=builder /usr/src/app/dist .
 # Install production app dependencies
 COPY package.json .
-RUN yarn --production
+RUN yarn
 
 CMD [ "node", "server.js" ]
