@@ -37,7 +37,7 @@ pipeline {
             sh 'yarn 2>commandResult'
           } catch (e) {
             if (!errorMessage) {
-              errorMessage = "Failed while installing node packages.\n\n${readFile('commandResult').trim()}\n\n${e.message}"
+              errorMessage = "Failed while installing node packages.\n${readFile('commandResult').trim()}\n${e.message}"
             }
             currentBuild.currentResult = 'FAILURE'
           }
@@ -56,7 +56,7 @@ pipeline {
             sh 'yarn build 2>commandResult'
           } catch (e) {
             if (!errorMessage) {
-              errorMessage = "Failed while building.\n\n${readFile('commandResult').trim()}\n\n${e.message}"
+              errorMessage = "Failed while building.\n${readFile('commandResult').trim()}\n${e.message}"
             }
             currentBuild.currentResult = 'FAILURE'
           }
@@ -79,7 +79,7 @@ pipeline {
             sh 'mv .env ARCHIVE/ 2>commandResult'
           } catch (e) {
             if (!errorMessage) {
-              errorMessage = "Failed while uploading archive.\n\n${readFile('commandResult').trim()}\n\n${e.message}"
+              errorMessage = "Failed while uploading archive.\n${readFile('commandResult').trim()}\n${e.message}"
             }
             currentBuild.currentResult = 'FAILURE'
           }
@@ -104,7 +104,7 @@ pipeline {
             }
           } catch (e) {
             if (!errorMessage) {
-              errorMessage = "Failed while deploying.\n\n${readFile('commandResult').trim()}\n\n${e.message}"
+              errorMessage = "Failed while deploying.\n${readFile('commandResult').trim()}\n${e.message}"
             }
             currentBuild.currentResult = 'FAILURE'
           }
