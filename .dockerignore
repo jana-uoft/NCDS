@@ -3,6 +3,7 @@ Dockerfile
 .gitignore
 README.md
 .env.example
+.env
 assets
 Jenkinsfile
 LICENSE
