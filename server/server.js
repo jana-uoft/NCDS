@@ -12,6 +12,7 @@ import obituaryRoutes from './routes/obituaryRoutes';
 import newsRoutes from './routes/newsRoutes';
 import messageRoutes from './routes/messageRoutes';
 import homepageRoutes from './routes/homepageRoutes';
+import contactRoutes from './routes/contactRoutes';
 import cloudinaryRoutes from './routes/cloudinaryRoutes';
 
 const app = express();
@@ -45,7 +46,7 @@ app.use('/api/news', newsRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/cloudinary', cloudinaryRoutes);
 app.use('/api/home', homepageRoutes);
-
+app.use('/api/contact', contactRoutes);
 
 // Serve ReactJS at '/' url
 const path = require('path');

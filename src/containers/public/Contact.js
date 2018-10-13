@@ -9,8 +9,10 @@ import Loading from '../../components/global/Loading';
 import styled from 'styled-components';
 import NumberFormat from 'react-number-format';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import PhoneIcon from '@material-ui/icons/Phone';
 import GroupIcon from '@material-ui/icons/Group';
+import ReactHtmlParser from 'react-html-parser';
+
+import { getContact } from '../../actions/contact';
 
 class Contact extends Component {
   constructor(props) {
@@ -27,10 +29,13 @@ class Contact extends Component {
     }
   }
 
+  componentDidMount = () => {
+    this.props.getContact();
+  }
+
   handleTextChange = (field, value) => {
     this.setState({[field]: value, lastEdited: field})
   }
-
 
   sendMessage = (e) => {
     e.preventDefault()
@@ -67,7 +72,7 @@ class Contact extends Component {
 
     const ContactDetails = styled.div`
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 2fr 1fr;
       grid-gap: 30px;
       @media only screen and (max-width: 768px) {
         grid-template-columns: 1fr;
@@ -75,7 +80,7 @@ class Contact extends Component {
     `
 
     const ContactCard = styled(Paper)`
-      height: 180px;
+      height: auto;
       background: radial-gradient(circle, rgba(3,17,10,1) 0%, rgba(32,73,42,1) 50%);
       text-align: center;
       padding: 10px;
@@ -163,19 +168,14 @@ class Contact extends Component {
         </div>
         <ContactDetails>
           <ContactCard elevation={24}>
-            <LocationOnIcon style={{ fontSize: 65, color: 'white' }}/>
-            <Typography style={{color: 'white'}} variant="title">Our Location</Typography><br/>
-            <Typography style={{color: 'white'}} variant="subheading">2682 Eglinton Ave E, P.O.Box 44535, Scaroborugh, ON</Typography>
-          </ContactCard>
-          <ContactCard elevation={24}>
-            <PhoneIcon style={{ fontSize: 65, color: 'white' }}/>
-            <Typography style={{color: 'white'}} variant="title">Speak To Us</Typography><br/>
-            <Typography style={{color: 'white'}} variant="subheading">+1 (647) 896 9448</Typography>
-          </ContactCard>
-          <ContactCard elevation={24}>
             <GroupIcon style={{ fontSize: 65, color: 'white' }}/>
-            <Typography style={{color: 'white'}} variant="title">Social Media</Typography><br/>
-            <Typography style={{color: 'white'}} variant="subheading"><a style={{textDecoration: 'none', color: 'white'}} target='_blank' rel="noopener noreferrer" href="https://www.facebook.com/nainativu.candaiandeso">Facebook</a></Typography>
+            <Typography style={{color: 'white'}} variant="title">Our Members</Typography><br/>
+            <Typography style={{color: 'white'}} variant="subheading">{ReactHtmlParser(this.props.members)}</Typography>
+          </ContactCard>
+          <ContactCard elevation={24}>
+            <LocationOnIcon style={{ fontSize: 65, color: 'white' }}/>
+            <Typography style={{color: 'white'}} variant="title">Contact Details</Typography><br/>
+            <Typography style={{color: 'white'}} variant="subheading">{ReactHtmlParser(this.props.contacts)}</Typography>
           </ContactCard>
         </ContactDetails>
       </MainGrid>
@@ -185,10 +185,13 @@ class Contact extends Component {
 
 
 const mapStateToProps = state => ({
-  loading: state.general.loading
+  loading: state.general.loading,
+  members: state.contact.members,
+  contacts: state.contact.contacts
 })
 
 const mapDispatchToProps = dispatch => ({
+  getContact: () => dispatch(getContact()),
   sendMessage: message => dispatch(sendMessage(message))
 })
 

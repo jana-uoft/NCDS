@@ -12,6 +12,7 @@ import publications from './publications';
 import news from './news';
 import messages from './messages';
 import homepage from './homePage';
+import contact from './contact';
 import imageManager from './imageManager';
 
 
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   news,
   messages,
   homepage,
+  contact,
   imageManager
 })
 

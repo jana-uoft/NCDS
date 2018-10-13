@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getHome } from '../../actions/homePage';
 import styled from 'styled-components';
+import Loading from '../../components/global/Loading';
 
 
 class Home extends Component {
@@ -61,6 +62,7 @@ class Home extends Component {
       height: 350px;
       text-align: center;
     `
+    if (this.props.loading) return <Loading />
     return (
       <Main>
         <Left>
