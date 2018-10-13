@@ -36,7 +36,9 @@ class Obituaries extends Component {
         <Typography variant="title">{obituary.name}</Typography>
         <img src={obituary.coverImage} alt={obituary.name}/>
         <Typography variant="title">
-          {format(Date.parse(obituary.birthDate), 'DD-MM-YYYY')}&nbsp;&nbsp;to&nbsp;&nbsp;{format(Date.parse(obituary.deathDate), 'DD-MM-YYYY')}
+          நினைவு : {obituary.birthDate ? format(Date.parse(obituary.birthDate), 'DD-MM-YYYY') : 'Unknown'}
+            <br/>
+          மலர்வு &nbsp;&nbsp;&nbsp;: {obituary.deathDate ? format(Date.parse(obituary.deathDate), 'DD-MM-YYYY') : 'Unknown'}
         </Typography>
         <Typography>{obituary.contactName}&nbsp;&nbsp;{obituary.contactNumber}</Typography>
         <Typography>{obituary.description}</Typography>

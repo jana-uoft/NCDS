@@ -8,8 +8,8 @@ export const schemas = {
   obituaryCreateUpdateSchema: Joi.object().keys({
     name: Joi.string().required(),
     description: Joi.string().allow(''),
-    birthDate: Joi.date().iso().required(),
-    deathDate: Joi.date().iso().required(),
+    birthDate: Joi.date().iso().allow(null),
+    deathDate: Joi.date().iso().allow(null),
     expiryDate: Joi.date().iso().required(),
     coverImage: Joi.string().uri().allow(''),
     contactName: Joi.string().allow(''),

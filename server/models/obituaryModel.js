@@ -12,13 +12,13 @@ const obituarySchema = new Schema({
   },
   birthDate: {
     type: Date,
-    required: true,
-    default: Date.now
+    required: false,
+    default: null
   },
   deathDate: {
     type: Date,
-    required: true,
-    default: Date.now
+    required: false,
+    default: null
   },
   expiryDate: {
     type: Date,

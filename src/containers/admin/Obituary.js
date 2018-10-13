@@ -71,7 +71,7 @@ class Obituary extends Component {
   }
 
   handleDateChange = (field, date) => {
-    this.setState({selectedObituary: {...this.state.selectedObituary, [field]: date.toISOString() }, lastEditedField: field})
+    this.setState({selectedObituary: {...this.state.selectedObituary, [field]: date ? date.toISOString() : date }, lastEditedField: field})
   }
 
   selectObituary = (selectedObituary) => {
@@ -235,13 +235,13 @@ class Obituary extends Component {
             </div>
             <DatePicker
               autoOk
+              clearable
               showTodayButton
-              value={new Date(this.state.selectedObituary.birthDate)}
+              value={this.state.selectedObituary.birthDate ? new Date(this.state.selectedObituary.birthDate) : this.state.selectedObituary.birthDate}
               onChange={birthDate => this.handleDateChange('birthDate', birthDate)}
               format="DD/MM/YYYY"
               style={{paddingRight: 20}}
               disabled={!this.state.editMode || this.props.loading}
-              required
             />
           </div>
           <div style={{
@@ -255,13 +255,13 @@ class Obituary extends Component {
             </div>
             <DatePicker
               autoOk
+              clearable
               showTodayButton
-              value={new Date(this.state.selectedObituary.deathDate)}
+              value={this.state.selectedObituary.deathDate ? new Date(this.state.selectedObituary.deathDate) : this.state.selectedObituary.deathDate}
               onChange={deathDate => this.handleDateChange('deathDate', deathDate)}
               format="DD/MM/YYYY"
               style={{paddingRight: 20}}
               disabled={!this.state.editMode || this.props.loading}
-              required
             />
           </div>
           <div style={{
@@ -454,7 +454,7 @@ class Obituary extends Component {
                       variant="body2"
                       style={this.checkIfCurrentObituary(obituary) ? {color: 'white'} : {}}
                     >
-                      {obituary.birthDate.slice(0, 10)} to {obituary.deathDate.slice(0, 10)}
+                      {obituary.birthDate ? obituary.birthDate.slice(0, 10) : 'Unknown'} to {obituary.deathDate ? obituary.deathDate.slice(0, 10) : 'Unknown'}
                     </Typography>
                     }
                     primary={
