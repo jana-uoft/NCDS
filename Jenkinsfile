@@ -33,9 +33,14 @@ pipeline {
       }
     }
 
-    stage('Test'){
+    stage('Sonarqube'){
       steps {
-        echo 'No tests yet.'
+        script {
+          scannerHome = tool 'SonarScanner';
+        }
+        withSonarQubeEnv('http://192.168.1.123:9090') {
+          sh "${scannerHome}/bin/sonar-scanner"
+        }
       }
     }
 
