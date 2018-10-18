@@ -21,7 +21,7 @@ pipeline {
     PRODUCTION_BRANCH = 'master' // Source branch used for production
     DEVELOPMENT_BRANCH = 'dev' // Source branch used for development
     SLACK_CHANNEL = '#builds' // Slack channel to send build notifications
-    SONAR_HOST_URL = 'http://192.168.1.123:9090'
+    SONAR_HOST_URL = 'https://sonarqube.jana19.org'
   }
   agent any
   stages {
