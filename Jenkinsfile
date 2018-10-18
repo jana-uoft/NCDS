@@ -42,8 +42,8 @@ pipeline {
           sh """\
             ${scannerHome}/bin/sonar-scanner -e \
             -Dsonar.host.url=$SONAR_HOST_URL \
-            -Dsonar.projectName=${env.SITE_NAME}${getBuildTag()} \
-            -Dsonar.projectKey=${env.SITE_NAME}${getBuildTag()} \
+            -Dsonar.projectName=${env.SITE_NAME}${env.GIT_BRANCH} \
+            -Dsonar.projectKey=${env.SITE_NAME}${env.GIT_BRANCH} \
             -Dsonar.sources=. \
           """
         }
