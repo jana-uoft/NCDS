@@ -40,7 +40,7 @@ pipeline {
           scannerHome = tool 'sonarScanner';
         }
         // withSonarQubeEnv() {
-          sh "${scannerHome}/bin/sonar-scanner"
+          sh "${scannerHome}/bin/sonar-scanner -e -Dsonar.host.url=$SONAR_HOST_URL"
         // }
       }
     }
