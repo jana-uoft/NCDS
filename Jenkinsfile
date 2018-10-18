@@ -45,7 +45,7 @@ pipeline {
             -Dsonar.host.url=$SONAR_HOST_URL \
             -Dsonar.projectName=${env.SITE_NAME}${getBuildTag()} \
             -Dsonar.projectKey=${env.SITE_NAME}${getBuildTag()} \
-            -Dsonar.sources=. "\
+            -Dsonar.sources=. \
           """
         // }
       }
