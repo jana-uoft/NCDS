@@ -21,6 +21,7 @@ pipeline {
     PRODUCTION_BRANCH = 'master' // Source branch used for production
     DEVELOPMENT_BRANCH = 'dev' // Source branch used for development
     SLACK_CHANNEL = '#builds' // Slack channel to send build notifications
+    SONAR_HOST_URL = 'http://192.168.1.123:9090'
   }
   agent any
   stages {
@@ -36,9 +37,9 @@ pipeline {
     stage('Sonarqube'){
       steps {
         script {
-          scannerHome = tool 'SonarScanner';
+          scannerHome = tool 'sonarScanner';
         }
-        withSonarQubeEnv('http://192.168.1.123:9090') {
+        withSonarQubeEnv() {
           sh "${scannerHome}/bin/sonar-scanner"
         }
       }
