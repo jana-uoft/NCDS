@@ -39,7 +39,7 @@ pipeline {
           scannerHome = tool 'sonarScanner';
         }
         withCredentials([string(credentialsId: 'sonarqube_host_url', variable: 'SONAR_HOST_URL')]) {
-          def currentBranch = env.GIT_BRANCH.getAt((env.GIT_BRANCH.indexOf('/')+1..-1));
+          currentBranch = env.GIT_BRANCH.getAt((env.GIT_BRANCH.indexOf('/')+1..-1));
           sh """\
             ${scannerHome}/bin/sonar-scanner -e \
             -Dsonar.host.url=$SONAR_HOST_URL \
