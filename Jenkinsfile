@@ -41,7 +41,6 @@ pipeline {
         }
         sh """\
           ${scannerHome}/bin/sonar-scanner -e \
-          -Dsonar.host.url=$SONAR_HOST_URL \
           -Dsonar.projectName=${env.SITE_NAME}:${currentBranch} \
           -Dsonar.projectKey=${env.SITE_NAME}:${currentBranch} \
           -Dsonar.sources=. \
