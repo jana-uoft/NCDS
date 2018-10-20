@@ -39,12 +39,14 @@ pipeline {
           scannerHome = tool 'sonarScanner';
           currentBranch = env.GIT_BRANCH.getAt((env.GIT_BRANCH.indexOf('/')+1..-1));
         }
-        sh """\
-          ${scannerHome}/bin/sonar-scanner -e \
-          -Dsonar.projectName=${env.SITE_NAME}:${currentBranch} \
-          -Dsonar.projectKey=${env.SITE_NAME}:${currentBranch} \
-          -Dsonar.sources=. \
-        """
+        withSonarQubeEnv('sonarScanner'){
+          sh """\
+            ${scannerHome}/bin/sonar-scanner -e \
+            -Dsonar.projectName=${env.SITE_NAME}:${currentBranch} \
+            -Dsonar.projectKey=${env.SITE_NAME}:${currentBranch} \
+            -Dsonar.sources=. \
+          """
+        }
       }
     }
 
