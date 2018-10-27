@@ -11,7 +11,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import Loading from './components/global/Loading';
 import DateFnsUtils from 'material-ui-pickers/utils/date-fns-utils';
-import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
 
 
 // Configure Store
