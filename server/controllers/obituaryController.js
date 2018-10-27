@@ -2,8 +2,8 @@ import Event from '../models/obituaryModel';
 
 
 export async function list(req, res, next) {
-  const obituaryies = await Event.find({}, null, { sort: { date: -1 } });
-  res.status(200).json([...obituaryies]);
+  const obituaries = await Event.find({}, null, { sort: { expiryDate: -1 } });
+  res.status(200).json([...obituaries]);
 }
 
 export async function retrieve(req, res, next) {
