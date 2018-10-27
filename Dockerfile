@@ -4,7 +4,7 @@ WORKDIR /src
 
 # Install all app dependencies
 COPY package.json .
-RUN yarn
+RUN yarn cache clean && yarn
 
 # Bundle app files
 COPY . .
