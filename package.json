@@ -22,7 +22,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cloudinary": "^1.11.0",
-    "date-fns": "2.0.0-alpha.7",
+    "date-fns": "2.0.0-alpha.16",
     "es6-promise": "^4.2.4",
     "express": "^4.16.2",
     "express-promise-router": "^3.0.2",
