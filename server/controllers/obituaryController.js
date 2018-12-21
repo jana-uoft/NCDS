@@ -2,7 +2,7 @@ import Event from '../models/obituaryModel';
 
 
 export async function list(req, res, next) {
-  const obituaries = await Event.find({}, null, { sort: { expiryDate: -1 } });
+  const obituaries = await Event.find({}, null, { sort: { updatedAt: -1 } });
   res.status(200).json([...obituaries]);
 }
 

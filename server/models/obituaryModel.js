@@ -1,5 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
 
+const options = {
+  timestamps: true
+}
 
 const obituarySchema = new Schema({
   name: {
@@ -35,7 +38,7 @@ const obituarySchema = new Schema({
   contactNumber: {
     type: String
   }
-});
+}, options);
 
 
 export default mongoose.model('obituary', obituarySchema);
