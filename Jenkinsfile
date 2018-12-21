@@ -33,23 +33,23 @@ pipeline {
       }
     }
 
-    stage('Sonarqube'){
-      steps {
-        script {
-          scannerHome = tool 'sonarScanner';
-          currentBranch = env.GIT_BRANCH.getAt((env.GIT_BRANCH.indexOf('/')+1..-1));
-        }
-        withSonarQubeEnv('sonarScanner'){
-          sh """\
-            ${scannerHome}/bin/sonar-scanner -e \
-            -Dsonar.projectName=${env.SITE_NAME} \
-            -Dsonar.projectKey=${env.SITE_NAME} \
-            -Dsonar.branch=${currentBranch} \
-            -Dsonar.sources=. \
-          """
-        }
-      }
-    }
+    // stage('Sonarqube'){
+    //   steps {
+    //     script {
+    //       scannerHome = tool 'sonarScanner';
+    //       currentBranch = env.GIT_BRANCH.getAt((env.GIT_BRANCH.indexOf('/')+1..-1));
+    //     }
+    //     withSonarQubeEnv('sonarScanner'){
+    //       sh """\
+    //         ${scannerHome}/bin/sonar-scanner -e \
+    //         -Dsonar.projectName=${env.SITE_NAME} \
+    //         -Dsonar.projectKey=${env.SITE_NAME} \
+    //         -Dsonar.branch=${currentBranch} \
+    //         -Dsonar.sources=. \
+    //       """
+    //     }
+    //   }
+    // }
 
     stage ('Build') {
       // Skip stage if an error has occured in previous stages or if not isDeploymentBranch
