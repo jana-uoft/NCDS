@@ -13,6 +13,8 @@ export const schemas = {
     expiryDate: Joi.date().iso().required(),
     coverImage: Joi.string().uri().allow(''),
     contactName: Joi.string().allow(''),
-    contactNumber: Joi.string().allow('')
+    contactNumber: Joi.string().allow(''),
+    createdAt: Joi.date().iso().allow(null),
+    updatedAt: Joi.date().iso().allow(null)
   }),
 };
